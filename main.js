@@ -3,13 +3,16 @@
 // @name:zh      ChatGPT 对话导航器
 // @name:en      ChatGPT Conversation Navigator
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      1.0  // 更新版本号以反映发布状态
 // @description  Add a clickable conversation index on ChatGPT page
 // @description:zh  为 ChatGPT 页面添加可点击的对话索引
 // @description:en  Add a clickable conversation index on ChatGPT page
 // @author       tianyw0
 // @match        https://chatgpt.com/c/*
 // @grant        GM_addStyle
+// @license      MIT  // 添加许可证信息
+// @homepageURL  https://github.com/tianyw/ai-conversation-navigator  // 添加主页URL
+// @supportURL   https://github.com/tianyw/ai-conversation-navigator/issues  // 添加支持URL
 // ==/UserScript==
 
 (function() {
