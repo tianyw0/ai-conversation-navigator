@@ -144,7 +144,7 @@
         // 只为用户提问创建导航项
         if (isUserQuestion) {
             const navItem = document.createElement('div');
-            navItem.innerHTML = `<a href="#${id}">User: ${textContent}</a>`;
+            navItem.innerHTML = `<a href="#${id}">${textContent}</a>`;
             sidebar.appendChild(navItem);
             node.id = id;
         }
