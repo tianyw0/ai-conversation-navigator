@@ -136,13 +136,13 @@
                 color: var(--text-primary, #ececf1);
                 text-decoration: none;
                 display: block;
-                padding: 10px 14px;
-                margin: 4px 0;
+                padding: 4px 4px;  // 减小内边距
+                margin: 2px 0;      // 减小外边距
                 border-radius: 8px;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: pre-wrap;
-                line-height: 1.6;
+                line-height: 1.5;   // 稍微减小行高
                 max-height: none;
                 font-size: 13px;
                 transition: all 0.2s ease;
