@@ -99,7 +99,7 @@
         sidebar.style.overflowY = 'auto';
         sidebar.style.fontSize = '14px';
         sidebar.style.borderRadius = '12px';
-        sidebar.style.backdropFilter = 'blur(8px)'; // 添加毛玻璃效果
+        sidebar.style.backdropFilter = 'blur(8px)';
         sidebar.style.backgroundColor = 'rgba(52, 53, 65, 0.7)'; // 半透明背景
 
         // 更新样式
@@ -144,7 +144,7 @@
                 white-space: pre-wrap;
                 line-height: 1.5;
                 max-height: none;
-                font-size: 13px;
+                font-size: 16px;  // 同步修改链接文字大小
                 transition: all 0.2s ease;
                 background-color: transparent;
                 border-left: 3px solid transparent;
