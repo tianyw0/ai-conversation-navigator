@@ -34,7 +34,9 @@
     };
 
     const initializeNavigator = () => {
-        const chatContainer = document.querySelector('[data-testid="conversation-turn-"]');
+        // 修改选择器以匹配奇数结尾的 conversation-turn
+        const chatContainer = document.querySelector('[data-testid$="1"], [data-testid$="3"], [data-testid$="5"], [data-testid$="7"], [data-testid$="9"]');
+        
         if (!chatContainer && retryCount < MAX_RETRIES) {
             log(`未找到聊天容器，${RETRY_INTERVAL/1000}秒后重试 (${retryCount + 1}/${MAX_RETRIES})`, 'warn');
             retryCount++;
@@ -96,6 +98,26 @@
         sidebar.style.zIndex = '9999';
         sidebar.style.maxHeight = '90vh';
         sidebar.style.overflowY = 'auto';
+        sidebar.style.color = '#000'; // 添加文字颜色
+        sidebar.style.fontSize = '14px'; // 添加字体大小
+        
+        // 添加链接样式
+        const style = document.createElement('style');
+        style.textContent = `
+            #chatgpt-nav-sidebar a {
+                color: #2563eb;
+                text-decoration: none;
+                display: block;
+                padding: 5px 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            #chatgpt-nav-sidebar a:hover {
+                text-decoration: underline;
+            }
+        `;
+        document.head.appendChild(style);
         document.body.appendChild(sidebar);
     };
 
