@@ -89,26 +89,27 @@
         const sidebar = document.createElement('div');
         sidebar.id = 'chatgpt-nav-sidebar';
         sidebar.style.position = 'fixed';
-        sidebar.style.top = '20px';
+        sidebar.style.top = '80px'; // 调整位置，避免遮挡顶部
         sidebar.style.right = '20px';
-        sidebar.style.width = '280px'; // 增加宽度
-        sidebar.style.backgroundColor = 'var(--surface-primary)'; // 使用 ChatGPT 的背景色
-        sidebar.style.padding = '15px';
+        sidebar.style.width = '300px'; // 再增加一点宽度
+        sidebar.style.backgroundColor = 'var(--surface-primary)';
+        sidebar.style.padding = '12px';
         sidebar.style.zIndex = '9999';
-        sidebar.style.maxHeight = '90vh';
+        sidebar.style.maxHeight = 'calc(100vh - 100px)'; // 调整最大高度
         sidebar.style.overflowY = 'auto';
-        sidebar.style.color = 'var(--text-primary)'; // 使用 ChatGPT 的文字颜色
         sidebar.style.fontSize = '14px';
-        sidebar.style.borderRadius = '8px'; // 圆角
-        sidebar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)'; // 添加阴影
-        
-        // 添加加载动画和样式
+        sidebar.style.borderRadius = '12px';
+        sidebar.style.backdropFilter = 'blur(8px)'; // 添加毛玻璃效果
+        sidebar.style.backgroundColor = 'rgba(52, 53, 65, 0.7)'; // 半透明背景
+
+        // 更新样式
         const style = document.createElement('style');
         style.textContent = `
             #chatgpt-nav-sidebar {
                 opacity: 0;
                 transform: translateX(20px);
                 animation: slideIn 0.3s ease forwards;
+                transition: opacity 0.3s ease;
             }
             
             @keyframes slideIn {
@@ -119,52 +120,78 @@
             }
             
             #chatgpt-nav-sidebar::-webkit-scrollbar {
-                width: 6px;
+                width: 4px;
             }
             
             #chatgpt-nav-sidebar::-webkit-scrollbar-thumb {
-                background-color: rgba(86, 88, 105, 0.3);
-                border-radius: 3px;
+                background-color: rgba(217, 217, 227, 0.2);
+                border-radius: 2px;
+            }
+            
+            #chatgpt-nav-sidebar::-webkit-scrollbar-track {
+                background-color: transparent;
             }
             
             #chatgpt-nav-sidebar a {
-                color: var(--text-primary);
+                color: var(--text-primary, #ececf1);
                 text-decoration: none;
                 display: block;
-                padding: 8px 12px;
+                padding: 10px 14px;
                 margin: 4px 0;
-                border-radius: 6px;
+                border-radius: 8px;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                white-space: pre-line;
-                line-height: 1.5;
-                max-height: 4.5em; // 显示三行文字
-                transition: background-color 0.2s;
+                white-space: pre-wrap;
+                line-height: 1.6;
+                max-height: none;
+                font-size: 13px;
+                transition: all 0.2s ease;
+                background-color: transparent;
             }
             
             #chatgpt-nav-sidebar a:hover {
-                background-color: var(--surface-secondary);
+                background-color: rgba(52, 53, 65, 0.9);
             }
             
             .nav-loading {
                 display: flex;
                 justify-content: center;
+                align-items: center;
                 padding: 20px;
-                color: var(--text-secondary);
+                color: var(--text-secondary, #ececf1);
+                gap: 8px;
             }
             
-            @keyframes pulse {
-                50% { opacity: 0.5; }
+            .nav-loading::before {
+                content: "";
+                width: 16px;
+                height: 16px;
+                border: 2px solid rgba(217, 217, 227, 0.2);
+                border-top-color: var(--text-secondary, #ececf1);
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
             }
             
             .nav-loading::after {
-                content: "加载中...";
-                animation: pulse 1.5s ease-in-out infinite;
+                content: "加载中";
+                animation: dots 1.5s infinite;
+            }
+            
+            @keyframes dots {
+                0% { content: "加载中"; }
+                33% { content: "加载中."; }
+                66% { content: "加载中.."; }
+                100% { content: "加载中..."; }
             }
         `;
         document.head.appendChild(style);
         
-        // 添加加载提示
         const loading = document.createElement('div');
         loading.className = 'nav-loading';
         sidebar.appendChild(loading);
