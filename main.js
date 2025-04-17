@@ -136,9 +136,9 @@
                 color: var(--text-primary, #ececf1);
                 text-decoration: none;
                 display: block;
-                padding: 4px 4px;  // 减小内边距
-                margin: 2px 0;      // 减小外边距
-                border-radius: 8px;
+                padding: 8px 12px;
+                margin: 0;
+                border-radius: 6px;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: pre-wrap;
@@ -147,21 +147,21 @@
                 font-size: 13px;
                 transition: all 0.2s ease;
                 background-color: transparent;
-                border-left: 3px solid transparent; // 添加左边框
+                border-left: 3px solid transparent;
             }
             
             #chatgpt-nav-sidebar a:hover {
                 background-color: rgba(52, 53, 65, 0.9);
-                border-left-color: var(--text-primary, #ececf1); // 悬停时显示边框
+                border-left-color: var(--text-primary, #ececf1);
             }
             
-            // 添加分隔线容器
-            .nav-item-wrapper {
+            /* 修复分隔线样式的注释语法 */
+            #chatgpt-nav-sidebar .nav-item-wrapper {
                 padding: 2px 0;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
             
-            .nav-item-wrapper:last-child {
+            #chatgpt-nav-sidebar .nav-item-wrapper:last-child {
                 border-bottom: none;
             }
             
