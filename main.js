@@ -97,7 +97,8 @@
         sidebar.style.zIndex = '9999';
         sidebar.style.maxHeight = 'calc(100vh - 100px)'; // 调整最大高度
         sidebar.style.overflowY = 'auto';
-        sidebar.style.fontSize = '14px';
+        sidebar.style.fontSize = '16px';
+        sidebar.style.fontWeight = '500';  // 添加字体粗细
         sidebar.style.borderRadius = '12px';
         sidebar.style.backdropFilter = 'blur(8px)';
         sidebar.style.backgroundColor = 'rgba(52, 53, 65, 0.7)'; // 半透明背景
@@ -144,7 +145,8 @@
                 white-space: pre-wrap;
                 line-height: 1.5;
                 max-height: none;
-                font-size: 16px;  // 同步修改链接文字大小
+                font-size: 16px;
+                font-weight: 500;  // 添加字体粗细
                 transition: all 0.2s ease;
                 background-color: transparent;
                 border-left: 3px solid transparent;
