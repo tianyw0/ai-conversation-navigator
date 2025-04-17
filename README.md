@@ -1,6 +1,6 @@
 # ChatGPT Conversation Navigator
 
-ChatGPT Conversation Navigator 是一个用户脚本，旨在通过添加可点击的对话索引来增强 ChatGPT 界面。该工具为用户提供了一个侧边栏，其中包含每个用户问题的链接，使用户能够轻松浏览其对话历史。
+ChatGPT Conversation Navigator 是一个用户脚本，为多轮对话提供导航。通过添加可点击的对话索引来增强 ChatGPT 界面。该工具为用户提供了一个侧边栏，其中包含每个用户问题的链接，使用户能够轻松浏览其对话历史。
 
 ## 功能
 
@@ -28,3 +28,5 @@ MIT
 ## 支持
 
 如需帮助或报告问题，请访问 [支持页面](https://github.com/tianyw0/ai-conversation-navigator/issues)。
+
+power by ChatGPT & Trae IDE
