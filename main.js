@@ -3,16 +3,16 @@
 // @name:zh      ChatGPT 对话导航器
 // @name:en      ChatGPT Conversation Navigator
 // @namespace    http://tampermonkey.net/
-// @version      1.0  // 更新版本号以反映发布状态
+// @version      1.0
 // @description  Add a clickable conversation index on ChatGPT page
 // @description:zh  为 ChatGPT 页面添加可点击的对话索引
 // @description:en  Add a clickable conversation index on ChatGPT page
 // @author       tianyw0
 // @match        https://chatgpt.com/c/*
 // @grant        GM_addStyle
-// @license      MIT  // 添加许可证信息
-// @homepageURL  https://github.com/tianyw/ai-conversation-navigator  // 添加主页URL
-// @supportURL   https://github.com/tianyw/ai-conversation-navigator/issues  // 添加支持URL
+// @license      MIT
+// @homepageURL  https://github.com/tianyw0/ai-conversation-navigator
+// @supportURL   https://github.com/tianyw0/ai-conversation-navigator/issues
 // ==/UserScript==
 
 (function() {
@@ -37,7 +37,6 @@
     };
 
     const initializeNavigator = () => {
-        // 修改选择器以匹配奇数结尾的 conversation-turn
         const chatContainer = document.querySelector('[data-testid$="1"], [data-testid$="3"], [data-testid$="5"], [data-testid$="7"], [data-testid$="9"]');
         
         if (!chatContainer && retryCount < MAX_RETRIES) {
@@ -92,30 +91,28 @@
         const sidebar = document.createElement('div');
         sidebar.id = 'chatgpt-nav-sidebar';
         sidebar.style.position = 'fixed';
-        sidebar.style.top = '80px'; // 调整位置，避免遮挡顶部
-        // sidebar.style.right = '20px';
-        sidebar.style.left = '20px'; // 固定在左侧
-        sidebar.style.width = '300px'; // 再增加一点宽度
+        sidebar.style.top = '80px';
+        sidebar.style.left = '20px';
+        sidebar.style.width = '300px';
         sidebar.style.backgroundColor = 'var(--surface-primary)';
         sidebar.style.padding = '12px';
         sidebar.style.zIndex = '10';
-        sidebar.style.maxHeight = 'calc(100vh - 100px)'; // 调整最大高度
+        sidebar.style.maxHeight = 'calc(100vh - 100px)';
         sidebar.style.overflowY = 'auto';
         sidebar.style.fontSize = '16px';
-        sidebar.style.fontWeight = '500';  // 添加字体粗细
+        sidebar.style.fontWeight = '500';
         sidebar.style.borderRadius = '12px';
         sidebar.style.backdropFilter = 'blur(8px)';
-        sidebar.style.backgroundColor = 'rgba(52, 53, 65, 0.7)'; // 半透明背景
+        sidebar.style.backgroundColor = 'rgba(52, 53, 65, 0.7)';
 
-        // 更新样式
         const style = document.createElement('style');
         style.textContent = `
             #chatgpt-nav-sidebar {
                 opacity: 0;
-                transform: translateX(-20px); /* 从左侧滑入 */
+                transform: translateX(-20px);
                 animation: slideIn 0.3s ease forwards;
                 transition: opacity 0.3s ease;
-                left: 20px !important; /* 保证样式优先 */
+                left: 20px !important;
                 right: auto !important;
             }
             
@@ -152,7 +149,7 @@
                 line-height: 1.5;
                 max-height: none;
                 font-size: 16px;
-                font-weight: 500;  // 添加字体粗细
+                font-weight: 500;
                 transition: all 0.2s ease;
                 background-color: transparent;
                 border-left: 3px solid transparent;
@@ -163,7 +160,6 @@
                 border-left-color: var(--text-primary, #ececf1);
             }
             
-            /* 修复分隔线样式的注释语法 */
             #chatgpt-nav-sidebar .nav-item-wrapper {
                 padding: 2px 0;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -235,11 +231,9 @@
         const isUserQuestion = parseInt(dataTestId.split('-')[2]) % 2 === 1;
         const id = `nav-${dataTestId}`;
         
-        // 获取最内层的文本内容
         const textContent = node.querySelector('.whitespace-pre-wrap')?.innerText.trim() || node.innerText.trim().split('\n')[0];
         log(`提取文本内容: ${textContent}`);
 
-        // 只为用户提问创建导航项
         if (isUserQuestion) {
             const wrapper = document.createElement('div');
             wrapper.className = 'nav-item-wrapper';
