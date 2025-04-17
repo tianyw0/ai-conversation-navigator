@@ -134,23 +134,15 @@
             return;
         }
 
-        const isUserQuestion = parseInt(dataTestId.split('-')[2]) % 2 === 1; // 判断是否为用户提问（奇数）
+        const isUserQuestion = parseInt(dataTestId.split('-')[2]) % 2 === 1;
         const id = `nav-${dataTestId}`;
-        const textContent = node.innerText.trim().split('\n')[0]; // 获取对话的第一行
+        const textContent = node.innerText.trim().split('\n')[0];
 
+        // 只为用户提问创建导航项
         if (isUserQuestion) {
             const navItem = document.createElement('div');
             navItem.innerHTML = `<a href="#${id}">User: ${textContent}</a>`;
             sidebar.appendChild(navItem);
-
-            // 给用户的提问加上唯一的 ID
-            node.id = id;
-        } else {
-            const navItem = document.createElement('div');
-            navItem.innerHTML = `<a href="#${id}">ChatGPT: ${textContent}</a>`;
-            sidebar.appendChild(navItem);
-
-            // 给 ChatGPT 的回答加上唯一的 ID
             node.id = id;
         }
     };
