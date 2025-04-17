@@ -10,7 +10,7 @@ ChatGPT Conversation Navigator 是一个用户脚本，旨在通过添加可点�
 
 ## 安装
 
-1. 确保您已安装 Tampermonkey 或其他用户脚本管理器。
+1. 确保您已安装 [Tampermonkey](https://www.tampermonkey.net/) 或其他用户脚本管理器。
 2. 点击 [这里](https://greasyfork.org/en/scripts/533157-chatgpt-conversation-navigator) 安装脚本。
 
 ## 使用
