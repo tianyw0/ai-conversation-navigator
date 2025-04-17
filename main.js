@@ -142,15 +142,27 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: pre-wrap;
-                line-height: 1.5;   // 稍微减小行高
+                line-height: 1.5;
                 max-height: none;
                 font-size: 13px;
                 transition: all 0.2s ease;
                 background-color: transparent;
+                border-left: 3px solid transparent; // 添加左边框
             }
             
             #chatgpt-nav-sidebar a:hover {
                 background-color: rgba(52, 53, 65, 0.9);
+                border-left-color: var(--text-primary, #ececf1); // 悬停时显示边框
+            }
+            
+            // 添加分隔线容器
+            .nav-item-wrapper {
+                padding: 2px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-item-wrapper:last-child {
+                border-bottom: none;
             }
             
             .nav-loading {
@@ -221,9 +233,12 @@
 
         // 只为用户提问创建导航项
         if (isUserQuestion) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'nav-item-wrapper';
             const navItem = document.createElement('div');
             navItem.innerHTML = `<a href="#${id}">${textContent}</a>`;
-            sidebar.appendChild(navItem);
+            wrapper.appendChild(navItem);
+            sidebar.appendChild(wrapper);
             node.id = id;
         }
     };
