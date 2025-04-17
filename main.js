@@ -91,33 +91,84 @@
         sidebar.style.position = 'fixed';
         sidebar.style.top = '20px';
         sidebar.style.right = '20px';
-        sidebar.style.width = '200px';
-        sidebar.style.backgroundColor = '#fff';
-        sidebar.style.border = '1px solid #ccc';
-        sidebar.style.padding = '10px';
+        sidebar.style.width = '280px'; // 增加宽度
+        sidebar.style.backgroundColor = 'var(--surface-primary)'; // 使用 ChatGPT 的背景色
+        sidebar.style.padding = '15px';
         sidebar.style.zIndex = '9999';
         sidebar.style.maxHeight = '90vh';
         sidebar.style.overflowY = 'auto';
-        sidebar.style.color = '#000'; // 添加文字颜色
-        sidebar.style.fontSize = '14px'; // 添加字体大小
+        sidebar.style.color = 'var(--text-primary)'; // 使用 ChatGPT 的文字颜色
+        sidebar.style.fontSize = '14px';
+        sidebar.style.borderRadius = '8px'; // 圆角
+        sidebar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)'; // 添加阴影
         
-        // 添加链接样式
+        // 添加加载动画和样式
         const style = document.createElement('style');
         style.textContent = `
+            #chatgpt-nav-sidebar {
+                opacity: 0;
+                transform: translateX(20px);
+                animation: slideIn 0.3s ease forwards;
+            }
+            
+            @keyframes slideIn {
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            #chatgpt-nav-sidebar::-webkit-scrollbar {
+                width: 6px;
+            }
+            
+            #chatgpt-nav-sidebar::-webkit-scrollbar-thumb {
+                background-color: rgba(86, 88, 105, 0.3);
+                border-radius: 3px;
+            }
+            
             #chatgpt-nav-sidebar a {
-                color: #2563eb;
+                color: var(--text-primary);
                 text-decoration: none;
                 display: block;
-                padding: 5px 0;
+                padding: 8px 12px;
+                margin: 4px 0;
+                border-radius: 6px;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                white-space: nowrap;
+                white-space: pre-line;
+                line-height: 1.5;
+                max-height: 4.5em; // 显示三行文字
+                transition: background-color 0.2s;
             }
+            
             #chatgpt-nav-sidebar a:hover {
-                text-decoration: underline;
+                background-color: var(--surface-secondary);
+            }
+            
+            .nav-loading {
+                display: flex;
+                justify-content: center;
+                padding: 20px;
+                color: var(--text-secondary);
+            }
+            
+            @keyframes pulse {
+                50% { opacity: 0.5; }
+            }
+            
+            .nav-loading::after {
+                content: "加载中...";
+                animation: pulse 1.5s ease-in-out infinite;
             }
         `;
         document.head.appendChild(style);
+        
+        // 添加加载提示
+        const loading = document.createElement('div');
+        loading.className = 'nav-loading';
+        sidebar.appendChild(loading);
+        
         document.body.appendChild(sidebar);
     };
 
