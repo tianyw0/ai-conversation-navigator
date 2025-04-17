@@ -90,7 +90,8 @@
         sidebar.id = 'chatgpt-nav-sidebar';
         sidebar.style.position = 'fixed';
         sidebar.style.top = '80px'; // 调整位置，避免遮挡顶部
-        sidebar.style.right = '20px';
+        // sidebar.style.right = '20px';
+        sidebar.style.left = '20px'; // 固定在左侧
         sidebar.style.width = '300px'; // 再增加一点宽度
         sidebar.style.backgroundColor = 'var(--surface-primary)';
         sidebar.style.padding = '12px';
@@ -108,9 +109,11 @@
         style.textContent = `
             #chatgpt-nav-sidebar {
                 opacity: 0;
-                transform: translateX(20px);
+                transform: translateX(-20px); /* 从左侧滑入 */
                 animation: slideIn 0.3s ease forwards;
                 transition: opacity 0.3s ease;
+                left: 20px !important; /* 保证样式优先 */
+                right: auto !important;
             }
             
             @keyframes slideIn {
