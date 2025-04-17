@@ -94,7 +94,7 @@
         sidebar.style.width = '300px'; // 再增加一点宽度
         sidebar.style.backgroundColor = 'var(--surface-primary)';
         sidebar.style.padding = '12px';
-        sidebar.style.zIndex = '9999';
+        sidebar.style.zIndex = '10';
         sidebar.style.maxHeight = 'calc(100vh - 100px)'; // 调整最大高度
         sidebar.style.overflowY = 'auto';
         sidebar.style.fontSize = '16px';
