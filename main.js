@@ -136,7 +136,10 @@
 
         const isUserQuestion = parseInt(dataTestId.split('-')[2]) % 2 === 1;
         const id = `nav-${dataTestId}`;
-        const textContent = node.innerText.trim().split('\n')[0];
+        
+        // 获取最内层的文本内容
+        const textContent = node.querySelector('.whitespace-pre-wrap')?.innerText.trim() || node.innerText.trim().split('\n')[0];
+        log(`提取文本内容: ${textContent}`);
 
         // 只为用户提问创建导航项
         if (isUserQuestion) {
