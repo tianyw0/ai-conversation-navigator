@@ -19,7 +19,7 @@ ChatGPT Conversation Navigator 是一个用户脚本，旨在通过添加可点�
 
 ## 演示
 
-![Demo Image](demo/demo-image.png)
+![Demo Image](demo.jpg)
 
 ## 许可证
 
