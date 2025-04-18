@@ -174,9 +174,15 @@
                 opacity: 0;
                 transform: translateX(-20px);
                 animation: slideIn 0.3s ease forwards;
-                transition: opacity 0.3s ease;
+                transition: opacity 0.3s ease, transform 0.3s ease;
                 left: 20px !important;
                 right: auto !important;
+            }
+            
+            @media (max-width: 1440px) {
+                #chatgpt-nav-sidebar {
+                    display: none;
+                }
             }
             
             @keyframes slideIn {
