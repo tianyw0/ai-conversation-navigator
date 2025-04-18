@@ -24,17 +24,22 @@
     const RETRY_INTERVAL = 1000;
     let retryCount = 0;
 
-    const log = (message, type = 'info') => {
-        const prefix = '[ChatGPT Navigator]';
-        switch(type) {
-            case 'error':
-                console.error(`${prefix} ${message}`);
-                break;
-            case 'warn':
-                console.warn(`${prefix} ${message}`);
-                break;
-            default:
-                console.log(`${prefix} ${message}`);
+    const utils = {
+        log(message, type = 'info') {
+            let prefix;
+            switch(type) {
+                case 'error':
+                    prefix = '[ChatGPT Navigator] ❌';
+                    console.error(`${prefix} ${message}`);
+                    break;
+                case 'warn':
+                    prefix = '[ChatGPT Navigator] ⚠️';
+                    console.warn(`${prefix} ${message}`);
+                    break;
+                default:
+                    prefix = '[ChatGPT Navigator] 🚀';
+                    console.log(`${prefix} ${message}`);
+            }
         }
     };
 
@@ -43,25 +48,25 @@
         const chatContainer = document.querySelector('article[data-testid]');
         
         if (!chatContainer && retryCount < MAX_RETRIES) {
-            log(`未找到聊天容器，${RETRY_INTERVAL/1000}秒后重试 (${retryCount + 1}/${MAX_RETRIES})`, 'warn');
+            utils.log(`未找到聊天容器，${RETRY_INTERVAL/1000}秒后重试 (${retryCount + 1}/${MAX_RETRIES})`, 'warn');
             retryCount++;
             setTimeout(initializeNavigator, RETRY_INTERVAL);
             return;
         }
     
         if (!chatContainer) {
-            log('无法找到聊天容器，初始化失败', 'error');
+            utils.log('无法找到聊天容器，初始化失败', 'error');
             return;
         }
     
-        log('成功找到聊天容器，开始初始化导航');
+        utils.log('成功找到聊天容器，开始初始化导航');
     
         const existingSidebar = document.getElementById('chatgpt-nav-sidebar');
         if (existingSidebar) {
-            log('检测到现有导航栏，正在重置');
+            utils.log('检测到现有导航栏，正在重置');
             existingSidebar.innerHTML = '';
         } else {
-            log('创建新的导航栏');
+            utils.log('创建新的导航栏');
             createNavigationSidebar();
         }
     
@@ -73,7 +78,7 @@
             return Number(id) % 2 === 1;
           });
           
-        log(`找到 ${existingMessages.length} 条提问`);
+        utils.log(`找到 ${existingMessages.length} 条提问`);
         existingMessages.forEach(node => createNavigationItem(node));
     
         // 移除加载状态
@@ -83,7 +88,7 @@
         }
     
         setupObserver();
-        log('导航初始化完成');
+        utils.log('导航初始化完成');
     };
     
     const setupObserver = () => {
@@ -234,13 +239,13 @@
     const createNavigationItem = (node) => {
         const sidebar = document.getElementById('chatgpt-nav-sidebar');
         if (!sidebar) {
-            log('导航栏不存在，无法创建导航项', 'error');
+            utils.log('导航栏不存在，无法创建导航项', 'error');
             return;
         }
 
         const dataTestId = node.getAttribute('data-testid');
         if (!dataTestId) {
-            log('节点缺少 data-testid 属性', 'warn');
+            utils.log('节点缺少 data-testid 属性', 'warn');
             return;
         }
 
@@ -248,9 +253,9 @@
         const id = `nav-${dataTestId}`;
         
         const textContent = node.querySelector('.whitespace-pre-wrap')?.innerText.trim() || node.innerText.trim().split('\n')[0];
-        log(`提问: ${textContent}`);
+        utils.log(`提问: ${textContent}`);
         if (!isUserQuestion) {
-            log('非用户提问，跳过', 'warn');
+            utils.log('非用户提问，跳过', 'warn');
             return;
         }
         const wrapper = document.createElement('div');
