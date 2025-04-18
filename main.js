@@ -336,7 +336,7 @@
         node.id = id;
     };
 
-    // 添加滚动跟踪功能
+    // 优化滚动跟踪功能
     const setupScrollSpy = () => {
         const sidebar = document.getElementById('chatgpt-nav-sidebar');
         if (!sidebar) return;
@@ -349,35 +349,57 @@
         const updateAnchors = () => {
             navLinks = Array.from(sidebar.querySelectorAll('a[data-nav-id]'));
             contentSections = navLinks.map(link => {
-                const id = link.getAttribute('href').substring(1);
+                const id = link.getAttribute('data-nav-id');
                 return document.getElementById(id);
             }).filter(Boolean);
+            
+            utils.log(`滚动跟踪：找到 ${navLinks.length} 个导航项和 ${contentSections.length} 个内容区域`);
         };
 
         // 更新活动状态
         const updateActiveState = () => {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
-                    // 如果没有导航项，重新获取
-                    if (navLinks.length === 0) {
+                    // 如果没有导航项或内容区域不匹配，重新获取
+                    if (navLinks.length === 0 || navLinks.length !== contentSections.length) {
                         updateAnchors();
+                    }
+                    
+                    if (contentSections.length === 0) {
+                        ticking = false;
+                        return;
                     }
                     
                     // 找到当前在视口中的内容
                     let activeIndex = -1;
-                    const scrollTop = window.scrollY;
-                    const viewportHeight = window.innerHeight;
-                    const offset = 100; // 顶部偏移量
+                    const offset = 120; // 增加顶部偏移量，考虑到页面顶部的导航栏高度
                     
                     // 从后往前查找，找到第一个在视口上方的元素
-                    for (let i = contentSections.length - 1; i >= 0; i--) {
+                    for (let i = 0; i < contentSections.length; i++) {
                         const section = contentSections[i];
                         if (!section) continue;
                         
                         const rect = section.getBoundingClientRect();
-                        if (rect.top <= offset) {
+                        // 如果元素顶部在视口内或刚好在视口上方
+                        if (rect.top <= offset && rect.bottom > 0) {
                             activeIndex = i;
                             break;
+                        }
+                    }
+                    
+                    // 如果没找到可见元素，尝试找最接近顶部的元素
+                    if (activeIndex === -1 && contentSections.length > 0) {
+                        let minDistance = Infinity;
+                        for (let i = 0; i < contentSections.length; i++) {
+                            const section = contentSections[i];
+                            if (!section) continue;
+                            
+                            const rect = section.getBoundingClientRect();
+                            const distance = Math.abs(rect.top - offset);
+                            if (distance < minDistance) {
+                                minDistance = distance;
+                                activeIndex = i;
+                            }
                         }
                     }
                     
@@ -396,26 +418,74 @@
             }
         };
 
-        // 监听滚动事件
-        window.addEventListener('scroll', updateActiveState, { passive: true });
+        // 将更新函数暴露到全局，以便其他地方调用
+        window.updateScrollSpy = updateActiveState;
+
+        // 监听滚动事件，使用更低的节流间隔
+        const scrollHandler = () => {
+            updateActiveState();
+        };
         
-        // 监听导航栏变化
-        const observer = new MutationObserver(() => {
+        window.addEventListener('scroll', scrollHandler, { passive: true });
+        
+        // 监听导航栏变化和内容变化
+        const sidebarObserver = new MutationObserver(() => {
             updateAnchors();
             updateActiveState();
         });
         
-        observer.observe(sidebar, {
+        sidebarObserver.observe(sidebar, {
             childList: true,
-            subtree: true
+            subtree: true,
+            attributes: true
         });
         
-        // 初始化
+        // 监听整个文档变化，以捕获内容区域的变化
+        const contentObserver = new MutationObserver((mutations) => {
+            // 检查是否有相关变化
+            let needsUpdate = false;
+            for (const mutation of mutations) {
+                if (mutation.type === 'childList' || 
+                    (mutation.type === 'attributes' && mutation.attributeName === 'id')) {
+                    needsUpdate = true;
+                    break;
+                }
+            }
+            
+            if (needsUpdate) {
+                updateAnchors();
+                updateActiveState();
+            }
+        });
+        
+        contentObserver.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['id']
+        });
+        
+        // 初始化：多次尝试更新以确保捕获到所有内容
+        updateAnchors();
+        updateActiveState();
+        
+        // 延迟再次更新以处理异步加载的内容
         setTimeout(() => {
             updateAnchors();
             updateActiveState();
         }, 500);
+        
+        setTimeout(() => {
+            updateAnchors();
+            updateActiveState();
+        }, 1500);
+        
+        // 添加窗口大小变化监听
+        window.addEventListener('resize', updateActiveState, { passive: true });
     };
+
+    // 删除这里重复的 createNavigationItem 函数声明
+    // const createNavigationItem = (node) => { ... }
 
     // 添加 URL 变化监听
     let lastUrl = location.href;
