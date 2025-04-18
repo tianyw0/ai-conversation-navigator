@@ -20,7 +20,7 @@
 (function() {
     'use strict';
 
-    const MAX_RETRIES = 5;
+    const MAX_RETRIES = 50;
     const RETRY_INTERVAL = 1000;
     let retryCount = 0;
 
@@ -39,7 +39,7 @@
     };
 
     const initializeNavigator = () => {
-        const chatContainer = document.querySelector('[data-testid$="1"], [data-testid$="3"], [data-testid$="5"], [data-testid$="7"], [data-testid$="9"]');
+        const chatContainer = document.querySelector('article[data-testid]');
         
         if (!chatContainer && retryCount < MAX_RETRIES) {
             log(`未找到聊天容器，${RETRY_INTERVAL/1000}秒后重试 (${retryCount + 1}/${MAX_RETRIES})`, 'warn');
@@ -47,14 +47,14 @@
             setTimeout(initializeNavigator, RETRY_INTERVAL);
             return;
         }
-
+    
         if (!chatContainer) {
             log('无法找到聊天容器，初始化失败', 'error');
             return;
         }
-
+    
         log('成功找到聊天容器，开始初始化导航');
-
+    
         const existingSidebar = document.getElementById('chatgpt-nav-sidebar');
         if (existingSidebar) {
             log('检测到现有导航栏，正在重置');
@@ -63,26 +63,26 @@
             log('创建新的导航栏');
             createNavigationSidebar();
         }
-
+    
         const existingMessages = document.querySelectorAll('article[data-testid]');
         log(`找到 ${existingMessages.length} 条现有对话`);
         existingMessages.forEach(node => createNavigationItem(node));
-
+    
         setupObserver();
         log('导航初始化完成');
     };
-
+    
     const setupObserver = () => {
         const observer = new MutationObserver(mutations => {
             mutations.forEach(mutation => {
                 mutation.addedNodes.forEach(node => {
-                    if (node.nodeType === 1 && node.classList.contains('text-token-text-primary')) {
+                    if (node.nodeType === 1 && node.tagName === 'ARTICLE' && node.hasAttribute('data-testid')) {
                         createNavigationItem(node);
                     }
                 });
             });
         });
-
+    
         observer.observe(document.body, {
             childList: true,
             subtree: true,
@@ -248,7 +248,17 @@
         }
     };
 
-    createNavigationSidebar();
-
+    // 移除原有的事件监听代码
+    // window.addEventListener('DOMContentLoaded', (event) => {
+    //     initializeNavigator();
+    // });
+    
+    // 替换为新的初始化逻辑
+    if (document.readyState === 'loading') {
+    // 如果页面还在加载中，等待 DOMContentLoaded 事件
+    window.addEventListener('DOMContentLoaded', initializeNavigator);
+    } else {
+    // 如果页面已经加载完成，直接执行初始化
     initializeNavigator();
+    }
 })();
