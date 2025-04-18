@@ -134,11 +134,11 @@
         sidebar.id = 'chatgpt-nav-sidebar';
         
         // 设置导航栏样式
-        sidebar.style.position = 'absolute'; // 改为绝对定位
-        sidebar.style.zIndex = '1000'; // 确保在上层
-        sidebar.style.left = '0'; // 固定在左侧
-        sidebar.style.top = '0'; // 从顶部开始
-        sidebar.style.width = '260px';
+        sidebar.style.position = 'absolute';
+        sidebar.style.zIndex = '1000';
+        sidebar.style.left = '0';
+        sidebar.style.top = '0';
+        sidebar.style.width = 'min(260px, 25%)'; // 改为响应式宽度
         sidebar.style.height = 'calc(100% - 64px)';
         sidebar.style.marginTop = '64px';
         sidebar.style.flexShrink = '0';
@@ -159,8 +159,6 @@
         newDiv2.style.height = '100%';
         newDiv2.style.overflow = 'hidden';
         newDiv2.style.position = 'relative'; // 添加相对定位作为定位上下文
-        
-        // 将导航栏和原始 div2 添加到新容器
         newDiv2.appendChild(sidebar);
         newDiv2.appendChild(div2);
 
