@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         ChatGPT Conversation Navigator
-// @name:zh      ChatGPT 对话导航器
+// @name         ChatGPT Conversation Navigator 对话目录导航器
+// @name:zh      ChatGPT 对话目录导航器
 // @name:en      ChatGPT Conversation Navigator
 // @namespace    http://tampermonkey.net/
 // @version      1.0.5
