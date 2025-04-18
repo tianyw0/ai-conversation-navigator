@@ -133,7 +133,8 @@
         // 设置导航栏样式
         sidebar.style.position = 'relative';
         sidebar.style.width = '260px';
-        sidebar.style.height = '100%';
+        sidebar.style.height = 'calc(100% - 64px)'; // 减去顶部空间
+        sidebar.style.marginTop = '64px'; // 添加顶部边距
         sidebar.style.flexShrink = '0';
         sidebar.style.backgroundColor = 'var(--surface-primary)';
         sidebar.style.padding = '12px';
