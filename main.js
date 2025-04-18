@@ -65,7 +65,14 @@
             createNavigationSidebar();
         }
     
-        const existingMessages = document.querySelectorAll('article[data-testid$="1"], article[data-testid$="3"], article[data-testid$="5"], article[data-testid$="7"], article[data-testid$="9"]');
+        // 找到所有奇数 data-testid 的元素
+        const existingMessages = Array.from(
+            document.querySelectorAll('article[data-testid^="conversation-turn-"]')
+          ).filter(el => {
+            const id = el.dataset.testid.split('-').pop();
+            return Number(id) % 2 === 1;
+          });
+          
         log(`找到 ${existingMessages.length} 条提问`);
         existingMessages.forEach(node => createNavigationItem(node));
     
@@ -242,23 +249,18 @@
         
         const textContent = node.querySelector('.whitespace-pre-wrap')?.innerText.trim() || node.innerText.trim().split('\n')[0];
         log(`提问: ${textContent}`);
-
-        if (isUserQuestion) {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'nav-item-wrapper';
-            const navItem = document.createElement('div');
-            navItem.innerHTML = `<a href="#${id}">${textContent}</a>`;
-            wrapper.appendChild(navItem);
-            sidebar.appendChild(wrapper);
-            node.id = id;
+        if (!isUserQuestion) {
+            log('非用户提问，跳过', 'warn');
+            return;
         }
+        const wrapper = document.createElement('div');
+        wrapper.className = 'nav-item-wrapper';
+        const navItem = document.createElement('div');
+        navItem.innerHTML = `<a href="#${id}">${textContent}</a>`;
+        wrapper.appendChild(navItem);
+        sidebar.appendChild(wrapper);
+        node.id = id;
     };
-
-    // 移除原有的事件监听代码
-    // window.addEventListener('DOMContentLoaded', (event) => {
-    //     initializeNavigator();
-    // });
-    
     // 替换为新的初始化逻辑
     if (document.readyState === 'loading') {
     // 如果页面还在加载中，等待 DOMContentLoaded 事件
