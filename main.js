@@ -8,7 +8,7 @@
 // @description:zh  为 ChatGPT 页面添加可点击的对话索引
 // @description:en  Add a clickable conversation index on ChatGPT page
 // @author       tianyw0
-// @match        https://chatgpt.com/*
+// @match        https://chatgpt.com/c/*
 // @grant        GM_addStyle
 // @license      MIT
 // @homepageURL  https://github.com/tianyw0/ai-conversation-navigator
@@ -64,7 +64,7 @@
             createNavigationSidebar();
         }
 
-        const existingMessages = document.querySelectorAll('.text-token-text-primary');
+        const existingMessages = document.querySelectorAll('article[data-testid]');
         log(`找到 ${existingMessages.length} 条现有对话`);
         existingMessages.forEach(node => createNavigationItem(node));
 
@@ -229,6 +229,7 @@
             log('节点缺少 data-testid 属性', 'warn');
             return;
         }
+        debugger;
 
         const isUserQuestion = parseInt(dataTestId.split('-')[2]) % 2 === 1;
         const id = `nav-${dataTestId}`;
