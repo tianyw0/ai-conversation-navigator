@@ -139,8 +139,8 @@
         sidebar.style.left = '0';
         sidebar.style.top = '0';
         sidebar.style.width = 'min(260px, 25%)';
-        sidebar.style.height = 'calc(100% - 64px)';
-        sidebar.style.marginTop = '64px';
+        sidebar.style.height = 'calc(100% - 50px)';
+        sidebar.style.marginTop = '50px';
         sidebar.style.flexShrink = '0';
         sidebar.style.backgroundColor = '#212121'; // 主背景色
         sidebar.style.overflowY = 'auto';
