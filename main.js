@@ -8,7 +8,7 @@
 // @description:zh  为 ChatGPT 页面添加可点击的对话索引
 // @description:en  Add a clickable conversation index on ChatGPT page
 // @author       tianyw0
-// @match        https://chatgpt.com/c/*
+// @match        https://chatgpt.com/*
 // @grant        GM_addStyle
 // @license      MIT
 // @homepageURL  https://github.com/tianyw0/ai-conversation-navigator
