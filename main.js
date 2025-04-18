@@ -299,7 +299,11 @@
         const isUserQuestion = parseInt(dataTestId.split('-')[2]) % 2 === 1;
         const id = `nav-${dataTestId}`;
         
-        const textContent = node.querySelector('.whitespace-pre-wrap')?.innerText.trim() || node.innerText.trim().split('\n')[0];
+        const textContent = (node.querySelector('.whitespace-pre-wrap')?.innerText.trim() || node.innerText.trim())
+                    .split(/[\n\r]+/)
+                    .join(' ')
+                    .replace(/\s+/g, ' ');
+        const displayText = textContent.length > 20 ? textContent.slice(0, 20) + '...' : textContent;
         utils.log(`提问: ${textContent}`);
         if (!isUserQuestion) {
             utils.log('非用户提问，跳过', 'warn');
@@ -308,7 +312,7 @@
         const wrapper = document.createElement('div');
         wrapper.className = 'nav-item-wrapper';
         const navItem = document.createElement('div');
-        navItem.innerHTML = `<a href="#${id}">${textContent}</a>`;
+        navItem.innerHTML = `<a href="#${id}" title="${textContent}">${displayText}</a>`;
         wrapper.appendChild(navItem);
         sidebar.appendChild(wrapper);
         node.id = id;
