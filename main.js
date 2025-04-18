@@ -340,21 +340,21 @@
     const setupScrollSpy = () => {
         const sidebar = document.getElementById('chatgpt-nav-sidebar');
         if (!sidebar) return;
-
+    
         let ticking = false;
         let navLinks = [];
         let contentSections = [];
         let isMouseOverSidebar = false; // 用于跟踪鼠标是否在导航栏上
-
+    
         // 监听鼠标进入和离开导航栏的事件
         sidebar.addEventListener('mouseenter', () => {
             isMouseOverSidebar = true;
         });
-
+    
         sidebar.addEventListener('mouseleave', () => {
             isMouseOverSidebar = false;
         });
-
+    
         // 获取所有导航链接和对应内容区域
         const updateAnchors = () => {
             navLinks = Array.from(sidebar.querySelectorAll('a[data-nav-id]'));
@@ -365,7 +365,7 @@
             
             utils.log(`滚动跟踪：找到 ${navLinks.length} 个导航项和 ${contentSections.length} 个内容区域`);
         };
-
+    
         // 更新活动状态
         const updateActiveState = () => {
             if (!ticking) {
@@ -433,13 +433,15 @@
                 ticking = true;
             }
         };
-
+    
         // 将更新函数暴露到全局，以便其他地方调用
         window.updateScrollSpy = updateActiveState;
-
+    
         // 监听滚动事件，使用更低的节流间隔
         const scrollHandler = () => {
-            updateActiveState();
+            if (!isMouseOverSidebar) {
+                updateActiveState();
+            }
         };
         
         window.addEventListener('scroll', scrollHandler, { passive: true });
