@@ -107,20 +107,32 @@
     };
 
     const createNavigationSidebar = () => {
-        // 找到目标容器
-        const flexRowContainer = document.querySelector('.relative.flex.h-full.w-full.flex-row.overflow-hidden');
-        if (!flexRowContainer) {
-            utils.log('未找到目标容器，使用默认位置', 'warn');
+        // 1. 找到目标容器和所有需要的元素
+        const threadContainer = document.getElementById('thread');
+        const presentationDiv = threadContainer?.querySelector('div[role="presentation"]');
+        if (!presentationDiv) {
+            utils.log('未找到目标容器', 'warn');
             return;
         }
 
-        // 创建导航栏
+        // 保存原始的三个 div
+        const originalDivs = Array.from(presentationDiv.children);
+        if (originalDivs.length !== 3) {
+            utils.log('目标容器结构不符合预期', 'warn');
+            return;
+        }
+        const [div1, div2, div3] = originalDivs;
+
+        // 2. 清空 presentation div
+        presentationDiv.innerHTML = '';
+
+        // 3. 创建导航栏和新的 flex 容器
         const sidebar = document.createElement('div');
         sidebar.id = 'chatgpt-nav-sidebar';
         
-        // 设置为 flex 子元素
-        sidebar.style.position = 'relative'; // 改为相对定位
-        sidebar.style.width = '260px'; // 与原侧边栏宽度一致
+        // 设置导航栏样式
+        sidebar.style.position = 'relative';
+        sidebar.style.width = '260px';
         sidebar.style.height = '100%';
         sidebar.style.flexShrink = '0';
         sidebar.style.backgroundColor = 'var(--surface-primary)';
@@ -132,9 +144,23 @@
         sidebar.style.backdropFilter = 'blur(8px)';
         sidebar.style.backgroundColor = 'rgba(52, 53, 65, 0.7)';
 
-        // 将导航栏插入到 flex 容器中
-        flexRowContainer.appendChild(sidebar);
+        // 创建新的 flex 容器包装 div2 和导航栏
+        const newDiv2 = document.createElement('div');
+        newDiv2.style.display = 'flex';
+        newDiv2.style.flexDirection = 'row';
+        newDiv2.style.width = '100%';
+        newDiv2.style.height = '100%';
+        newDiv2.style.overflow = 'hidden';
         
+        // 将导航栏和原始 div2 添加到新容器
+        newDiv2.appendChild(sidebar);
+        newDiv2.appendChild(div2);
+
+        // 4. 重新组装所有元素
+        presentationDiv.appendChild(div1);
+        presentationDiv.appendChild(newDiv2);
+        presentationDiv.appendChild(div3);
+
         // 添加样式
         const style = document.createElement('style');
         style.textContent = `
@@ -243,7 +269,6 @@
         const loading = document.createElement('div');
         loading.className = 'nav-loading';
         sidebar.appendChild(loading);
-        document.body.appendChild(sidebar);
     };
 
     const createNavigationItem = (node) => {
