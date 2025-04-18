@@ -13,6 +13,8 @@
 // @license      MIT
 // @homepageURL  https://github.com/tianyw0/ai-conversation-navigator
 // @supportURL   https://github.com/tianyw0/ai-conversation-navigator/issues
+// @updateURL    https://raw.githubusercontent.com/tianyw0/ai-conversation-navigator/main/main.js
+// @downloadURL  https://raw.githubusercontent.com/tianyw0/ai-conversation-navigator/main/main.js
 // ==/UserScript==
 
 (function() {
