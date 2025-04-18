@@ -89,6 +89,7 @@
         }
     
         setupObserver();
+        setupScrollSpy(); // 添加滚动跟踪
         utils.log('导航初始化完成');
     };
     
@@ -244,6 +245,14 @@
                 border-bottom: none;
             }
             
+            /* 添加活动项样式 */
+            #chatgpt-nav-sidebar a.active {
+                background-color: #303030;
+                border-radius: 1.5rem;
+                font-weight: 600;
+                color: #fff;
+            }
+            
             .nav-loading {
                 display: flex;
                 justify-content: center;
@@ -320,11 +329,94 @@
         const wrapper = document.createElement('div');
         wrapper.className = 'nav-item-wrapper';
         const navItem = document.createElement('div');
-        navItem.innerHTML = `<a href="#${id}" title="${textContent}"><span class="nav-index">${navItemsCount}.</span> ${displayText}</a>`;
+        // 添加 data-nav-id 属性用于滚动跟踪
+        navItem.innerHTML = `<a href="#${id}" data-nav-id="${id}" title="${textContent}"><span class="nav-index">${navItemsCount}.</span> ${displayText}</a>`;
         wrapper.appendChild(navItem);
         sidebar.appendChild(wrapper);
         node.id = id;
     };
+
+    // 添加滚动跟踪功能
+    const setupScrollSpy = () => {
+        const sidebar = document.getElementById('chatgpt-nav-sidebar');
+        if (!sidebar) return;
+
+        let ticking = false;
+        let navLinks = [];
+        let contentSections = [];
+
+        // 获取所有导航链接和对应内容区域
+        const updateAnchors = () => {
+            navLinks = Array.from(sidebar.querySelectorAll('a[data-nav-id]'));
+            contentSections = navLinks.map(link => {
+                const id = link.getAttribute('href').substring(1);
+                return document.getElementById(id);
+            }).filter(Boolean);
+        };
+
+        // 更新活动状态
+        const updateActiveState = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    // 如果没有导航项，重新获取
+                    if (navLinks.length === 0) {
+                        updateAnchors();
+                    }
+                    
+                    // 找到当前在视口中的内容
+                    let activeIndex = -1;
+                    const scrollTop = window.scrollY;
+                    const viewportHeight = window.innerHeight;
+                    const offset = 100; // 顶部偏移量
+                    
+                    // 从后往前查找，找到第一个在视口上方的元素
+                    for (let i = contentSections.length - 1; i >= 0; i--) {
+                        const section = contentSections[i];
+                        if (!section) continue;
+                        
+                        const rect = section.getBoundingClientRect();
+                        if (rect.top <= offset) {
+                            activeIndex = i;
+                            break;
+                        }
+                    }
+                    
+                    // 更新导航项状态
+                    navLinks.forEach((link, index) => {
+                        if (index === activeIndex) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        // 监听滚动事件
+        window.addEventListener('scroll', updateActiveState, { passive: true });
+        
+        // 监听导航栏变化
+        const observer = new MutationObserver(() => {
+            updateAnchors();
+            updateActiveState();
+        });
+        
+        observer.observe(sidebar, {
+            childList: true,
+            subtree: true
+        });
+        
+        // 初始化
+        setTimeout(() => {
+            updateAnchors();
+            updateActiveState();
+        }, 500);
+    };
+
     // 添加 URL 变化监听
     let lastUrl = location.href;
     const urlObserver = new MutationObserver(() => {
