@@ -138,18 +138,17 @@
         sidebar.style.zIndex = '1000';
         sidebar.style.left = '0';
         sidebar.style.top = '0';
-        sidebar.style.width = 'min(260px, 25%)'; // 改为响应式宽度
+        sidebar.style.width = 'min(260px, 25%)';
         sidebar.style.height = 'calc(100% - 64px)';
         sidebar.style.marginTop = '64px';
         sidebar.style.flexShrink = '0';
-        sidebar.style.backgroundColor = 'var(--surface-primary)';
+        sidebar.style.backgroundColor = '#212121'; // 主背景色
         sidebar.style.padding = '12px';
         sidebar.style.overflowY = 'auto';
         sidebar.style.fontSize = '16px';
-        sidebar.style.fontWeight = '500';
+        sidebar.style.fontWeight = '400';
         sidebar.style.borderRadius = '0';
-        sidebar.style.backdropFilter = 'blur(8px)';
-        sidebar.style.backgroundColor = 'rgba(52, 53, 65, 0.7)';
+        sidebar.style.backdropFilter = 'none';
 
         // 创建新的 flex 容器包装 div2 和导航栏
         const newDiv2 = document.createElement('div');
@@ -177,63 +176,62 @@
                 transition: opacity 0.3s ease, transform 0.3s ease;
                 left: 20px !important;
                 right: auto !important;
+                border-right: 1px solid rgba(255,255,255,0.08);
+                background: #212121;
             }
-            
-            @media (max-width: 1440px) {
+
+            @media (max-width: 1024px) {
                 #chatgpt-nav-sidebar {
                     display: none;
                 }
             }
-            
+
             @keyframes slideIn {
                 to {
                     opacity: 1;
                     transform: translateX(0);
                 }
             }
-            
+
             #chatgpt-nav-sidebar::-webkit-scrollbar {
                 width: 4px;
             }
-            
+
             #chatgpt-nav-sidebar::-webkit-scrollbar-thumb {
                 background-color: rgba(217, 217, 227, 0.2);
                 border-radius: 2px;
             }
-            
+
             #chatgpt-nav-sidebar::-webkit-scrollbar-track {
                 background-color: transparent;
             }
-            
+
             #chatgpt-nav-sidebar a {
-                color: var(--text-primary, #ececf1);
+                color: #ececf1;
                 text-decoration: none;
                 display: block;
                 padding: 8px 12px;
                 margin: 0;
-                border-radius: 6px;
+                border-radius: 4px;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                white-space: pre-wrap;
+                white-space: nowrap;
                 line-height: 1.5;
-                max-height: none;
                 font-size: 16px;
-                font-weight: 500;
-                transition: all 0.2s ease;
+                font-weight: 400;
+                transition: background 0.2s;
                 background-color: transparent;
-                border-left: 3px solid transparent;
             }
-            
+
             #chatgpt-nav-sidebar a:hover {
-                background-color: rgba(52, 53, 65, 0.9);
-                border-left-color: var(--text-primary, #ececf1);
+                background-color: #303030;
             }
-            
+
             #chatgpt-nav-sidebar .nav-item-wrapper {
                 padding: 2px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255,255,255,0.06);
             }
-            
+
             #chatgpt-nav-sidebar .nav-item-wrapper:last-child {
                 border-bottom: none;
             }
