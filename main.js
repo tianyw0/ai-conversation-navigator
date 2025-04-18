@@ -140,8 +140,8 @@
         sidebar.style.left = '0';
         sidebar.style.top = '0';
         sidebar.style.width = 'min(260px, 25%)';
-        sidebar.style.height = 'calc(100% - 50px)';
-        sidebar.style.marginTop = '50px';
+        sidebar.style.height = 'calc(100% - 104px)';
+        sidebar.style.marginTop = '104px';
         sidebar.style.flexShrink = '0';
         sidebar.style.backgroundColor = '#212121'; // 主背景色
         sidebar.style.overflowY = 'auto';
@@ -344,6 +344,16 @@
         let ticking = false;
         let navLinks = [];
         let contentSections = [];
+        let isMouseOverSidebar = false; // 用于跟踪鼠标是否在导航栏上
+
+        // 监听鼠标进入和离开导航栏的事件
+        sidebar.addEventListener('mouseenter', () => {
+            isMouseOverSidebar = true;
+        });
+
+        sidebar.addEventListener('mouseleave', () => {
+            isMouseOverSidebar = false;
+        });
 
         // 获取所有导航链接和对应内容区域
         const updateAnchors = () => {
@@ -407,10 +417,12 @@
                     navLinks.forEach((link, index) => {
                         if (index === activeIndex) {
                             link.classList.add('active');
-                            // 添加自动滚动功能，确保活动项在视图中
-                            setTimeout(() => {
-                                link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                            }, 100);
+                            // 只有当鼠标不在导航栏时才自动滚动
+                            if (!isMouseOverSidebar) {
+                                setTimeout(() => {
+                                    link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                                }, 100);
+                            }
                         } else {
                             link.classList.remove('active');
                         }
