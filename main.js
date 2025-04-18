@@ -107,23 +107,34 @@
     };
 
     const createNavigationSidebar = () => {
+        // 找到目标容器
+        const flexRowContainer = document.querySelector('.relative.flex.h-full.w-full.flex-row.overflow-hidden');
+        if (!flexRowContainer) {
+            utils.log('未找到目标容器，使用默认位置', 'warn');
+            return;
+        }
+
         // 创建导航栏
         const sidebar = document.createElement('div');
         sidebar.id = 'chatgpt-nav-sidebar';
-        sidebar.style.position = 'fixed';
-        sidebar.style.top = '80px';
-        sidebar.style.left = '20px';
-        sidebar.style.width = '300px';
+        
+        // 设置为 flex 子元素
+        sidebar.style.position = 'relative'; // 改为相对定位
+        sidebar.style.width = '260px'; // 与原侧边栏宽度一致
+        sidebar.style.height = '100%';
+        sidebar.style.flexShrink = '0';
         sidebar.style.backgroundColor = 'var(--surface-primary)';
         sidebar.style.padding = '12px';
-        sidebar.style.zIndex = '10';
-        sidebar.style.maxHeight = 'calc(100vh - 100px)';
         sidebar.style.overflowY = 'auto';
         sidebar.style.fontSize = '16px';
         sidebar.style.fontWeight = '500';
-        sidebar.style.borderRadius = '12px';
+        sidebar.style.borderRadius = '0';
         sidebar.style.backdropFilter = 'blur(8px)';
         sidebar.style.backgroundColor = 'rgba(52, 53, 65, 0.7)';
+
+        // 将导航栏插入到 flex 容器中
+        flexRowContainer.appendChild(sidebar);
+        
         // 添加样式
         const style = document.createElement('style');
         style.textContent = `
