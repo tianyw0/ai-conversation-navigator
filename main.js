@@ -44,7 +44,10 @@
     };
 
     const initializeNavigator = () => {
-        // 修改选择器以匹配奇数 data-testid
+        // 重置重试计数
+        retryCount = 0;
+        
+        // 原有的初始化逻辑
         const chatContainer = document.querySelector('article[data-testid]');
         
         if (!chatContainer && retryCount < MAX_RETRIES) {
@@ -302,12 +305,27 @@
         sidebar.appendChild(wrapper);
         node.id = id;
     };
-    // 替换为新的初始化逻辑
+    // 添加 URL 变化监听
+    let lastUrl = location.href;
+    const urlObserver = new MutationObserver(() => {
+        const url = location.href;
+        if (url !== lastUrl) {
+            lastUrl = url;
+            utils.log('检测到页面 URL 变化，重新初始化导航');
+            setTimeout(initializeNavigator, 500); // 延迟执行以等待页面内容加载
+        }
+    });
+
+    // 开始监听 URL 变化
+    urlObserver.observe(document.querySelector('body'), {
+        childList: true,
+        subtree: true
+    });
+
+    // 初始化执行
     if (document.readyState === 'loading') {
-        // 如果页面还在加载中，等待 DOMContentLoaded 事件
         window.addEventListener('DOMContentLoaded', initializeNavigator);
     } else {
-        // 如果页面已经加载完成，直接执行初始化
         initializeNavigator();
     }
 })();
