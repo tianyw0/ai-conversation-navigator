@@ -219,12 +219,19 @@
                 line-height: 1.5;
                 font-size: 16px;
                 font-weight: 400;
-                transition: background 0.2s;
+                transition: background 0.2s, border-radius 0.2s;
                 background-color: transparent;
             }
 
             #chatgpt-nav-sidebar a:hover {
                 background-color: #303030;
+                border-radius: 1.5rem;
+            }
+
+            #chatgpt-nav-sidebar .nav-index {
+                color: #bdbdbd;
+                margin-right: 6px;
+                font-size: 15px;
             }
 
             #chatgpt-nav-sidebar .nav-item-wrapper {
@@ -307,10 +314,12 @@
             utils.log('非用户提问，跳过', 'warn');
             return;
         }
+        // 获取当前导航项序号
+        const navItemsCount = sidebar.querySelectorAll('.nav-item-wrapper').length + 1;
         const wrapper = document.createElement('div');
         wrapper.className = 'nav-item-wrapper';
         const navItem = document.createElement('div');
-        navItem.innerHTML = `<a href="#${id}" title="${textContent}">${displayText}</a>`;
+        navItem.innerHTML = `<a href="#${id}" title="${textContent}">${navItemsCount}.</span> ${displayText}</a>`;
         wrapper.appendChild(navItem);
         sidebar.appendChild(wrapper);
         node.id = id;
