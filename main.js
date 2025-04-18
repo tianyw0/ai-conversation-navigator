@@ -44,9 +44,6 @@
     };
 
     const initializeNavigator = () => {
-        // 重置重试计数
-        retryCount = 0;
-        
         // 原有的初始化逻辑
         const chatContainer = document.querySelector('article[data-testid]');
         
@@ -434,15 +431,34 @@
             }
         };
     
-        // 将更新函数暴露到全局，以便其他地方调用
-        window.updateScrollSpy = updateActiveState;
+        // 节流函数
+        const throttle = (func, limit) => {
+            let lastFunc;
+            let lastRan;
+            return function() {
+                const context = this;
+                const args = arguments;
+                if (!lastRan) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                } else {
+                    clearTimeout(lastFunc);
+                    lastFunc = setTimeout(function() {
+                        if ((Date.now() - lastRan) >= limit) {
+                            func.apply(context, args);
+                            lastRan = Date.now();
+                        }
+                    }, limit - (Date.now() - lastRan));
+                }
+            };
+        };
     
-        // 监听滚动事件，使用更低的节流间隔
-        const scrollHandler = () => {
+        // 监听滚动事件，使用节流
+        const scrollHandler = throttle(() => {
             if (!isMouseOverSidebar) {
                 updateActiveState();
             }
-        };
+        }, 200); // 200ms 的节流间隔
         
         window.addEventListener('scroll', scrollHandler, { passive: true });
         
