@@ -3,7 +3,7 @@
 // @name:zh      ChatGPT 对话导航器
 // @name:en      ChatGPT Conversation Navigator
 // @namespace    http://tampermonkey.net/
-// @version      1.0.2
+// @version      1.0.3
 // @description  Add a clickable conversation index on ChatGPT page
 // @description:zh  为 ChatGPT 页面添加可点击的对话索引
 // @description:en  Add a clickable conversation index on ChatGPT page
@@ -39,6 +39,7 @@
     };
 
     const initializeNavigator = () => {
+        // 修改选择器以匹配奇数 data-testid
         const chatContainer = document.querySelector('article[data-testid]');
         
         if (!chatContainer && retryCount < MAX_RETRIES) {
@@ -64,8 +65,8 @@
             createNavigationSidebar();
         }
     
-        const existingMessages = document.querySelectorAll('article[data-testid]');
-        log(`找到 ${existingMessages.length} 条现有对话`);
+        const existingMessages = document.querySelectorAll('article[data-testid$="1"], article[data-testid$="3"], article[data-testid$="5"], article[data-testid$="7"], article[data-testid$="9"]');
+        log(`找到 ${existingMessages.length} 条提问`);
         existingMessages.forEach(node => createNavigationItem(node));
     
         // 移除加载状态
@@ -240,7 +241,7 @@
         const id = `nav-${dataTestId}`;
         
         const textContent = node.querySelector('.whitespace-pre-wrap')?.innerText.trim() || node.innerText.trim().split('\n')[0];
-        log(`提取文本内容: ${textContent}`);
+        log(`提问: ${textContent}`);
 
         if (isUserQuestion) {
             const wrapper = document.createElement('div');
