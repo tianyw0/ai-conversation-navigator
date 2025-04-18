@@ -143,10 +143,9 @@
         sidebar.style.marginTop = '64px';
         sidebar.style.flexShrink = '0';
         sidebar.style.backgroundColor = '#212121'; // 主背景色
-        sidebar.style.padding = '12px';
         sidebar.style.overflowY = 'auto';
         sidebar.style.fontSize = '16px';
-        sidebar.style.fontWeight = '400';
+        sidebar.style.fontWeight = '500';
         sidebar.style.borderRadius = '0';
         sidebar.style.backdropFilter = 'none';
 
