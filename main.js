@@ -68,6 +68,12 @@
         log(`找到 ${existingMessages.length} 条现有对话`);
         existingMessages.forEach(node => createNavigationItem(node));
     
+        // 移除加载状态
+        const loadingElement = document.querySelector('.nav-loading');
+        if (loadingElement) {
+            loadingElement.remove();
+        }
+    
         setupObserver();
         log('导航初始化完成');
     };
@@ -229,7 +235,6 @@
             log('节点缺少 data-testid 属性', 'warn');
             return;
         }
-        debugger;
 
         const isUserQuestion = parseInt(dataTestId.split('-')[2]) % 2 === 1;
         const id = `nav-${dataTestId}`;
