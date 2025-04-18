@@ -407,6 +407,10 @@
                     navLinks.forEach((link, index) => {
                         if (index === activeIndex) {
                             link.classList.add('active');
+                            // 添加自动滚动功能，确保活动项在视图中
+                            setTimeout(() => {
+                                link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }, 100);
                         } else {
                             link.classList.remove('active');
                         }
