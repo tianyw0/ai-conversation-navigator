@@ -229,7 +229,7 @@
             }
 
             #chatgpt-nav-sidebar .nav-index {
-                color: #bdbdbd;
+                color: #6e6e80; /* 更浅的灰色 */
                 margin-right: 6px;
                 font-size: 15px;
             }
@@ -237,6 +237,8 @@
             #chatgpt-nav-sidebar .nav-item-wrapper {
                 padding: 2px 0;
                 border-bottom: 1px solid rgba(255,255,255,0.06);
+                width: calc(100% - 24px); /* 缩短分割线，留出圆角空间 */
+                margin-left: 12px;
             }
 
             #chatgpt-nav-sidebar .nav-item-wrapper:last-child {
@@ -319,7 +321,7 @@
         const wrapper = document.createElement('div');
         wrapper.className = 'nav-item-wrapper';
         const navItem = document.createElement('div');
-        navItem.innerHTML = `<a href="#${id}" title="${textContent}">${navItemsCount}.</span> ${displayText}</a>`;
+        navItem.innerHTML = `<a href="#${id}" title="${textContent}"><span class="nav-index">${navItemsCount}.</span> ${displayText}</a>`;
         wrapper.appendChild(navItem);
         sidebar.appendChild(wrapper);
         node.id = id;
