@@ -53,12 +53,10 @@
             setTimeout(initializeNavigator, RETRY_INTERVAL);
             return;
         }
-    
         if (!chatContainer) {
             utils.log('无法找到聊天容器，初始化失败', 'error');
             return;
         }
-    
         utils.log('成功找到聊天容器，开始初始化导航');
     
         const existingSidebar = document.getElementById('chatgpt-nav-sidebar');
@@ -109,6 +107,7 @@
     };
 
     const createNavigationSidebar = () => {
+        // 创建导航栏
         const sidebar = document.createElement('div');
         sidebar.id = 'chatgpt-nav-sidebar';
         sidebar.style.position = 'fixed';
@@ -125,7 +124,7 @@
         sidebar.style.borderRadius = '12px';
         sidebar.style.backdropFilter = 'blur(8px)';
         sidebar.style.backgroundColor = 'rgba(52, 53, 65, 0.7)';
-
+        // 添加样式
         const style = document.createElement('style');
         style.textContent = `
             #chatgpt-nav-sidebar {
@@ -229,10 +228,10 @@
         `;
         document.head.appendChild(style);
         
+        // 添加加载状态
         const loading = document.createElement('div');
         loading.className = 'nav-loading';
         sidebar.appendChild(loading);
-        
         document.body.appendChild(sidebar);
     };
 
@@ -268,10 +267,10 @@
     };
     // 替换为新的初始化逻辑
     if (document.readyState === 'loading') {
-    // 如果页面还在加载中，等待 DOMContentLoaded 事件
-    window.addEventListener('DOMContentLoaded', initializeNavigator);
+        // 如果页面还在加载中，等待 DOMContentLoaded 事件
+        window.addEventListener('DOMContentLoaded', initializeNavigator);
     } else {
-    // 如果页面已经加载完成，直接执行初始化
-    initializeNavigator();
+        // 如果页面已经加载完成，直接执行初始化
+        initializeNavigator();
     }
 })();
