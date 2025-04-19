@@ -115,7 +115,7 @@
             utils.log('未找到目标容器', 'warn');
             return;
         }
-
+    
         // 保存原始的三个 div
         const originalDivs = Array.from(presentationDiv.children);
         if (originalDivs.length !== 3) {
@@ -123,10 +123,10 @@
             return;
         }
         const [div1, div2, div3] = originalDivs;
-
+    
         // 2. 清空 presentation div
         presentationDiv.innerHTML = '';
-
+    
         // 3. 创建导航栏和新的 flex 容器
         const sidebar = document.createElement('div');
         sidebar.id = 'chatgpt-nav-sidebar';
@@ -140,13 +140,15 @@
         sidebar.style.height = 'calc(100% - 104px)';
         sidebar.style.marginTop = '104px';
         sidebar.style.flexShrink = '0';
-        sidebar.style.backgroundColor = '#212121'; // 主背景色
         sidebar.style.overflowY = 'auto';
         sidebar.style.fontSize = '16px';
         sidebar.style.fontWeight = '500';
         sidebar.style.borderRadius = '0';
         sidebar.style.backdropFilter = 'none';
-
+    
+        // 检测当前主题并设置相应的背景色
+        updateSidebarTheme(sidebar);
+    
         // 创建新的 flex 容器包装 div2 和导航栏
         const newDiv2 = document.createElement('div');
         newDiv2.style.display = 'flex';
@@ -157,55 +159,82 @@
         newDiv2.style.position = 'relative'; // 添加相对定位作为定位上下文
         newDiv2.appendChild(sidebar);
         newDiv2.appendChild(div2);
-
+    
         // 4. 重新组装所有元素
         presentationDiv.appendChild(div1);
         presentationDiv.appendChild(newDiv2);
         presentationDiv.appendChild(div3);
-
+    
         // 添加样式
         const style = document.createElement('style');
-        style.textContent = `
+        style.id = 'chatgpt-nav-styles';
+        style.textContent = getStylesByTheme();
+        document.head.appendChild(style);
+        
+        // 添加加载状态
+        const loading = document.createElement('div');
+        loading.className = 'nav-loading';
+        sidebar.appendChild(loading);
+    };
+    
+    // 获取当前主题
+    const getCurrentTheme = () => {
+        // 检查是否有深色模式的标记
+        // 可以通过检查body的class或者某些特定元素的样式来判断
+        const isDarkMode = document.documentElement.classList.contains('dark') || 
+                       window.matchMedia('(prefers-color-scheme: dark)').matches;
+        return isDarkMode ? 'dark' : 'light';
+    };
+    
+    // 根据主题更新侧边栏样式
+    const updateSidebarTheme = (sidebar) => {
+        const theme = getCurrentTheme();
+        if (theme === 'dark') {
+            sidebar.style.backgroundColor = '#212121';
+            sidebar.style.borderRight = '1px solid rgba(255,255,255,0.08)';
+        } else {
+            sidebar.style.backgroundColor = '#FFFFFF';
+            sidebar.style.borderRight = '1px solid rgba(0,0,0,0.08)';
+        }
+    };
+    
+    // 根据主题获取样式
+    const getStylesByTheme = () => {
+        const theme = getCurrentTheme();
+    
+        // 基础样式
+        let styles = `
             #chatgpt-nav-sidebar {
                 opacity: 0;
                 transform: translateX(-20px);
                 animation: slideIn 0.3s ease forwards;
-                transition: opacity 0.3s ease, transform 0.3s ease;
+                transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
                 left: 20px !important;
                 right: auto !important;
-                border-right: 1px solid rgba(255,255,255,0.08);
-                background: #212121;
             }
-
+    
             @media (max-width: 1024px) {
                 #chatgpt-nav-sidebar {
                     display: none;
                 }
             }
-
+    
             @keyframes slideIn {
                 to {
                     opacity: 1;
                     transform: translateX(0);
                 }
             }
-
+    
             #chatgpt-nav-sidebar::-webkit-scrollbar {
                 width: 4px;
             }
-
-            #chatgpt-nav-sidebar::-webkit-scrollbar-thumb {
-                background-color: rgba(217, 217, 227, 0.2);
-                border-radius: 2px;
-            }
-
+    
             #chatgpt-nav-sidebar::-webkit-scrollbar-track {
                 background-color: transparent;
             }
-
+    
             #chatgpt-nav-sidebar a {
-                color: #ececf1;
-                text-decoration: none;
                 display: block;
                 padding: 8px 12px;
                 margin: 0;
@@ -216,68 +245,24 @@
                 line-height: 1.5;
                 font-size: 16px;
                 font-weight: 400;
-                transition: background 0.2s, border-radius 0.2s;
+                transition: background 0.2s, border-radius 0.2s, color 0.2s;
                 background-color: transparent;
             }
-
-            #chatgpt-nav-sidebar a:hover {
-                background-color: #303030;
-                border-radius: 1.5rem;
-            }
-
-            #chatgpt-nav-sidebar .nav-index {
-                color: #6e6e80; /* 更浅的灰色 */
-                margin-right: 6px;
-                font-size: 15px;
-            }
-
+    
             #chatgpt-nav-sidebar .nav-item-wrapper {
                 padding: 2px 0;
-                border-bottom: 1px solid rgba(255,255,255,0.06);
-                width: calc(100% - 24px); /* 缩短分割线，留出圆角空间 */
+                width: calc(100% - 24px);
                 margin-left: 12px;
             }
-
+    
             #chatgpt-nav-sidebar .nav-item-wrapper:last-child {
                 border-bottom: none;
-            }
-            
-            /* 添加活动项样式 */
-            #chatgpt-nav-sidebar a.active {
-                background-color: #303030;
-                border-radius: 1.5rem;
-                font-weight: 600;
-                color: #fff;
-            }
-            
-            .nav-loading {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 20px;
-                color: var(--text-secondary, #ececf1);
-                gap: 8px;
-            }
-            
-            .nav-loading::before {
-                content: "";
-                width: 16px;
-                height: 16px;
-                border: 2px solid rgba(217, 217, 227, 0.2);
-                border-top-color: var(--text-secondary, #ececf1);
-                border-radius: 50%;
-                animation: spin 1s linear infinite;
             }
             
             @keyframes spin {
                 to {
                     transform: rotate(360deg);
                 }
-            }
-            
-            .nav-loading::after {
-                content: "加载中";
-                animation: dots 1.5s infinite;
             }
             
             @keyframes dots {
@@ -287,12 +272,171 @@
                 100% { content: "加载中..."; }
             }
         `;
-        document.head.appendChild(style);
         
-        // 添加加载状态
-        const loading = document.createElement('div');
-        loading.className = 'nav-loading';
-        sidebar.appendChild(loading);
+        // 根据主题添加特定样式
+        if (theme === 'dark') {
+            styles += `
+                #chatgpt-nav-sidebar {
+                    background: #212121;
+                    border-right: 1px solid rgba(255,255,255,0.08);
+                }
+                
+                #chatgpt-nav-sidebar::-webkit-scrollbar-thumb {
+                    background-color: rgba(217, 217, 227, 0.2);
+                    border-radius: 2px;
+                }
+                
+                #chatgpt-nav-sidebar a {
+                    color: #ececf1;
+                    text-decoration: none;
+                }
+                
+                #chatgpt-nav-sidebar a:hover {
+                    background-color: #303030;
+                    border-radius: 1.5rem;
+                }
+                
+                #chatgpt-nav-sidebar .nav-index {
+                    color: #6e6e80;
+                    margin-right: 6px;
+                    font-size: 15px;
+                }
+                
+                #chatgpt-nav-sidebar .nav-item-wrapper {
+                    border-bottom: 1px solid rgba(255,255,255,0.06);
+                }
+                
+                #chatgpt-nav-sidebar a.active {
+                    background-color: #303030;
+                    border-radius: 1.5rem;
+                    font-weight: 600;
+                    color: #fff;
+                }
+                
+                .nav-loading {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 20px;
+                    color: #ececf1;
+                    gap: 8px;
+                }
+                
+                .nav-loading::before {
+                    content: "";
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid rgba(217, 217, 227, 0.2);
+                    border-top-color: #ececf1;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                }
+            `;
+        } else {
+            styles += `
+                #chatgpt-nav-sidebar {
+                    background: #FFFFFF;
+                    border-right: 1px solid rgba(0,0,0,0.08);
+                }
+                
+                #chatgpt-nav-sidebar::-webkit-scrollbar-thumb {
+                    background-color: rgba(0, 0, 0, 0.2);
+                    border-radius: 2px;
+                }
+                
+                #chatgpt-nav-sidebar a {
+                    color: #0D0D0D;
+                    text-decoration: none;
+                }
+                
+                #chatgpt-nav-sidebar a:hover {
+                    background-color: #F4F4F4;
+                    border-radius: 1.5rem;
+                }
+                
+                #chatgpt-nav-sidebar .nav-index {
+                    color: #6e6e80;
+                    margin-right: 6px;
+                    font-size: 15px;
+                }
+                
+                #chatgpt-nav-sidebar .nav-item-wrapper {
+                    border-bottom: 1px solid rgba(0,0,0,0.06);
+                }
+                
+                #chatgpt-nav-sidebar a.active {
+                    background-color: #F4F4F4;
+                    border-radius: 1.5rem;
+                    font-weight: 600;
+                    color: #0D0D0D;
+                }
+                
+                .nav-loading {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 20px;
+                    color: #0D0D0D;
+                    gap: 8px;
+                }
+                
+                .nav-loading::before {
+                    content: "";
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid rgba(0, 0, 0, 0.1);
+                    border-top-color: #0D0D0D;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                }
+            `;
+        }
+        
+        // 共用的加载动画样式
+        styles += `
+            .nav-loading::after {
+                content: "加载中";
+                animation: dots 1.5s infinite;
+            }
+        `;
+        
+        return styles;
+    };
+    
+    // 监听主题变化并更新样式
+    const setupThemeObserver = () => {
+        // 监听 body 的 class 变化来检测主题切换
+        const observer = new MutationObserver(() => {
+            const sidebar = document.getElementById('chatgpt-nav-sidebar');
+            if (sidebar) {
+                updateSidebarTheme(sidebar);
+                
+                // 更新样式表
+                const styleElement = document.getElementById('chatgpt-nav-styles');
+                if (styleElement) {
+                    styleElement.textContent = getStylesByTheme();
+                }
+            }
+        });
+        
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+        
+        // 监听系统主题变化
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            const sidebar = document.getElementById('chatgpt-nav-sidebar');
+            if (sidebar) {
+                updateSidebarTheme(sidebar);
+                
+                // 更新样式表
+                const styleElement = document.getElementById('chatgpt-nav-styles');
+                if (styleElement) {
+                    styleElement.textContent = getStylesByTheme();
+                }
+            }
+        });
     };
 
     function createNavigationItem(node) {
@@ -550,8 +694,12 @@
 
     // 初始化执行
     if (document.readyState === 'loading') {
-        window.addEventListener('DOMContentLoaded', initializeNavigator);
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeNavigator();
+            setupThemeObserver(); // 添加主题观察器
+        });
     } else {
         initializeNavigator();
+        setupThemeObserver(); // 添加主题观察器
     }
 })();
