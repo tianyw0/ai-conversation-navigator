@@ -30,7 +30,16 @@ After installation, the navigator will automatically display on the ChatGPT page
 
 ## Demo / 效果
 
-![Demo Image](demo.jpg)
+<div style="display: flex; justify-content: space-between;">
+  <div style="flex: 1; margin-right: 10px;">
+    <p><strong>Dark Mode / 深色模式</strong></p>
+    <img src="demo-dark.jpg" alt="Dark Mode Demo" style="width: 100%;">
+  </div>
+  <div style="flex: 1; margin-left: 10px;">
+    <p><strong>Light Mode / 浅色模式</strong></p>
+    <img src="demo-light.jpg" alt="Light Mode Demo" style="width: 100%;">
+  </div>
+</div>
 
 ## Todo / 待办事项
 - [x] Only display the navigation directory when the conversation exceeds three entries, avoiding visual distraction in short conversations.
