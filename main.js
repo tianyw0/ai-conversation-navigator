@@ -3,7 +3,7 @@
 // @name:zh      ChatGPT 对话目录导航器
 // @name:en      ChatGPT Conversation Navigator
 // @namespace    http://tampermonkey.net/
-// @version      1.0.6
+// @version      1.0.7
 // @description  Add a clickable conversation index on ChatGPT page
 // @description:zh  为 ChatGPT 页面添加可点击的对话索引
 // @description:en  Add a clickable conversation index on ChatGPT page
@@ -295,27 +295,37 @@
         sidebar.appendChild(loading);
     };
 
-    const createNavigationItem = (node) => {
+    function createNavigationItem(node) {
         const sidebar = document.getElementById('chatgpt-nav-sidebar');
         if (!sidebar) {
             utils.log('导航栏不存在，无法创建导航项', 'error');
             return;
         }
-
+    
         const dataTestId = node.getAttribute('data-testid');
         if (!dataTestId) {
             utils.log('节点缺少 data-testid 属性', 'warn');
             return;
         }
-
+    
         const isUserQuestion = parseInt(dataTestId.split('-')[2]) % 2 === 1;
         const id = `nav-${dataTestId}`;
-        
+    
+        // 转义HTML内容
+        const escapeHtml = (unsafe) => {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
+    
         const textContent = (node.querySelector('.whitespace-pre-wrap')?.innerText.trim() || node.innerText.trim())
                     .split(/[\n\r]+/)
                     .join(' ')
                     .replace(/\s+/g, ' ');
-        const displayText = textContent.length > 20 ? textContent.slice(0, 20) + '...' : textContent;
+        const displayText = textContent.length > 20 ? escapeHtml(textContent.slice(0, 20)) + '...' : escapeHtml(textContent);
         utils.log(`提问: ${textContent}`);
         if (!isUserQuestion) {
             utils.log('非用户提问，跳过', 'warn');
@@ -327,7 +337,7 @@
         wrapper.className = 'nav-item-wrapper';
         const navItem = document.createElement('div');
         // 添加 data-nav-id 属性用于滚动跟踪
-        navItem.innerHTML = `<a href="#${id}" data-nav-id="${id}" title="${textContent}"><span class="nav-index">${navItemsCount}.</span> ${displayText}</a>`;
+        navItem.innerHTML = `<a href="#${id}" data-nav-id="${id}" title="${escapeHtml(textContent)}"><span class="nav-index">${navItemsCount}.</span> ${displayText}</a>`;
         wrapper.appendChild(navItem);
         sidebar.appendChild(wrapper);
         node.id = id;
