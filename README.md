@@ -46,4 +46,4 @@ For help or to report issues, please visit the [support page](https://github.com
 
 如需帮助或报告问题，请访问 [支持页面](https://github.com/tianyw0/ai-conversation-navigator/issues)。
 
-Powered by ChatGPT & Trae IDE
+Powered by ChatGPT & [Trae IDE](https://www.trae.ai/)
