@@ -3,7 +3,7 @@
 // @name:zh      ChatGPT 对话目录导航器
 // @name:en      ChatGPT Conversation Navigator
 // @namespace    http://tampermonkey.net/
-// @version      1.0.8
+// @version      1.0.9
 // @description  Add a clickable conversation index on ChatGPT page
 // @description:zh  为 ChatGPT 页面添加可点击的对话索引
 // @description:en  Add a clickable conversation index on ChatGPT page
@@ -454,7 +454,7 @@
     
         const isUserQuestion = parseInt(dataTestId.split('-')[2]) % 2 === 1;
         const id = `nav-${dataTestId}`;
-    
+
         // 转义HTML内容
         const escapeHtml = (unsafe) => {
             return unsafe
@@ -470,17 +470,35 @@
                     .join(' ')
                     .replace(/\s+/g, ' ');
         const displayText = textContent.length > 20 ? escapeHtml(textContent.slice(0, 20)) + '...' : escapeHtml(textContent);
-        utils.log(`提问: ${textContent}`);
+
         if (!isUserQuestion) {
             utils.log('非用户提问，跳过', 'warn');
             return;
         }
-        // 获取当前导航项序号
-        const navItemsCount = sidebar.querySelectorAll('.nav-item-wrapper').length + 1;
+
+        // 检查是否已存在相同 ID 的导航项
+        const existingNavItem = sidebar.querySelector(`[data-nav-id="${id}"]`);
+        if (existingNavItem) {
+            // 比较内容是否相同
+            const existingText = existingNavItem.getAttribute('title');
+            if (existingText !== textContent) {
+                utils.log(`导航项 ${id} 内容已更新，正在更新显示`, 'info');
+                // 更新现有导航项的内容
+                existingNavItem.innerHTML = `<span class="nav-index">${existingNavItem.querySelector('.nav-index').textContent}</span> ${displayText}`;
+                existingNavItem.setAttribute('title', textContent);
+            } else {
+                utils.log(`导航项 ${id} 已存在且内容相同，跳过`, 'info');
+            }
+            return;
+        }
+
+        // 创建新的导航项
+        const existingNavItems = sidebar.querySelectorAll('.nav-item-wrapper');
+        const navItemsCount = existingNavItems.length + 1;
+        
         const wrapper = document.createElement('div');
         wrapper.className = 'nav-item-wrapper';
         const navItem = document.createElement('div');
-        // 添加 data-nav-id 属性用于滚动跟踪
         navItem.innerHTML = `<a href="#${id}" data-nav-id="${id}" title="${escapeHtml(textContent)}"><span class="nav-index">${navItemsCount}.</span> ${displayText}</a>`;
         wrapper.appendChild(navItem);
         sidebar.appendChild(wrapper);
