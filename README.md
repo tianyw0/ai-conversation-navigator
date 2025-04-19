@@ -6,11 +6,17 @@ ChatGPT Conversation Navigator 是一个用户脚本，为多轮对话提供导�
 
 ## Features / 功能
 
-- Add clickable conversation indexes on the ChatGPT page.
-- Automatically update new messages.
-- Clean design and intuitive functionality.
+- Add clickable conversation indexes on the ChatGPT page for easy navigation.
+- Automatically track and highlight the current position in the conversation.
+- Support both light and dark themes, adapting to ChatGPT's interface.
+- Automatically update navigation when new messages are added.
+- Only display navigation when conversations exceed three entries.
 
-- 在 ChatGPT 页面上添加可点击的对话索引。
+- 在 ChatGPT 页面上添加可点击的对话索引，便于导航。
+- 自动跟踪并高亮显示当前对话位置。
+- 支持深色和浅色主题，自动适应 ChatGPT 的界面风格。
+- 新消息添加时自动更新导航目录。
+- 仅在对话超过三条时才显示导航目录，避免视觉干扰。
 - 自动更新新消息。
 - 简洁的设计和直观的功能。
 
