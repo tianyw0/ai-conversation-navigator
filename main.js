@@ -3,7 +3,7 @@
 // @name:zh      ChatGPT 对话目录导航器
 // @name:en      ChatGPT Conversation Navigator
 // @namespace    http://tampermonkey.net/
-// @version      1.0.7
+// @version      1.0.8
 // @description  Add a clickable conversation index on ChatGPT page
 // @description:zh  为 ChatGPT 页面添加可点击的对话索引
 // @description:en  Add a clickable conversation index on ChatGPT page
