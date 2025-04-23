@@ -48,8 +48,9 @@ After installation, the navigator will automatically display on the ChatGPT page
 </div>
 
 ## Todo / 待办事项
-- [x] Only display the navigation directory when the conversation exceeds three entries, avoiding visual distraction in short conversations. 仅在对话超过三条时才显示导航目录，避免简短对话中的视觉干扰。
-- [x] Add a "Current Conversation Directory" title in the top-left corner of the navigation. 在导航左上角添加一个标题"当前对话目录"
+- [x] Only display the navigation directory when the conversation exceeds three entries, avoiding visual distraction in short conversations / 仅在对话超过三条时才显示导航目录，避免简短对话中的视觉干扰
+- [x] Add a "Current Conversation Directory" title in the top-left corner of the navigation / 在导航左上角添加一个标题"当前对话目录"
+- [x] Handle quoted content, display it in the directory / 处理引用的情况，需要在目录中显示引用的内容。
 
 ## License / 许可证
 
