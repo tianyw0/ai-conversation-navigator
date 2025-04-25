@@ -1,0 +1,10 @@
+[
+  {
+    "key": "cmd+]",
+    "command": "workbench.action.navigateForwardInEditLocations"
+  },
+  {
+    "key": "cmd+[",
+    "command": "workbench.action.navigateBackInEditLocations"
+  }
+]
