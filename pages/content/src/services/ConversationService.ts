@@ -1,4 +1,4 @@
-import { createConversationPageStorage, ConversationItem } from '@extension/storage';
+import { createConversationPageStorage, ConversationItem } from '../../../../packages/storage';
 
 export class ConversationService {
   private pageStorage;

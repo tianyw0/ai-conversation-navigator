@@ -21,7 +21,6 @@
   },
   "devDependencies": {
     "@extension/tsconfig": "workspace:*",
-    "@extension/vite-config": "workspace:*",
-    "@extension/storage": "workspace:*"
+    "@extension/vite-config": "workspace:*"
   }
 }

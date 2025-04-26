@@ -1,6 +1,4 @@
-import { sampleFunction } from '@src/sampleFunction';
+import { ConversationService } from './services/ConversationService';
 
-console.log('content script loaded');
-
-// Shows how to call a function defined in another module
-sampleFunction();
+// 创建服务实例
+new ConversationService();
