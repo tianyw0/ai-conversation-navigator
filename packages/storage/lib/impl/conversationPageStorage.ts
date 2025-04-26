@@ -64,7 +64,6 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
     ...storage,
 
     addConversation: async (item: ConversationItem) => {
-      // 如果当前有更新正在进行，等待
       if (updateInProgress) {
         console.log('已有更新在进行，等待...');
         await new Promise(resolve => {
@@ -90,7 +89,6 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
           } else {
             updatedConversations = [...conversations, item];
           }
-          //   debugger;
           // 排序
           updatedConversations.sort((a, b) => {
             return Number(a.id) - Number(b.id); // 按 id 升序排序，最新的在最后

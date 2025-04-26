@@ -24,7 +24,6 @@ export class ConversationService {
       // 找到对话容器后，只监听这个容器内的变化
       const observer = new MutationObserver(() => {
         this.updateQuestions();
-        this.updateActiveConversation();
       });
 
       observer.observe(thread, {
@@ -32,10 +31,14 @@ export class ConversationService {
         subtree: true,
       });
 
-      // 监听页面滚动，更新活跃对话
-      window.addEventListener('scroll', () => {
+      // 先直接扫描一次，再监听页面滚动，更新活跃对话
+      // this.updateActiveConversation();
+      // window.addEventListener('scroll', () => {
+      //   this.updateActiveConversation();
+      // });
+      setInterval(() => {
         this.updateActiveConversation();
-      });
+      }, 100);
 
       // 监听主题变化
       this.observeThemeChanges();
@@ -58,7 +61,6 @@ export class ConversationService {
     questionElements.forEach(element => {
       const testId = (element as HTMLElement).dataset.testid;
       const id = testId ? Number(testId.split('-').pop()) : NaN;
-      console.log('对话导航器: id:', id);
       const conversationItem: ConversationItem = {
         id,
         elementId: (element as HTMLElement).dataset.testid || '',
@@ -77,20 +79,22 @@ export class ConversationService {
   }
 
   private findVisibleQuestion() {
-    const questions = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]')).filter(el => {
-      const id = (el as HTMLElement).dataset.testid?.split('-').pop();
-      return id && Number(id) % 2 === 1;
-    });
-    console.log('对话导航器: 找到', questions.length, '个提问');
-
-    for (const question of Array.from(questions)) {
+    const questions = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]'));
+    const visibleQuestions = questions.filter(question => {
       const rect = question.getBoundingClientRect();
-      // 如果元素在视口中间区域
-      if (rect.top >= 0 && rect.top <= window.innerHeight) {
-        return {
-          id: (question as HTMLElement).dataset.testid || '',
-        };
-      }
+      return rect.top >= 0 && rect.top <= window.innerHeight;
+    });
+
+    if (visibleQuestions.length > 0) {
+      const id = (visibleQuestions[0] as HTMLElement).dataset.testid || '';
+      const numericId = id ? Number(id.split('-').pop()) : NaN;
+      const adjustedId = numericId % 2 === 0 ? numericId - 1 : numericId;
+
+      // 拼接前缀和调整后的 ID
+      const finalId = `conversation-turn-${adjustedId}`;
+      return {
+        id: finalId,
+      };
     }
 
     return null;
