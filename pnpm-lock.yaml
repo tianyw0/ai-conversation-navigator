@@ -337,9 +337,9 @@ importers:
 
   pages/content-runtime:
     devDependencies:
-      '@extension/shared':
+      '@extension/storage':
         specifier: workspace:*
-        version: link:../../packages/shared
+        version: link:../../packages/storage
       '@extension/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
