@@ -1,6 +1,6 @@
 import '@src/Popup.css';
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
-import { exampleThemeStorage } from '@extension/storage';
+import { globalThemeStorage } from '@extension/storage';
 import { t } from '@extension/i18n';
 import { ToggleButton } from '@extension/ui';
 
@@ -12,7 +12,7 @@ const notificationOptions = {
 } as const;
 
 const Popup = () => {
-  const theme = useStorage(exampleThemeStorage);
+  const theme = useStorage(globalThemeStorage);
   const isLight = theme === 'light';
   const logo = isLight ? 'popup/logo_vertical.svg' : 'popup/logo_vertical_dark.svg';
   const goGithubSite = () =>

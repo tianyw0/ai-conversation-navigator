@@ -1,19 +1,39 @@
-import { useEffect } from 'react';
-import { ToggleButton } from '@extension/ui';
-import { exampleThemeStorage } from '@extension/storage';
-import { t } from '@extension/i18n';
+import React, { useEffect, useState } from 'react';
+import ConversationNavigator from '@src/components/ConversationNavigator';
 
-export default function App() {
+const App: React.FC = () => {
+  const [showSidebar, setShowSidebar] = useState(true);
+
   useEffect(() => {
-    console.log('content ui loaded');
+    // 检查是否在 ChatGPT 页面
+    const isChatGPT = window.location.hostname.includes('chatgpt.com');
+    if (!isChatGPT) return;
+
+    // 监听窗口大小变化，在小屏幕上隐藏侧边栏
+    const handleResize = () => {
+      setShowSidebar(window.innerWidth >= 1024);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // 初始检查
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
+  if (!showSidebar) return null;
+
   return (
-    <div className="flex items-center justify-between gap-2 rounded bg-blue-100 px-2 py-1">
-      <div className="flex gap-1 text-blue-500">
-        Edit <strong className="text-blue-700">pages/content-ui/src/app.tsx</strong> and save to reload.
-      </div>
-      <ToggleButton onClick={exampleThemeStorage.toggle}>{t('toggleTheme')}</ToggleButton>
+    <div
+      className="fixed left-0 top-0 w-[260px] h-[calc(100%-104px)] mt-[104px] flex-shrink-0 overflow-y-auto text-base font-medium rounded-none z-[1000]"
+      style={{
+        width: 'min(260px, 25%)',
+        display: showSidebar ? 'block' : 'none',
+      }}>
+      <ConversationNavigator />
     </div>
   );
-}
+};
+
+export default App;

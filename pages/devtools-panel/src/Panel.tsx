@@ -1,11 +1,11 @@
 import '@src/Panel.css';
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
-import { exampleThemeStorage } from '@extension/storage';
+import { globalThemeStorage } from '@extension/storage';
 import type { ComponentPropsWithoutRef } from 'react';
 import { t } from '@extension/i18n';
 
 const Panel = () => {
-  const theme = useStorage(exampleThemeStorage);
+  const theme = useStorage(globalThemeStorage);
   const isLight = theme === 'light';
   const logo = isLight ? 'devtools-panel/logo_horizontal.svg' : 'devtools-panel/logo_horizontal_dark.svg';
   const goGithubSite = () =>
@@ -20,14 +20,14 @@ const Panel = () => {
         <p>
           Edit <code>pages/devtools-panel/src/Panel.tsx</code>
         </p>
-        <ToggleButton onClick={exampleThemeStorage.toggle}>{t('toggleTheme')}</ToggleButton>
+        <ToggleButton onClick={globalThemeStorage.toggle}>{t('toggleTheme')}</ToggleButton>
       </header>
     </div>
   );
 };
 
 const ToggleButton = (props: ComponentPropsWithoutRef<'button'>) => {
-  const theme = useStorage(exampleThemeStorage);
+  const theme = useStorage(globalThemeStorage);
   return (
     <button
       className={
@@ -36,7 +36,7 @@ const ToggleButton = (props: ComponentPropsWithoutRef<'button'>) => {
         'font-bold mt-4 py-1 px-4 rounded shadow hover:scale-105 ' +
         (theme === 'light' ? 'bg-white text-black' : 'bg-black text-white')
       }
-      onClick={exampleThemeStorage.toggle}>
+      onClick={globalThemeStorage.toggle}>
       {props.children}
     </button>
   );

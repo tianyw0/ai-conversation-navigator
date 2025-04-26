@@ -1,11 +1,11 @@
 import '@src/SidePanel.css';
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
-import { exampleThemeStorage } from '@extension/storage';
+import { globalThemeStorage } from '@extension/storage';
 import { ToggleButton } from '@extension/ui';
 import { t } from '@extension/i18n';
 
 const SidePanel = () => {
-  const theme = useStorage(exampleThemeStorage);
+  const theme = useStorage(globalThemeStorage);
   const isLight = theme === 'light';
   const logo = isLight ? 'side-panel/logo_vertical.svg' : 'side-panel/logo_vertical_dark.svg';
   const goGithubSite = () =>
@@ -20,7 +20,7 @@ const SidePanel = () => {
         <p>
           Edit <code>pages/side-panel/src/SidePanel.tsx</code>
         </p>
-        <ToggleButton onClick={exampleThemeStorage.toggle}>{t('toggleTheme')}</ToggleButton>
+        <ToggleButton onClick={globalThemeStorage.toggle}>{t('toggleTheme')}</ToggleButton>
       </header>
     </div>
   );

@@ -1,7 +1,7 @@
 import 'webextension-polyfill';
-import { exampleThemeStorage } from '@extension/storage';
+import { globalThemeStorage } from '@extension/storage';
 
-exampleThemeStorage.get().then(theme => {
+globalThemeStorage.get().then(theme => {
   console.log('theme', theme);
 });
 
