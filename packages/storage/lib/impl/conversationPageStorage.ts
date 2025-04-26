@@ -11,8 +11,6 @@ export type ConversationItem = {
   summary: string;
   // 完整的对话内容
   content: string;
-  // 创建时间
-  timestamp: number;
 };
 
 // 定义页面存储的数据结构
@@ -37,6 +35,8 @@ export type ConversationPageStorage = BaseStorage<ConversationPageData> & {
   setActiveConversationId: (id: string | null) => Promise<void>;
   // 设置当前主题
   setCurrentTheme: (theme: 'light' | 'dark') => Promise<void>;
+  // 获取当前对话列表
+  getAllConversations: () => Promise<ConversationItem[]>;
 };
 
 // 创建页面存储工厂函数
@@ -57,45 +57,53 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
     liveUpdate: true,
   });
 
+  // lock 解决并发问题
+  let updateInProgress = false;
   // 返回带有扩展方法的存储对象
   return {
     ...storage,
 
-    // 添加新的对话项
     addConversation: async (item: ConversationItem) => {
-      await storage.set(current => {
-        const existingIndex = current.conversations.findIndex(existing => existing.id === item.id);
+      // 如果当前有更新正在进行，等待
+      if (updateInProgress) {
+        console.log('已有更新在进行，等待...');
+        await new Promise(resolve => {
+          const interval = setInterval(() => {
+            if (!updateInProgress) {
+              clearInterval(interval);
+              resolve(null);
+            }
+          }, 100); // 每 100 毫秒检查一次是否可以开始更新
+        });
+      }
 
-        if (existingIndex >= 0) {
-          // 更新现有项
-          const updatedConversations = [...current.conversations];
-          updatedConversations[existingIndex] = item;
-          updatedConversations.sort((a, b) => {
-            const getIdNum = (id: string) => {
-              const match = id.match(/(\d+)$/);
-              return match ? parseInt(match[1], 10) : 0;
+      // 设置更新标志为 true，表示有更新在进行
+      updateInProgress = true;
+      try {
+        await storage.set(current => {
+          const conversations = current.conversations || [];
+          const existingIndex = conversations.findIndex(existing => existing.id === item.id);
+          if (existingIndex >= 0) {
+            const updatedConversations = [...conversations];
+            updatedConversations[existingIndex] = item;
+            return {
+              ...current,
+              conversations: updatedConversations,
             };
-            return getIdNum(a.id) - getIdNum(b.id);
-          });
-          return {
-            ...current,
-            conversations: updatedConversations,
-          };
-        } else {
-          // 添加新项
-          const newConversations = [...current.conversations, item].sort((a, b) => {
-            const getIdNum = (id: string) => {
-              const match = id.match(/(\d+)$/);
-              return match ? parseInt(match[1], 10) : 0;
+          } else {
+            const newConversations = [...conversations, item];
+            return {
+              ...current,
+              conversations: newConversations,
             };
-            return getIdNum(a.id) - getIdNum(b.id);
-          });
-          return {
-            ...current,
-            conversations: newConversations,
-          };
-        }
-      });
+          }
+        });
+      } catch (error) {
+        console.error('更新操作失败:', error);
+      } finally {
+        // 更新完成，重置锁
+        updateInProgress = false;
+      }
     },
 
     // 根据ID获取特定对话项
@@ -127,6 +135,11 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
         currentTheme: theme,
       }));
     },
+    // 获取当前对话列表
+    getAllConversations: async () => {
+      const data = await storage.get();
+      return data.conversations;
+    },
   };
 }
 
@@ -142,75 +155,3 @@ const globalStorage = createStorage<ConversationPageData>(globalStorageKey, defa
   storageEnum: StorageEnum.Local,
   liveUpdate: true,
 });
-
-// 导出全局存储对象
-export const globalConversationStorage: ConversationPageStorage = {
-  ...globalStorage,
-
-  // 添加新的对话项
-  addConversation: async (item: ConversationItem) => {
-    await globalStorage.set(current => {
-      const existingIndex = current.conversations.findIndex(existing => existing.id === item.id);
-
-      if (existingIndex >= 0) {
-        // 更新现有项
-        const updatedConversations = [...current.conversations];
-        updatedConversations[existingIndex] = item;
-        updatedConversations.sort((a, b) => {
-          const getIdNum = (id: string) => {
-            const match = id.match(/(\d+)$/);
-            return match ? parseInt(match[1], 10) : 0;
-          };
-          return getIdNum(a.id) - getIdNum(b.id);
-        });
-        return {
-          ...current,
-          conversations: updatedConversations,
-        };
-      } else {
-        // 添加新项
-        const newConversations = [...current.conversations, item].sort((a, b) => {
-          const getIdNum = (id: string) => {
-            const match = id.match(/(\d+)$/);
-            return match ? parseInt(match[1], 10) : 0;
-          };
-          return getIdNum(a.id) - getIdNum(b.id);
-        });
-        return {
-          ...current,
-          conversations: newConversations,
-        };
-      }
-    });
-  },
-
-  // 根据ID获取特定对话项
-  getConversationById: async (id: string) => {
-    const data = await globalStorage.get();
-    return data.conversations.find(item => item.id === id);
-  },
-
-  // 清空所有对话项
-  clearAllConversations: async () => {
-    await globalStorage.set(current => ({
-      ...current,
-      conversations: [],
-    }));
-  },
-
-  // 设置当前活跃的对话ID
-  setActiveConversationId: async (id: string | null) => {
-    await globalStorage.set(current => ({
-      ...current,
-      activeConversationId: id,
-    }));
-  },
-
-  // 设置当前主题
-  setCurrentTheme: async (theme: 'light' | 'dark') => {
-    await globalStorage.set(current => ({
-      ...current,
-      currentTheme: theme,
-    }));
-  },
-};

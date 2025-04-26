@@ -37,7 +37,7 @@ export const ConversationList: React.FC<Props> = ({ conversations, activeId, onS
               data-testid={conversation.id}>
               <div className={`text-sm flex items-center ${isActive ? 'font-bold' : ''}`}>
                 <span className='mr-2 text-xs text-gray-400 dark:text-gray-500'>{index + 1}.</span>
-                {conversation.summary}
+                {conversation.summary + conversation.id}
               </div>
             </button>
           </li>
