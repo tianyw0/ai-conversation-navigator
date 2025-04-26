@@ -21,13 +21,8 @@ export type ConversationPageData = {
   conversations: ConversationItem[];
   // 当前活跃的对话ID
   activeConversationId: string | null;
-  // 主题设置
-  themeSettings: {
-    // 是否跟随网站主题
-    followWebsiteTheme: boolean;
-    // 当前主题模式
-    currentTheme: 'light' | 'dark';
-  };
+  // 主题设置 - 简化为只保留当前主题
+  currentTheme: 'light' | 'dark';
 };
 
 // 扩展基础存储类型，添加特定于对话导航的方法
@@ -40,12 +35,8 @@ export type ConversationPageStorage = BaseStorage<ConversationPageData> & {
   clearAllConversations: () => Promise<void>;
   // 设置当前活跃的对话ID
   setActiveConversationId: (id: string | null) => Promise<void>;
-  // 设置是否跟随网站主题
-  setFollowWebsiteTheme: (follow: boolean) => Promise<void>;
   // 设置当前主题
   setCurrentTheme: (theme: 'light' | 'dark') => Promise<void>;
-  // 切换主题
-  toggleTheme: () => Promise<void>;
 };
 
 // 创建页面存储工厂函数
@@ -57,10 +48,7 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
   const defaultData: ConversationPageData = {
     conversations: [],
     activeConversationId: null,
-    themeSettings: {
-      followWebsiteTheme: true,
-      currentTheme: 'light',
-    },
+    currentTheme: 'light',
   };
 
   // 创建存储实例
@@ -118,36 +106,11 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
       }));
     },
 
-    // 设置是否跟随网站主题
-    setFollowWebsiteTheme: async (follow: boolean) => {
-      await storage.set(current => ({
-        ...current,
-        themeSettings: {
-          ...current.themeSettings,
-          followWebsiteTheme: follow,
-        },
-      }));
-    },
-
     // 设置当前主题
     setCurrentTheme: async (theme: 'light' | 'dark') => {
       await storage.set(current => ({
         ...current,
-        themeSettings: {
-          ...current.themeSettings,
-          currentTheme: theme,
-        },
-      }));
-    },
-
-    // 切换主题
-    toggleTheme: async () => {
-      await storage.set(current => ({
-        ...current,
-        themeSettings: {
-          ...current.themeSettings,
-          currentTheme: current.themeSettings.currentTheme === 'light' ? 'dark' : 'light',
-        },
+        currentTheme: theme,
       }));
     },
   };
@@ -158,10 +121,7 @@ const globalStorageKey = 'conversation-global-storage';
 const defaultGlobalData: ConversationPageData = {
   conversations: [],
   activeConversationId: null,
-  themeSettings: {
-    followWebsiteTheme: true,
-    currentTheme: 'light',
-  },
+  currentTheme: 'light',
 };
 
 const globalStorage = createStorage<ConversationPageData>(globalStorageKey, defaultGlobalData, {
@@ -218,36 +178,11 @@ export const globalConversationStorage: ConversationPageStorage = {
     }));
   },
 
-  // 设置是否跟随网站主题
-  setFollowWebsiteTheme: async (follow: boolean) => {
-    await globalStorage.set(current => ({
-      ...current,
-      themeSettings: {
-        ...current.themeSettings,
-        followWebsiteTheme: follow,
-      },
-    }));
-  },
-
   // 设置当前主题
   setCurrentTheme: async (theme: 'light' | 'dark') => {
     await globalStorage.set(current => ({
       ...current,
-      themeSettings: {
-        ...current.themeSettings,
-        currentTheme: theme,
-      },
-    }));
-  },
-
-  // 切换主题
-  toggleTheme: async () => {
-    await globalStorage.set(current => ({
-      ...current,
-      themeSettings: {
-        ...current.themeSettings,
-        currentTheme: current.themeSettings.currentTheme === 'light' ? 'dark' : 'light',
-      },
+      currentTheme: theme,
     }));
   },
 };
