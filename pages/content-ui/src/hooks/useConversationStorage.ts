@@ -39,6 +39,9 @@ export const useConversationStorage = () => {
       updateStorage(); // 更新存储
     };
 
+    // 自定义事件名称
+    const urlChangeEvent = new Event('urlChange');
+
     // 重写 pushState 和 replaceState，监听 SPA 中的动态 URL 变化
     const originalPushState = history.pushState;
     const originalReplaceState = history.replaceState;
@@ -46,21 +49,23 @@ export const useConversationStorage = () => {
     // 重写 pushState
     history.pushState = (...args) => {
       originalPushState.apply(history, args);
-      handlePopState(); // 手动触发 URL 变化处理
+      window.dispatchEvent(urlChangeEvent); // 触发自定义事件
     };
 
     // 重写 replaceState
     history.replaceState = (...args) => {
       originalReplaceState.apply(history, args);
-      handlePopState(); // 手动触发 URL 变化处理
+      window.dispatchEvent(urlChangeEvent); // 触发自定义事件
     };
 
-    // 添加 popstate 事件监听器
+    // 添加 popstate 和自定义事件监听器
     window.addEventListener('popstate', handlePopState);
+    window.addEventListener('urlChange', handlePopState);
 
     // 清理副作用：移除事件监听器和取消订阅
     return () => {
       window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('urlChange', handlePopState);
       unsubscribe();
     };
   }, []); // 空依赖数组确保只在初始加载时运行一次
