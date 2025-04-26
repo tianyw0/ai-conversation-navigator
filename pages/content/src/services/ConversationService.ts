@@ -1,4 +1,4 @@
-import { createConversationPageStorage, ConversationItem } from '../../../../packages/storage';
+import { createConversationPageStorage, ConversationItem } from '@extension/storage';
 
 export class ConversationService {
   private pageStorage;
@@ -113,6 +113,7 @@ export class ConversationService {
     this.pageStorage.setCurrentTheme(isDarkMode ? 'dark' : 'light');
   }
 
+  // utils
   private extractQuestionText(node: HTMLElement): string {
     const textContent = (
       (node.querySelector('.whitespace-pre-wrap') as HTMLElement)?.innerText.trim() || node.innerText.trim()
