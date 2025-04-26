@@ -4,10 +4,11 @@ import type { ConversationItem } from '@extension/storage';
 interface Props {
   conversations: ConversationItem[];
   activeId: string | null;
+  theme: 'light' | 'dark';
   onSelect: (id: string) => void;
 }
 
-export const ConversationList: React.FC<Props> = ({ conversations, activeId, onSelect }) => {
+export const ConversationList: React.FC<Props> = ({ conversations, activeId, theme, onSelect }) => {
   // 在 activeId 变化时，滚动到对应的 li 元素
   useEffect(() => {
     console.log('activeId changed:', activeId);
@@ -39,19 +40,15 @@ export const ConversationList: React.FC<Props> = ({ conversations, activeId, onS
               type='button'
               onClick={() => onSelect(conversation.elementId)}
               className={`
-                w-full text-left px-8 py-2 cursor-pointer relative group rounded-[4px]
+                w-full text-left px-2 py-2 cursor-pointer relative group rounded-[4px]
                 focus:outline-none transition-all
-                ${
-                  isActive
-                    ? 'bg-[#2F2F2F] dark:bg-[#2F2F2F] font-bold'
-                    : 'hover:bg-[#2F2F2F] dark:hover:bg-[#2F2F2F] font-normal'
-                }
-                ${isActive ? 'dark:bg-[#2F2F2F] dark:text-white' : 'dark:text-white dark:text-14px'}
-                ${isActive ? 'hover:text-500' : 'hover:text-500'}
+                ${isActive ? (theme === 'dark' ? 'font-bold bg-[#2f2f2f] hover:bg-[#212121]' : 'font-bold bg-[#DEDEDE] hover:bg-[#ECECEC]') : ''}
+                ${theme === 'dark' ? 'text-[#FFFFFF]  hover:bg-[#2f2f2f]' : 'text-[#0D0D0D] hover:bg-[#E3E3E3]'} 
+                text-[14px] font-[400]
                 `}
               data-testid={conversation.elementId}>
-              <div className={`text-sm flex items-center`}>
-                <span className='mr-2 text-xs text-gray-400 dark:text-gray-500'>{index + 1}.</span>
+              <div className='text-sm flex items-center overflow-hidden whitespace-nowrap' title={conversation.content}>
+                <span className='mr-2 text-xs text-gray-400'>{index + 1}.</span>
                 {conversation.summary}
               </div>
             </button>
