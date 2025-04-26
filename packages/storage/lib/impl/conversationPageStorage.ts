@@ -70,15 +70,29 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
           // 更新现有项
           const updatedConversations = [...current.conversations];
           updatedConversations[existingIndex] = item;
+          updatedConversations.sort((a, b) => {
+            const getIdNum = (id: string) => {
+              const match = id.match(/(\d+)$/);
+              return match ? parseInt(match[1], 10) : 0;
+            };
+            return getIdNum(a.id) - getIdNum(b.id);
+          });
           return {
             ...current,
             conversations: updatedConversations,
           };
         } else {
           // 添加新项
+          const newConversations = [...current.conversations, item].sort((a, b) => {
+            const getIdNum = (id: string) => {
+              const match = id.match(/(\d+)$/);
+              return match ? parseInt(match[1], 10) : 0;
+            };
+            return getIdNum(a.id) - getIdNum(b.id);
+          });
           return {
             ...current,
-            conversations: [...current.conversations, item],
+            conversations: newConversations,
           };
         }
       });
@@ -142,15 +156,29 @@ export const globalConversationStorage: ConversationPageStorage = {
         // 更新现有项
         const updatedConversations = [...current.conversations];
         updatedConversations[existingIndex] = item;
+        updatedConversations.sort((a, b) => {
+          const getIdNum = (id: string) => {
+            const match = id.match(/(\d+)$/);
+            return match ? parseInt(match[1], 10) : 0;
+          };
+          return getIdNum(a.id) - getIdNum(b.id);
+        });
         return {
           ...current,
           conversations: updatedConversations,
         };
       } else {
         // 添加新项
+        const newConversations = [...current.conversations, item].sort((a, b) => {
+          const getIdNum = (id: string) => {
+            const match = id.match(/(\d+)$/);
+            return match ? parseInt(match[1], 10) : 0;
+          };
+          return getIdNum(a.id) - getIdNum(b.id);
+        });
         return {
           ...current,
-          conversations: [...current.conversations, item],
+          conversations: newConversations,
         };
       }
     });

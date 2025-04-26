@@ -5,5 +5,14 @@
   "arrowParens": "avoid",
   "printWidth": 120,
   "bracketSameLine": true,
-  "htmlWhitespaceSensitivity": "strict"
+  "htmlWhitespaceSensitivity": "strict",
+  "overrides": [
+    {
+      "files": ["*.tsx", "*.jsx"],
+      "options": {
+        "jsxSingleQuote": true,
+        "jsxBracketSameLine": true
+      }
+    }
+  ]
 }

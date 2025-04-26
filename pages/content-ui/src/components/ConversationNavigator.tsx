@@ -4,7 +4,6 @@ import { ConversationList } from './ConversationList';
 
 export const ConversationNavigator: React.FC = () => {
   const { conversations, activeConversationId, currentTheme } = useConversationStorage();
-
   const handleSelect = (id: string) => {
     const element = document.querySelector(`[data-testid="${id}"]`);
     if (element) {
@@ -19,7 +18,7 @@ export const ConversationNavigator: React.FC = () => {
           ? 'bg-[#212121] text-white border-r border-r-[rgba(255,255,255,0.08)]'
           : 'bg-white text-black border-r border-r-[rgba(0,0,0,0.08)]'
       }`}>
-      <div className="p-4 font-medium border-b border-gray-200 dark:border-gray-700">对话导航</div>
+      <div className='p-4 font-medium border-b border-gray-200 dark:border-gray-700'>对话导航</div>
       <ConversationList conversations={conversations} activeId={activeConversationId} onSelect={handleSelect} />
     </div>
   );
