@@ -34,29 +34,23 @@ export const ConversationList: React.FC<Props> = ({ conversations, activeId, onS
       {conversations.map((conversation, index) => {
         const isActive = activeId === conversation.elementId;
         return (
-          <li
-            key={conversation.id}
-            className={`
-              border-b 
-              border-gray-200 dark:border-[#23272f]
-              last:border-b-0
-            `}>
+          <li key={conversation.id} className='last:border-b-0'>
             <button
               type='button'
               onClick={() => onSelect(conversation.elementId)}
               className={`
-                w-full text-left px-4 py-2 cursor-pointer relative
-                group
-                hover:bg-gray-100 dark:hover:bg-gray-700
-                hover:font-semibold
-                ${isActive ? 'bg-gray-200 dark:bg-gray-800 font-bold' : ''}
-                ${isActive ? 'before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-blue-500 before:rounded-r' : ''}
-                ${!isActive ? 'hover:before:absolute hover:before:left-0 hover:before:top-0 hover:before:bottom-0 hover:before:w-1 hover:before:bg-blue-400 dark:hover:before:bg-blue-500 hover:before:rounded-r' : ''}
-                focus:outline-none
-                transition-all
-              `}
+                w-full text-left px-8 py-2 cursor-pointer relative group rounded-[4px]
+                focus:outline-none transition-all
+                ${
+                  isActive
+                    ? 'bg-[#2F2F2F] dark:bg-[#2F2F2F] font-bold'
+                    : 'hover:bg-[#2F2F2F] dark:hover:bg-[#2F2F2F] font-normal'
+                }
+                ${isActive ? 'dark:bg-[#2F2F2F] dark:text-white' : 'dark:text-white dark:text-14px'}
+                ${isActive ? 'hover:text-500' : 'hover:text-500'}
+                `}
               data-testid={conversation.elementId}>
-              <div className={`text-sm flex items-center ${isActive ? 'font-bold' : ''}`}>
+              <div className={`text-sm flex items-center`}>
                 <span className='mr-2 text-xs text-gray-400 dark:text-gray-500'>{index + 1}.</span>
                 {conversation.summary}
               </div>
