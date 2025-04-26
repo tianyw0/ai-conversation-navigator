@@ -8,6 +8,7 @@ export class ConversationService {
     const pageId = window.location.pathname;
     this.pageStorage = createConversationPageStorage(pageId);
     this.initObserver();
+    this.initUrlChangeListener();
   }
 
   private initObserver() {
@@ -48,6 +49,38 @@ export class ConversationService {
 
     // 开始查找对话容器
     findConversationContainer();
+  }
+
+  private initUrlChangeListener() {
+    // 保存原始的 pushState 和 replaceState 方法
+    const originalPushState = history.pushState;
+    const originalReplaceState = history.replaceState;
+
+    // 重写 pushState
+    history.pushState = (...args) => {
+      originalPushState.apply(history, args);
+      this.handleUrlChange(); // URL 变化时触发处理
+    };
+
+    // 重写 replaceState
+    history.replaceState = (...args) => {
+      originalReplaceState.apply(history, args);
+      this.handleUrlChange(); // URL 变化时触发处理
+    };
+
+    // 监听 popstate 事件，用于后退/前进按钮
+    window.addEventListener('popstate', this.handleUrlChange.bind(this));
+  }
+
+  // 处理 URL 变化
+  private handleUrlChange() {
+    const pageId = window.location.pathname;
+    this.pageStorage = createConversationPageStorage(pageId);
+
+    // 清空之前的内容并重新初始化对话容器监听
+    this.initObserver();
+
+    console.log(`URL 变化，重新加载页面内容: ${pageId}`);
   }
 
   private updateQuestions() {
