@@ -18,9 +18,6 @@ export const ConversationList: React.FC<Props> = ({ conversations, activeId, onS
             activeId === conversation.id ? 'bg-gray-100 dark:bg-gray-700' : ''
           }`}>
           <div className="text-sm">{conversation.summary}</div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">
-            {new Date(conversation.timestamp).toLocaleTimeString()}
-          </div>
         </li>
       ))}
     </ul>
