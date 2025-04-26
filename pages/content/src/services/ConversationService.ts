@@ -1,6 +1,6 @@
 import { createConversationPageStorage, ConversationItem } from '@extension/storage';
 
-class ConversationService {
+export class ConversationService {
   private pageStorage;
 
   constructor() {
@@ -25,6 +25,7 @@ class ConversationService {
       const observer = new MutationObserver(() => {
         this.updateQuestions();
         this.updateActiveConversation();
+        console.log('对话导航器: 已更新对话列表');
       });
 
       observer.observe(thread, {
