@@ -4,7 +4,7 @@ import { createStorage, StorageEnum } from '../base/index.js';
 // 定义对话项的数据结构
 export type ConversationItem = {
   // 唯一标识符，用于定位和跳转
-  id: string;
+  id: number;
   // 对话元素的DOM ID，用于定位元素
   elementId: string;
   // 对话内容的摘要，显示在导航目录中
@@ -28,7 +28,7 @@ export type ConversationPageStorage = BaseStorage<ConversationPageData> & {
   // 添加新的对话项
   addConversation: (item: ConversationItem) => Promise<void>;
   // 根据ID获取特定对话项
-  getConversationById: (id: string) => Promise<ConversationItem | undefined>;
+  getConversationById: (id: number) => Promise<ConversationItem | undefined>;
   // 清空所有对话项
   clearAllConversations: () => Promise<void>;
   // 设置当前活跃的对话ID
@@ -83,20 +83,23 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
         await storage.set(current => {
           const conversations = current.conversations || [];
           const existingIndex = conversations.findIndex(existing => existing.id === item.id);
+          let updatedConversations;
           if (existingIndex >= 0) {
-            const updatedConversations = [...conversations];
+            updatedConversations = [...conversations];
             updatedConversations[existingIndex] = item;
-            return {
-              ...current,
-              conversations: updatedConversations,
-            };
           } else {
-            const newConversations = [...conversations, item];
-            return {
-              ...current,
-              conversations: newConversations,
-            };
+            updatedConversations = [...conversations, item];
           }
+          //   debugger;
+          // 排序
+          updatedConversations.sort((a, b) => {
+            return Number(a.id) - Number(b.id); // 按 id 升序排序，最新的在最后
+          });
+
+          return {
+            ...current,
+            conversations: updatedConversations,
+          };
         });
       } catch (error) {
         console.error('更新操作失败:', error);
@@ -107,7 +110,7 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
     },
 
     // 根据ID获取特定对话项
-    getConversationById: async (id: string) => {
+    getConversationById: async (id: number) => {
       const data = await storage.get();
       return data.conversations.find(item => item.id === id);
     },

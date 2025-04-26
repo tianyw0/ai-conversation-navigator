@@ -56,8 +56,11 @@ export class ConversationService {
     );
 
     questionElements.forEach(element => {
+      const testId = (element as HTMLElement).dataset.testid;
+      const id = testId ? Number(testId.split('-').pop()) : NaN;
+      console.log('对话导航器: id:', id);
       const conversationItem: ConversationItem = {
-        id: (element as HTMLElement).dataset.testid || '',
+        id,
         elementId: (element as HTMLElement).dataset.testid || '',
         summary: this.extractQuestionText(element as HTMLElement),
         content: this.extractFullContent(element as HTMLElement),

@@ -11,7 +11,7 @@ export const ConversationList: React.FC<Props> = ({ conversations, activeId, onS
   return (
     <ul className='flex-1 overflow-y-auto'>
       {conversations.map((conversation, index) => {
-        const isActive = activeId === conversation.id;
+        const isActive = activeId === conversation.elementId;
         return (
           <li
             key={conversation.id}
@@ -22,7 +22,7 @@ export const ConversationList: React.FC<Props> = ({ conversations, activeId, onS
             `}>
             <button
               type='button'
-              onClick={() => onSelect(conversation.id)}
+              onClick={() => onSelect(conversation.elementId)}
               className={`
                 w-full text-left px-4 py-2 cursor-pointer relative
                 group
@@ -37,7 +37,7 @@ export const ConversationList: React.FC<Props> = ({ conversations, activeId, onS
               data-testid={conversation.id}>
               <div className={`text-sm flex items-center ${isActive ? 'font-bold' : ''}`}>
                 <span className='mr-2 text-xs text-gray-400 dark:text-gray-500'>{index + 1}.</span>
-                {conversation.summary + conversation.id}
+                {conversation.summary}
               </div>
             </button>
           </li>
