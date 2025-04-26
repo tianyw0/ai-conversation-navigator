@@ -15,6 +15,8 @@ export type ConversationItem = {
 
 // 定义页面存储的数据结构
 export type ConversationPageData = {
+  // 页面ID，用于唯一标识页面
+  pageId: string;
   // 对话列表
   conversations: ConversationItem[];
   // 当前活跃的对话ID
@@ -46,6 +48,7 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
 
   // 默认数据
   const defaultData: ConversationPageData = {
+    pageId,
     conversations: [],
     activeConversationId: null,
     currentTheme: 'light',
@@ -143,16 +146,3 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
     },
   };
 }
-
-// 创建一个全局存储实例，用于共享数据
-const globalStorageKey = 'conversation-global-storage';
-const defaultGlobalData: ConversationPageData = {
-  conversations: [],
-  activeConversationId: null,
-  currentTheme: 'light',
-};
-
-const globalStorage = createStorage<ConversationPageData>(globalStorageKey, defaultGlobalData, {
-  storageEnum: StorageEnum.Local,
-  liveUpdate: true,
-});
