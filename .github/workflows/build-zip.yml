@@ -2,7 +2,7 @@ name: Build And Upload Extension Zip Via Artifact
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ _main, _dev ]
   pull_request:
 
 jobs:
