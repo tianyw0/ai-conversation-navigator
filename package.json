@@ -1,13 +1,13 @@
 {
-  "name": "chrome-extension-boilerplate-react-vite",
-  "version": "0.4.3",
-  "description": "chrome extension boilerplate",
+  "name": "chatgpt-conversation-navigator",
+  "version": "0.0.1",
+  "description": "ChatGPT conversation navigation and management extension, for ChatGPT website only.",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite.git"
+    "url": "https://github.com/tianyw0/ai-conversation-navigator"
   },
   "type": "module",
   "scripts": {
