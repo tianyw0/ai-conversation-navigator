@@ -1,9 +1,10 @@
 import React from 'react';
 import { useConversationStorage } from '../hooks/useConversationStorage';
 import { ConversationList } from './ConversationList';
+import { t } from '@extension/i18n';
 
 export const ConversationNavigator: React.FC = () => {
-  const { conversations, activeConversationId, currentTheme } = useConversationStorage();
+  const { pageId, conversations, activeConversationId, currentTheme } = useConversationStorage();
 
   const handleSelect = (id: string) => {
     const element = document.querySelector(`[data-testid="${id}"]`);
@@ -12,9 +13,13 @@ export const ConversationNavigator: React.FC = () => {
     }
   };
 
+  // 如果 pageId 为 '/'，则不渲染 UI
+  if (pageId === '/') {
+    return null;
+  }
+
   // 判断是否有数据
   const isLoading = !conversations || conversations.length === 0;
-
   return (
     <div
       className={`flex flex-col h-full overflow-y-auto border-r border-r-transparent ${
@@ -24,7 +29,7 @@ export const ConversationNavigator: React.FC = () => {
 
       {isLoading ? (
         <div className='flex justify-center items-center h-full'>
-          <div className='text-sm'>t("loading")</div>
+          <div className='text-sm'>{t('loading')}</div>
         </div>
       ) : (
         <ConversationList
