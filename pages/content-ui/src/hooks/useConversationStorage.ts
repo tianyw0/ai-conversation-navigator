@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { createConversationPageStorage, type ConversationPageData } from '@extension/storage';
 
 export const useConversationStorage = () => {
+  const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
   const [data, setData] = useState<ConversationPageData>({
     pageId: '',
     conversations: [],
     activeConversationId: null,
-    currentTheme: 'light',
+    currentTheme: currentTheme,
   });
 
   useEffect(() => {

@@ -76,7 +76,7 @@ export class ConversationService {
     console.log(`URL 变化，重新加载页面内容: ${pageId}`);
   }
 
-  private updateQuestions() {
+  private async updateQuestions() {
     const questionElements = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]')).filter(
       el => {
         const id = (el as HTMLElement).dataset.testid?.split('-').pop();
@@ -84,7 +84,7 @@ export class ConversationService {
       },
     );
 
-    questionElements.forEach(element => {
+    for (const element of questionElements) {
       const testId = (element as HTMLElement).dataset.testid;
       const id = testId ? Number(testId.split('-').pop()) : NaN;
       const conversationItem: ConversationItem = {
@@ -93,8 +93,13 @@ export class ConversationService {
         summary: this.extractQuestionText(element as HTMLElement),
         content: this.extractFullContent(element as HTMLElement),
       };
-      this.pageStorage.addConversation(conversationItem);
-    });
+      // 先获取旧数据
+      const oldItem = await this.pageStorage.getConversationById(id);
+      // 只有内容有变化时才更新
+      if (!oldItem || oldItem.summary !== conversationItem.summary || oldItem.content !== conversationItem.content) {
+        await this.pageStorage.addConversation(conversationItem);
+      }
+    }
   }
 
   private updateActiveConversation() {

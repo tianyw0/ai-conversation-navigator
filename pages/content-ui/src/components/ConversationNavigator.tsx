@@ -25,7 +25,7 @@ export const ConversationNavigator: React.FC = () => {
       className={`flex flex-col h-full overflow-y-auto border-r border-r-transparent ${
         currentTheme === 'dark' ? 'bg-[#212121] text-[#FFFFFF]' : 'bg-white text-[#0D0D0D]'
       }`}>
-      <div className='p-4 font-medium border-b border-transparent'>对话导航</div>
+      <div className='p-2 font-normal border-b border-transparent'>对话导航</div>
 
       {isLoading ? (
         <div className='flex justify-center items-center h-full'>

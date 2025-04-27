@@ -75,7 +75,7 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
               clearInterval(interval);
               resolve(null);
             }
-          }, 100); // 每 100 毫秒检查一次是否可以开始更新
+          }, 200); // 每 100 毫秒检查一次是否可以开始更新
         });
       }
 
