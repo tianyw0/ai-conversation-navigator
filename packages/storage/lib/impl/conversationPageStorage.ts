@@ -44,7 +44,7 @@ export type ConversationPageStorage = BaseStorage<ConversationPageData> & {
 // 创建页面存储工厂函数
 export function createConversationPageStorage(pageId: string): ConversationPageStorage {
   // 使用页面ID创建唯一的存储键
-  const storageKey = `conversation-page-storage-${pageId}`;
+  const storageKey = pageId;
 
   // 默认数据
   const defaultData: ConversationPageData = {

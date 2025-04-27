@@ -2,11 +2,12 @@ import { createConversationPageStorage, ConversationItem } from '@extension/stor
 
 export class ConversationService {
   private pageStorage;
+  private pageId: string;
 
   constructor() {
     // 使用当前页面URL作为页面ID
-    const pageId = window.location.pathname;
-    this.pageStorage = createConversationPageStorage(pageId);
+    this.pageId = window.location.pathname;
+    this.pageStorage = createConversationPageStorage(this.pageId);
     this.initObserver();
     this.initUrlChangeListener();
   }
@@ -23,14 +24,16 @@ export class ConversationService {
       }
 
       // 找到对话容器后，只监听这个容器内的变化
-      const observer = new MutationObserver(() => {
+      // const observer = new MutationObserver(() => {
+      //   this.updateQuestions();
+      // });
+      // observer.observe(thread, {
+      //   childList: true,
+      //   subtree: true,
+      // });
+      setInterval(() => {
         this.updateQuestions();
-      });
-
-      observer.observe(thread, {
-        childList: true,
-        subtree: true,
-      });
+      }, 1000);
 
       // 先直接扫描一次，再监听页面滚动，更新活跃对话
       // this.updateActiveConversation();
@@ -52,30 +55,20 @@ export class ConversationService {
   }
 
   private initUrlChangeListener() {
-    // 保存原始的 pushState 和 replaceState 方法
-    const originalPushState = history.pushState;
-    const originalReplaceState = history.replaceState;
-
-    // 重写 pushState
-    history.pushState = (...args) => {
-      originalPushState.apply(history, args);
-      this.handleUrlChange(); // URL 变化时触发处理
-    };
-
-    // 重写 replaceState
-    history.replaceState = (...args) => {
-      originalReplaceState.apply(history, args);
-      this.handleUrlChange(); // URL 变化时触发处理
-    };
-
-    // 监听 popstate 事件，用于后退/前进按钮
-    window.addEventListener('popstate', this.handleUrlChange.bind(this));
+    setInterval(() => {
+      const currentPageId = window.location.pathname;
+      if (currentPageId !== this.pageId) {
+        this.handleUrlChange(currentPageId);
+      }
+    }, 1000);
   }
 
   // 处理 URL 变化
-  private handleUrlChange() {
-    const pageId = window.location.pathname;
+  private handleUrlChange(pageId: string) {
+    console.log(`当前 URL: ${pageId}`);
+    console.log(`old URL: ${this.pageId}`);
     this.pageStorage = createConversationPageStorage(pageId);
+    this.pageId = pageId;
 
     // 清空之前的内容并重新初始化对话容器监听
     this.initObserver();

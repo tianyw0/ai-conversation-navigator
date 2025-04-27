@@ -46,15 +46,15 @@ const manifest = {
   },
   content_scripts: [
     {
-      matches: ['https://chatgpt.com/*'],
+      matches: ['https://chatgpt.com/c/*'],
       js: ['content/index.iife.js'],
     },
     {
-      matches: ['https://chatgpt.com/*'],
+      matches: ['https://chatgpt.com/c/*'],
       js: ['content-ui/index.iife.js'],
     },
     {
-      matches: ['https://chatgpt.com/*'],
+      matches: ['https://chatgpt.com/c/*'],
       css: ['content.css'],
     },
   ],
