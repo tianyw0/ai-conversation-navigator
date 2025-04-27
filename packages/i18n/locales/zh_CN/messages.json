@@ -1,11 +1,11 @@
 {
   "extensionDescription": {
-    "description": "AI 对话内容导航与管理插件，提升多轮对话的浏览与定位体验",
-    "message": "AI 对话内容导航与管理插件，提升多轮对话的浏览与定位体验"
+    "description": "ChatGPT 对话内容导航与管理插件，提升多轮对话的浏览与定位体验，仅适用于 ChatGPT 网站",
+    "message": "ChatGPT 对话内容导航与管理插件，提升多轮对话的浏览与定位体验，仅适用于 ChatGPT 网站"
   },
   "extensionName": {
-    "description": "扩展名称",
-    "message": "Chrome 扩展模板"
+    "description": "ChatGPT 对话内容导航与管理插件",
+    "message": "ChatGPT 对话导航器"
   },
   "toggleTheme": {
     "message": "切换主题"

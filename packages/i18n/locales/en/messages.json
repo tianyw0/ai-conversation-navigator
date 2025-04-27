@@ -1,11 +1,11 @@
 {
   "extensionDescription": {
-    "description": "AI conversation navigation and management extension, enhancing browsing and locating experience for multi-turn conversations",
-    "message": "AI conversation navigation and management extension, enhancing browsing and locating experience for multi-turn conversations"
+    "description": "ChatGPT conversation navigation and management extension, enhancing browsing and locating experience for multi-turn conversations. For ChatGPT website only.",
+    "message": "ChatGPT conversation navigation and management extension, enhancing browsing and locating experience for multi-turn conversations. For ChatGPT website only."
   },
   "extensionName": {
-    "description": "Extension name",
-    "message": "Chrome extension boilerplate"
+    "description": "ChatGPT conversation navigation and management extension",
+    "message": "ChatGPT Conversation Navigator"
   },
   "toggleTheme": {
     "message": "Toggle theme"

@@ -1,11 +1,11 @@
 {
   "extensionDescription": {
-    "description": "AI会話内容ナビゲーションおよび管理拡張機能。複数ターンの会話の閲覧と位置特定体験を向上させます。",
-    "message": "AI会話内容ナビゲーションおよび管理拡張機能。複数ターンの会話の閲覧と位置特定体験を向上させます。"
+    "description": "ChatGPT会話内容ナビゲーションおよび管理拡張機能。複数ターンの会話の閲覧と位置特定体験を向上させます。ChatGPTサイト専用。",
+    "message": "ChatGPT会話内容ナビゲーションおよび管理拡張機能。複数ターンの会話の閲覧と位置特定体験を向上させます。ChatGPTサイト専用。"
   },
   "extensionName": {
-    "description": "拡張機能名",
-    "message": "Chrome拡張機能テンプレート"
+    "description": "ChatGPT会話内容ナビゲーションおよび管理拡張機能",
+    "message": "ChatGPT会話ナビゲーター"
   },
   "toggleTheme": {
     "message": "テーマを切り替え"
