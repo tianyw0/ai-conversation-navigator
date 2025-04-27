@@ -1,7 +1,7 @@
 {
   "extensionDescription": {
-    "description": "Extension description",
-    "message": "Chrome extension boilerplate developed with Vite, React and Typescript"
+    "description": "AI conversation navigation and management extension, enhancing browsing and locating experience for multi-turn conversations",
+    "message": "AI conversation navigation and management extension, enhancing browsing and locating experience for multi-turn conversations"
   },
   "extensionName": {
     "description": "Extension name",

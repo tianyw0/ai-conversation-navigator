@@ -1,0 +1,30 @@
+{
+  "extensionDescription": {
+    "description": "AI会話内容ナビゲーションおよび管理拡張機能。複数ターンの会話の閲覧と位置特定体験を向上させます。",
+    "message": "AI会話内容ナビゲーションおよび管理拡張機能。複数ターンの会話の閲覧と位置特定体験を向上させます。"
+  },
+  "extensionName": {
+    "description": "拡張機能名",
+    "message": "Chrome拡張機能テンプレート"
+  },
+  "toggleTheme": {
+    "message": "テーマを切り替え"
+  },
+  "loading": {
+    "message": "読み込み中..."
+  },
+  "greeting": {
+    "description": "挨拶メッセージ",
+    "message": "こんにちは、私の名前は$NAME$です",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "山田太郎"
+      }
+    }
+  },
+  "hello": {
+    "description": "プレースホルダー例",
+    "message": "こんにちは $1"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "extensionDescription": {
+    "description": "AI 對話內容導航與管理插件，提升多輪對話的瀏覽與定位體驗",
+    "message": "AI 對話內容導航與管理插件，提升多輪對話的瀏覽與定位體驗"
+  },
+  "extensionName": {
+    "description": "擴充功能名稱",
+    "message": "Chrome 擴充功能模板"
+  },
+  "toggleTheme": {
+    "message": "切換主題"
+  },
+  "loading": {
+    "message": "載入中..."
+  },
+  "greeting": {
+    "description": "問候語",
+    "message": "你好，我的名字是 $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "張三"
+      }
+    }
+  },
+  "hello": {
+    "description": "占位符範例",
+    "message": "你好 $1"
+  }
+}

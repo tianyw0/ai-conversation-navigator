@@ -1,11 +1,11 @@
 {
   "extensionDescription": {
-    "description": "Extension description",
-    "message": "Chrome extension boilerplate developed with Vite, React and Typescript"
+    "description": "AI 对话内容导航与管理插件，提升多轮对话的浏览与定位体验",
+    "message": "AI 对话内容导航与管理插件，提升多轮对话的浏览与定位体验"
   },
   "extensionName": {
-    "description": "Extension name",
-    "message": "Chrome extension boilerplate"
+    "description": "扩展名称",
+    "message": "Chrome 扩展模板"
   },
   "toggleTheme": {
     "message": "切换主题"
@@ -14,17 +14,17 @@
     "message": "加载中..."
   },
   "greeting": {
-    "description": "Greeting message",
-    "message": "Hello, My name is $NAME$",
+    "description": "问候语",
+    "message": "你好，我的名字是 $NAME$",
     "placeholders": {
       "name": {
         "content": "$1",
-        "example": "John Doe"
+        "example": "张三"
       }
     }
   },
   "hello": {
-    "description": "Placeholder example",
-    "message": "Hello $1"
+    "description": "占位符示例",
+    "message": "你好 $1"
   }
 }
