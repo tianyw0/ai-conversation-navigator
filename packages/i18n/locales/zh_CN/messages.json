@@ -7,6 +7,9 @@
     "description": "ChatGPT 对话内容导航与管理插件",
     "message": "ChatGPT 对话导航器"
   },
+  "extensionIntroduction": {
+    "description": "使用方法：\n1. 从 Chrome 应用商店安装扩展。\n2. 打开 ChatGPT 网站。\n3. 对话导航侧边栏会自动出现。\n4. 点击侧边栏任意条目可快速跳转到对应对话。\n5. 导航器会自动跟随并高亮当前对话，方便在长对话中定位当前位置。\n6. 可切换浅色/深色主题。"
+  },
   "toggleTheme": {
     "message": "切换主题"
   },

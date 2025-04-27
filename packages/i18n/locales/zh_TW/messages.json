@@ -7,6 +7,9 @@
     "description": "ChatGPT 對話內容導航與管理插件",
     "message": "ChatGPT 對話導航器"
   },
+  "extensionIntroduction": {
+    "description": "使用方法：\n1. 從 Chrome 應用商店安裝擴充功能。\n2. 打開 ChatGPT 網站。\n3. 對話導航側邊欄會自動出現。\n4. 點擊側邊欄任意條目可快速跳轉到對應對話。\n5. 導航器會自動跟隨並高亮當前對話，方便在長對話中定位當前位置。\n6. 可切換淺色/深色主題。"
+  },
   "toggleTheme": {
     "message": "切換主題"
   },
