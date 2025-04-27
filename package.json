@@ -24,7 +24,7 @@
     "dev": "pnpm set-global-env CLI_CEB_DEV=true && pnpm base-dev",
     "dev:firefox": "pnpm set-global-env CLI_CEB_DEV=true CLI_CEB_FIREFOX=true && pnpm base-dev",
     "build:eslint": "tsc -b",
-    "zip": "pnpm build && pnpm -F zipper zip",
+    "zip": "rimraf dist && rimraf dist-zip && pnpm build && pnpm -F zipper zip",
     "zip:firefox": "pnpm build:firefox && pnpm -F zipper zip",
     "e2e": "pnpm zip && turbo e2e",
     "e2e:firefox": "pnpm zip:firefox && turbo e2e",
