@@ -8,7 +8,7 @@
     "message": "ChatGPT Conversation Navigator"
   },
   "extensionIntroduction": {
-    "description": "How to use:\n1. Install the extension from the Chrome Web Store.\n2. Open the ChatGPT website.\n3. The conversation navigator sidebar will appear automatically.\n4. Click any item in the sidebar to quickly jump to that part of the conversation.\n5. The navigator will automatically follow and highlight the current conversation as you scroll, making it easy to locate your position in long chats.\n6. You can switch between light and dark themes."
+    "message": "How to use:<br>1. Install the extension from the Chrome Web Store.<br>2. Open the ChatGPT website.<br>3. The conversation navigator sidebar will appear automatically.<br>4. Click any item in the sidebar to quickly jump to that part of the conversation.<br>5. The navigator will automatically follow and highlight the current conversation as you scroll, making it easy to locate your position in long chats.<br>6. You can switch between light and dark themes."
   },
   "toggleTheme": {
     "message": "Toggle theme"
