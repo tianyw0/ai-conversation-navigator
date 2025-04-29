@@ -113,6 +113,11 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
     // 根据ID获取特定对话项
     getConversationById: async (id: number) => {
       const data = await storage.get();
+      // 添加空值检查
+      if (!data || !Array.isArray(data.conversations)) {
+        console.warn('对话数据不存在');
+        return undefined;
+      }
       return data.conversations.find(item => item.id === id);
     },
 

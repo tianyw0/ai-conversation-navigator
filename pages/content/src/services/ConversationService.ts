@@ -87,11 +87,12 @@ export class ConversationService {
     for (const element of questionElements) {
       const testId = (element as HTMLElement).dataset.testid;
       const id = testId ? Number(testId.split('-').pop()) : NaN;
+      const content = this.extractFullContent(element as HTMLElement);
       const conversationItem: ConversationItem = {
         id,
         elementId: (element as HTMLElement).dataset.testid || '',
-        summary: this.extractQuestionText(element as HTMLElement),
-        content: this.extractFullContent(element as HTMLElement),
+        content,
+        summary: this.escapeHtml(content),
       };
       // 先获取旧数据
       const oldItem = await this.pageStorage.getConversationById(id);
@@ -153,27 +154,20 @@ export class ConversationService {
   }
 
   // utils
-  private extractQuestionText(node: HTMLElement): string {
-    const textContent = (
-      (node.querySelector('.whitespace-pre-wrap') as HTMLElement)?.innerText.trim() || node.innerText.trim()
-    )
+  private extractFullContent(node: HTMLElement): string {
+    let textContent =
+      (node.querySelector('.whitespace-pre-wrap') as HTMLElement)?.innerText.trim() || node.innerText.trim();
+    const quote = node.querySelector('p.line-clamp-3');
+    if (quote instanceof HTMLElement) {
+      textContent = quote.innerText.trim() + textContent;
+    }
+    return textContent
       .split(/[\n\r]+/)
       .join(' ')
       .replace(/\s+/g, ' ');
-
-    return textContent.length > 20 ? this.escapeHtml(textContent.slice(0, 20)) + '...' : this.escapeHtml(textContent);
-  }
-
-  private extractFullContent(node: HTMLElement): string {
-    return (node.querySelector('.whitespace-pre-wrap') as HTMLElement)?.innerText.trim() || node.innerText.trim();
   }
 
   private escapeHtml(unsafe: string): string {
-    return unsafe
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
+    return unsafe.replace(/<[^>]*>/g, match => match.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
   }
 }

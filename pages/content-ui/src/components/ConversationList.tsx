@@ -47,7 +47,9 @@ export const ConversationList: React.FC<Props> = ({ conversations, activeId, the
                 text-[14px] font-[400]
                 `}
               data-testid={conversation.elementId}>
-              <div className='text-sm flex items-center overflow-hidden whitespace-nowrap' title={conversation.content}>
+              <div
+                className='text-sm flex items-center overflow-hidden whitespace-nowrap text-overflow-ellipsis'
+                title={conversation.content}>
                 <span className='mr-2 text-xs text-gray-400'>{index + 1}.</span>
                 {conversation.summary}
               </div>
