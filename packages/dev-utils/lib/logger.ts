@@ -23,7 +23,7 @@ export const colorLog = (message: string, type: ColorType) => {
       break;
   }
 
-  console.log(color, message);
+  // console.log(color, message);
 };
 
 const COLORS = {

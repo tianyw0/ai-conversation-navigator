@@ -26,7 +26,8 @@
     "@extension/shared": "workspace:*",
     "@extension/storage": "workspace:*",
     "@extension/ui": "workspace:*",
-    "@extension/i18n": "workspace:*"
+    "@extension/i18n": "workspace:*",
+    "@extension/dev-utils": "workspace:*"
   },
   "devDependencies": {
     "@extension/hmr": "workspace:*",

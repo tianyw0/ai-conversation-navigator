@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ConversationNavigator } from './components/ConversationNavigator';
+import { colorLog } from '@extension/dev-utils';
 
 export default function App() {
   const [panelLeft, setPanelLeft] = useState<number>(0);
@@ -32,7 +33,7 @@ export default function App() {
       setPanelLeft(left);
     });
     resizeObserver.observe(target);
-    console.log('ui::content ui loaded');
+    colorLog('ui::content ui loaded', 'info');
 
     return () => {
       window.removeEventListener('resize', handleWindowResize);

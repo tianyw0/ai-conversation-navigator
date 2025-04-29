@@ -1,4 +1,5 @@
 import { createConversationPageStorage, ConversationItem } from '@extension/storage';
+import { colorLog } from '@extension/dev-utils';
 
 export class ConversationService {
   private pageStorage;
@@ -13,13 +14,11 @@ export class ConversationService {
   }
 
   private initObserver() {
-    // 首先尝试获取对话容器元素
     const findConversationContainer = () => {
       const thread = document.getElementById('thread');
-      // 如果还没找到，稍后再试
       if (!thread) {
         setTimeout(findConversationContainer, 1000);
-        console.log('service::对话导航器: 等待对话容器加载...');
+        colorLog('service::对话导航器: 等待对话容器加载...', 'info');
         return;
       }
 
@@ -38,7 +37,7 @@ export class ConversationService {
         this.observeThemeChanges();
       }, 1000);
 
-      console.log('service::对话导航器: 已开始监听对话容器');
+      colorLog('service::对话导航器: 已开始监听对话容器', 'success');
     };
 
     // 开始查找对话容器
@@ -60,7 +59,7 @@ export class ConversationService {
     this.pageId = pageId;
 
     this.initObserver();
-    console.log(`service::URL 变化，重新加载页面内容: ${pageId}`);
+    colorLog(`service::URL 变化，重新加载页面内容: ${pageId}`, 'info');
   }
 
   private async updateQuestions() {
@@ -122,7 +121,7 @@ export class ConversationService {
   private observeThemeChanges() {
     // 初始化主题
     const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-    console.log('service::当前 theme:', currentTheme);
+    colorLog('service::当前 theme:' + currentTheme, 'info');
     this.pageStorage.getTheme().then(theme => {
       if (currentTheme !== theme) {
         this.pageStorage.setCurrentTheme(currentTheme);

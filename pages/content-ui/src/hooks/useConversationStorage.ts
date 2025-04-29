@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createConversationPageStorage, type ConversationPageData } from '@extension/storage';
+import { colorLog } from '@extension/dev-utils';
 
 export const useConversationStorage = () => {
   const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
@@ -31,7 +32,7 @@ export const useConversationStorage = () => {
 
     // 初始时订阅数据
     const unsubscribe = updateStorage();
-    console.log('ui-hooks::useConversationStorage::unsubscribe:', unsubscribe); // 打印 unsubscibe 函数的定义，以便调试和确认其是否为一个有效的 functio
+    colorLog('ui-hooks::useConversationStorage::unsubscribe:' + unsubscribe, 'info');
 
     // 定时器的状态
     let lastUrl = window.location.pathname;
@@ -40,19 +41,19 @@ export const useConversationStorage = () => {
     const intervalId = setInterval(() => {
       const currentUrl = window.location.pathname;
       if (currentUrl !== lastUrl) {
-        console.log('ui-hooks::URL changed:', currentUrl);
+        colorLog('ui-hooks::URL changed:' + currentUrl, 'info');
         unsubscribe(); // 先取消之前的订阅
         lastUrl = currentUrl; // 更新最后检查过的 URL
         updateStorage(); // 更新存储
       }
-    }, 1000); // 每 1 秒检查一次
+    }, 1000);
 
     // 清理副作用：移除定时器和取消订阅
     return () => {
       clearInterval(intervalId);
       unsubscribe();
     };
-  }, []); // 空依赖数组确保只在初始加载时运行一次
+  }, []);
 
   return data; // 返回当前存储的数据
 };

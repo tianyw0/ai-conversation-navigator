@@ -29,5 +29,8 @@
   "hello": {
     "description": "プレースホルダー例",
     "message": "こんにちは $1"
+  },
+  "conversation_navigator": {
+    "message": "会話ナビゲーター"
   }
 }

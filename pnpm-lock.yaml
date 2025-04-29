@@ -315,6 +315,9 @@ importers:
 
   pages/content:
     dependencies:
+      '@extension/dev-utils':
+        specifier: workspace:*
+        version: link:../../packages/dev-utils
       '@extension/env':
         specifier: workspace:*
         version: link:../../packages/env
@@ -346,6 +349,9 @@ importers:
 
   pages/content-ui:
     dependencies:
+      '@extension/dev-utils':
+        specifier: workspace:*
+        version: link:../../packages/dev-utils
       '@extension/env':
         specifier: workspace:*
         version: link:../../packages/env
