@@ -24,28 +24,19 @@ export class ConversationService {
       }
 
       // 找到对话容器后，只监听这个容器内的变化
-      // const observer = new MutationObserver(() => {
-      //   this.updateQuestions();
-      // });
-      // observer.observe(thread, {
-      //   childList: true,
-      //   subtree: true,
-      // });
       setInterval(() => {
         this.updateQuestions();
       }, 1000);
 
       // 先直接扫描一次，再监听页面滚动，更新活跃对话
-      // this.updateActiveConversation();
-      // window.addEventListener('scroll', () => {
-      //   this.updateActiveConversation();
-      // });
       setInterval(() => {
         this.updateActiveConversation();
-      }, 100);
+      }, 200);
 
-      // 监听主题变化
-      this.observeThemeChanges();
+      // 每秒检查一次主题变化
+      setInterval(() => {
+        this.observeThemeChanges();
+      }, 1000);
 
       console.log('service::对话导航器: 已开始监听对话容器');
     };
@@ -129,24 +120,14 @@ export class ConversationService {
   }
 
   private observeThemeChanges() {
-    // 监听文档根元素的class变化
-    const observer = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
-        if (mutation.attributeName === 'class') {
-          const isDarkMode = document.documentElement.classList.contains('dark');
-          this.pageStorage.setCurrentTheme(isDarkMode ? 'dark' : 'light');
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-
     // 初始化主题
-    const isDarkMode = document.documentElement.classList.contains('dark');
-    this.pageStorage.setCurrentTheme(isDarkMode ? 'dark' : 'light');
+    const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    console.log('service::当前 theme:', currentTheme);
+    this.pageStorage.getTheme().then(theme => {
+      if (currentTheme !== theme) {
+        this.pageStorage.setCurrentTheme(currentTheme);
+      }
+    });
   }
 
   // utils

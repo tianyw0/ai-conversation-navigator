@@ -39,6 +39,8 @@ export type ConversationPageStorage = BaseStorage<ConversationPageData> & {
   setCurrentTheme: (theme: 'light' | 'dark') => Promise<void>;
   // 获取当前对话列表
   getAllConversations: () => Promise<ConversationItem[]>;
+  // 获取当前对话列表
+  getTheme: () => Promise<string>;
 };
 
 // 创建页面存储工厂函数
@@ -148,6 +150,11 @@ export function createConversationPageStorage(pageId: string): ConversationPageS
     getAllConversations: async () => {
       const data = await storage.get();
       return data.conversations;
+    },
+    // 获取当前主题
+    getTheme: async () => {
+      const data = await storage.get();
+      return data.currentTheme;
     },
   };
 }
