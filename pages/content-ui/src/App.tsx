@@ -44,8 +44,8 @@ export default function App() {
   return (
     <div
       ref={panelRef}
-      style={{ left: panelLeft, position: 'absolute', width: 310 }}
-      className='top-[56px] max-h-[calc(100vh-190px)] overflow-auto flex flex-col gap-2 rounded px-2 py-1'>
+      style={{ left: panelLeft }}
+      className='absolute w-[310px] top-[56px] max-h-[calc(100vh-190px)] overflow-auto flex flex-col gap-2 rounded px-2 py-1'>
       <ConversationNavigator />
     </div>
   );
