@@ -11,7 +11,7 @@ interface Props {
 export const ConversationList: React.FC<Props> = ({ conversations, activeId, theme, onSelect }) => {
   // 在 activeId 变化时，滚动到对应的 li 元素
   useEffect(() => {
-    console.log('ui-component::activeId changed:', activeId);
+    console.log('ui-component::activeConversationId changed:', activeId);
     if (activeId) {
       // 获取包含 shadow DOM 的宿主元素
       const shadowHost = document.querySelector('#ai-conversation-navigator-root');
