@@ -31,6 +31,7 @@ export const useConversationStorage = () => {
 
     // 初始时订阅数据
     const unsubscribe = updateStorage();
+    console.log('ui-hooks::useConversationStorage::unsubscribe:', unsubscribe); // 打印 unsubscibe 函数的定义，以便调试和确认其是否为一个有效的 functio
 
     // 定时器的状态
     let lastUrl = window.location.pathname;
@@ -39,7 +40,7 @@ export const useConversationStorage = () => {
     const intervalId = setInterval(() => {
       const currentUrl = window.location.pathname;
       if (currentUrl !== lastUrl) {
-        console.log('URL changed:', currentUrl);
+        console.log('ui-hooks::URL changed:', currentUrl);
         unsubscribe(); // 先取消之前的订阅
         lastUrl = currentUrl; // 更新最后检查过的 URL
         updateStorage(); // 更新存储
