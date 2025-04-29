@@ -39,11 +39,11 @@ After installation, the navigator will automatically display on the ChatGPT page
 <div style="display: flex; justify-content: space-between;">
   <div style="flex: 1; margin-right: 10px;">
     <p><strong>Dark Mode / 深色模式</strong></p>
-    <img src="demo-dark.jpg" alt="Dark Mode Demo" style="width: 100%;">
+    <img src="./docs/promotional_material/demo-dark.jpg" alt="Dark Mode Demo" style="width: 100%;">
   </div>
   <div style="flex: 1; margin-left: 10px;">
     <p><strong>Light Mode / 浅色模式</strong></p>
-    <img src="demo-light.jpg" alt="Light Mode Demo" style="width: 100%;">
+    <img src="./docs/promotional_material/demo-light.jpg" alt="Light Mode Demo" style="width: 100%;">
   </div>
 </div>
 
