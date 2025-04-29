@@ -32,15 +32,12 @@ export default function App() {
       setPanelLeft(left);
     });
     resizeObserver.observe(target);
+    console.log('ui::content ui loaded');
 
     return () => {
       window.removeEventListener('resize', handleWindowResize);
       resizeObserver.disconnect();
     };
-  }, []);
-
-  useEffect(() => {
-    console.log('content ui loaded');
   }, []);
 
   return (

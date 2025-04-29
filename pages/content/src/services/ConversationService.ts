@@ -19,7 +19,7 @@ export class ConversationService {
       // 如果还没找到，稍后再试
       if (!thread) {
         setTimeout(findConversationContainer, 1000);
-        console.log('对话导航器: 等待对话容器加载...');
+        console.log('service::对话导航器: 等待对话容器加载...');
         return;
       }
 
@@ -47,7 +47,7 @@ export class ConversationService {
       // 监听主题变化
       this.observeThemeChanges();
 
-      console.log('对话导航器: 已开始监听对话容器');
+      console.log('service::对话导航器: 已开始监听对话容器');
     };
 
     // 开始查找对话容器
@@ -65,15 +65,11 @@ export class ConversationService {
 
   // 处理 URL 变化
   private handleUrlChange(pageId: string) {
-    console.log(`当前 URL: ${pageId}`);
-    console.log(`old URL: ${this.pageId}`);
     this.pageStorage = createConversationPageStorage(pageId);
     this.pageId = pageId;
 
-    // 清空之前的内容并重新初始化对话容器监听
     this.initObserver();
-
-    console.log(`URL 变化，重新加载页面内容: ${pageId}`);
+    console.log(`service::URL 变化，重新加载页面内容: ${pageId}`);
   }
 
   private async updateQuestions() {
