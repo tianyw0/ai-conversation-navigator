@@ -214,7 +214,7 @@ importers:
         version: 4.24.0
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@swc/core@1.9.3)(@types/node@22.7.4)(typescript@5.8.1-rc)
+        version: 10.9.2(@swc/core@1.9.3)(@types/node@22.15.3)(typescript@5.8.1-rc)
       ws:
         specifier: 8.18.0
         version: 8.18.0
@@ -371,91 +371,6 @@ importers:
       '@extension/hmr':
         specifier: workspace:*
         version: link:../../packages/hmr
-      '@extension/tailwindcss-config':
-        specifier: workspace:*
-        version: link:../../packages/tailwind-config
-      '@extension/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      '@extension/vite-config':
-        specifier: workspace:*
-        version: link:../../packages/vite-config
-
-  pages/devtools:
-    dependencies:
-      '@extension/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-    devDependencies:
-      '@extension/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      '@extension/vite-config':
-        specifier: workspace:*
-        version: link:../../packages/vite-config
-
-  pages/devtools-panel:
-    dependencies:
-      '@extension/i18n':
-        specifier: workspace:*
-        version: link:../../packages/i18n
-      '@extension/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      '@extension/storage':
-        specifier: workspace:*
-        version: link:../../packages/storage
-    devDependencies:
-      '@extension/tailwindcss-config':
-        specifier: workspace:*
-        version: link:../../packages/tailwind-config
-      '@extension/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      '@extension/vite-config':
-        specifier: workspace:*
-        version: link:../../packages/vite-config
-
-  pages/options:
-    dependencies:
-      '@extension/i18n':
-        specifier: workspace:*
-        version: link:../../packages/i18n
-      '@extension/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      '@extension/storage':
-        specifier: workspace:*
-        version: link:../../packages/storage
-      '@extension/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-    devDependencies:
-      '@extension/tailwindcss-config':
-        specifier: workspace:*
-        version: link:../../packages/tailwind-config
-      '@extension/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      '@extension/vite-config':
-        specifier: workspace:*
-        version: link:../../packages/vite-config
-
-  pages/side-panel:
-    dependencies:
-      '@extension/i18n':
-        specifier: workspace:*
-        version: link:../../packages/i18n
-      '@extension/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      '@extension/storage':
-        specifier: workspace:*
-        version: link:../../packages/storage
-      '@extension/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-    devDependencies:
       '@extension/tailwindcss-config':
         specifier: workspace:*
         version: link:../../packages/tailwind-config
@@ -10336,6 +10251,26 @@ snapshots:
       typescript: 5.8.1-rc
       webpack: 5.94.0(@swc/core@1.9.3)(esbuild@0.25.0)
 
+  ts-node@10.9.2(@swc/core@1.9.3)(@types/node@22.15.3)(typescript@5.8.1-rc):
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 22.15.3
+      acorn: 8.12.1
+      acorn-walk: 8.3.4
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.8.1-rc
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    optionalDependencies:
+      '@swc/core': 1.9.3
+
   ts-node@10.9.2(@swc/core@1.9.3)(@types/node@22.7.4)(typescript@5.8.1-rc):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
@@ -10355,6 +10290,7 @@ snapshots:
       yn: 3.1.1
     optionalDependencies:
       '@swc/core': 1.9.3
+    optional: true
 
   tsc-alias@1.8.10:
     dependencies:

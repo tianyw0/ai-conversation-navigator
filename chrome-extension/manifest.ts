@@ -31,7 +31,6 @@ const manifest = {
   description: '__MSG_extensionDescription__',
   host_permissions: ['https://chatgpt.com/*'],
   permissions: ['storage', 'scripting', 'tabs'],
-  options_page: 'options/index.html',
   background: {
     service_worker: 'background.js',
     type: 'module',
@@ -57,16 +56,12 @@ const manifest = {
       css: ['content.css'],
     },
   ],
-  devtools_page: 'devtools/index.html',
   web_accessible_resources: [
     {
       resources: ['*.js', '*.css', '*.svg', 'icon-128.png', 'icon-34.png'],
       matches: ['*://*/*'],
     },
   ],
-  side_panel: {
-    default_path: 'side-panel/index.html',
-  },
 } satisfies chrome.runtime.ManifestV3;
 
 export default manifest;
