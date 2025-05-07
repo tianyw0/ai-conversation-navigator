@@ -32,5 +32,11 @@
   },
   "conversation_navigator": {
     "message": "대화 네비게이터"
+  },
+  "expand": {
+    "message": "확장"
+  },
+  "collapse": {
+    "message": "접기"
   }
 }

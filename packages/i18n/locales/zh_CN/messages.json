@@ -32,5 +32,11 @@
   },
   "conversation_navigator": {
     "message": "对话导航"
+  },
+  "expand": {
+    "message": "展开"
+  },
+  "collapse": {
+    "message": "收起"
   }
 }

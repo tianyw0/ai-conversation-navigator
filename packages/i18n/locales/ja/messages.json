@@ -32,5 +32,11 @@
   },
   "conversation_navigator": {
     "message": "会話ナビゲーター"
+  },
+  "expand": {
+    "message": "展開"
+  },
+  "collapse": {
+    "message": "折りたたみ"
   }
 }

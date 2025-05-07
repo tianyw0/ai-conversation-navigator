@@ -32,5 +32,11 @@
   },
   "conversation_navigator": {
     "message": "Conversation Navigator"
+  },
+  "expand": {
+    "message": "Expand"
+  },
+  "collapse": {
+    "message": "Collapse"
   }
 }
