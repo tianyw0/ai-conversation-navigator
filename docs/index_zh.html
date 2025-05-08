@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ChatGPT Conversation Navigator</title>
+    <title>ChatGPT 对话导航器</title>
     <link rel="icon" href="./static/icon-34.png" type="image/png" />
-    <!-- Make sure you have linked the compiled Tailwind CSS file -->
-    <!-- For example: <link href="/path/to/your/tailwind.css" rel="stylesheet"> -->
-    <!-- Or via CDN (only for development and testing) -->
+    <!-- 确保你已经链接了编译后的 Tailwind CSS 文件 -->
+    <!-- 例如: <link href="/path/to/your/tailwind.css" rel="stylesheet"> -->
+    <!-- 或者通过 CDN (仅用于开发和测试) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      // Optional: If you need to customize Tailwind config, you can add it here
+      // 可选: 如果你需要自定义 Tailwind 配置，可以在这里添加
       tailwind.config = {
         theme: {
           extend: {
@@ -34,35 +34,32 @@
     </script>
   </head>
   <body class="font-sans leading-normal m-0 p-0 bg-gray-50 text-gray-800">
-    <!-- Hero Section - Large Image Display -->
+    <!-- 英雄区域 - 大图片展示 -->
     <div class="relative bg-gradient-to-r from-primary-700 to-primary-900 text-white overflow-hidden">
       <div class="absolute inset-0 opacity-20">
-        <img
-          src="./promotional_material/chatgpt-navigator-dark.png"
-          alt="Background"
-          class="w-full h-full object-cover" />
+        <img src="./promotional_material/chatgpt-navigator-dark.png" alt="背景" class="w-full h-full object-cover" />
       </div>
       <header class="relative z-10 py-6 text-center">
         <div class="container mx-auto px-4">
           <h1 class="m-0 text-4xl md:text-5xl font-bold flex items-center justify-center">
             <img src="./static/icon-34.png" alt="Logo" class="mr-4 h-12 bg-white p-1 rounded-full shadow-lg" />
-            ChatGPT Conversation Navigator
+            ChatGPT 对话导航器
           </h1>
-          <p class="mt-4 text-xl max-w-2xl mx-auto">Enhance your ChatGPT experience with easy conversation navigation</p>
+          <p class="mt-4 text-xl max-w-2xl mx-auto">增强您的 ChatGPT 体验，轻松导航长对话</p>
           <nav class="mt-6">
             <ul class="p-0 list-none text-center flex flex-wrap justify-center gap-6">
               <li
                 ><a href="#features" class="text-white no-underline text-lg hover:text-gray-300 transition"
-                  >Features</a
+                  >功能特点</a
                 ></li
               >
               <li
                 ><a href="#installation" class="text-white no-underline text-lg hover:text-gray-300 transition"
-                  >Installation</a
+                  >安装方法</a
                 ></li
               >
               <li
-                ><a href="#demo" class="text-white no-underline text-lg hover:text-gray-300 transition">Demo</a></li
+                ><a href="#demo" class="text-white no-underline text-lg hover:text-gray-300 transition">演示效果</a></li
               >
               <li
                 ><a
@@ -73,8 +70,8 @@
                 ></li
               >
               <li
-                ><a href="./index_zh.html" class="text-white no-underline text-lg hover:text-gray-300 transition"
-                  >中文</a
+                ><a href="./index.html" class="text-white no-underline text-lg hover:text-gray-300 transition"
+                  >English</a
                 ></li
               >
             </ul>
@@ -82,21 +79,21 @@
         </div>
       </header>
 
-      <!-- Main Screenshot Display -->
+      <!-- 主要截图展示 -->
       <div class="container mx-auto px-4 py-12 flex justify-center">
         <div class="relative w-full max-w-4xl">
           <img
             src="./promotional_material/chatgpt-navigator-dark.png"
-            alt="ChatGPT Conversation Navigator Demo"
+            alt="ChatGPT 对话导航器演示"
             class="w-full rounded-lg shadow-2xl border-4 border-white/20" />
         </div>
       </div>
     </div>
 
     <div class="container mx-auto px-4 -mt-10 relative z-10">
-      <!-- Feature Cards -->
+      <!-- 功能卡片 -->
       <section id="features" class="mb-16 bg-white rounded-xl shadow-xl p-8 transform transition-all hover:shadow-2xl">
-        <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-2 border-gray-200">Key Features</h2>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-2 border-gray-200">主要功能</h2>
         <div class="grid md:grid-cols-2 gap-6">
           <div class="p-4 border border-gray-100 rounded-lg shadow-sm hover:shadow-md transition-all">
             <div class="flex items-start">
@@ -111,8 +108,8 @@
                 </svg>
               </div>
               <div>
-                <h3 class="font-semibold text-xl mb-2">Clickable Conversation Index</h3>
-                <p class="text-gray-600">Adds clickable conversation indexes to ChatGPT pages for easy navigation.</p>
+                <h3 class="font-semibold text-xl mb-2">可点击的对话索引</h3>
+                <p class="text-gray-600">为 ChatGPT 页面添加可点击的对话索引，方便导航。</p>
               </div>
             </div>
           </div>
@@ -138,8 +135,8 @@
                 </svg>
               </div>
               <div>
-                <h3 class="font-semibold text-xl mb-2">Automatic Position Tracking</h3>
-                <p class="text-gray-600">Automatically tracks and highlights your current position.</p>
+                <h3 class="font-semibold text-xl mb-2">自动跟踪当前位置</h3>
+                <p class="text-gray-600">自动跟踪并高亮显示您当前的位置。</p>
               </div>
             </div>
           </div>
@@ -160,8 +157,8 @@
                 </svg>
               </div>
               <div>
-                <h3 class="font-semibold text-xl mb-2">Light & Dark Theme Support</h3>
-                <p class="text-gray-600">Supports both light and dark themes.</p>
+                <h3 class="font-semibold text-xl mb-2">支持明暗主题</h3>
+                <p class="text-gray-600">同时支持浅色和深色主题。</p>
               </div>
             </div>
           </div>
@@ -182,70 +179,70 @@
                 </svg>
               </div>
               <div>
-                <h3 class="font-semibold text-xl mb-2">Automatic Navigation Updates</h3>
-                <p class="text-gray-600">Automatically updates navigation as new messages appear.</p>
+                <h3 class="font-semibold text-xl mb-2">自动更新导航</h3>
+                <p class="text-gray-600">随着新消息的出现自动更新导航。</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Installation Section -->
+      <!-- 安装部分 -->
       <section
         id="installation"
         class="mb-16 bg-white rounded-xl shadow-xl p-8 transform transition-all hover:shadow-2xl">
-        <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-2 border-gray-200">Installation</h2>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-2 border-gray-200">安装方法</h2>
         <div class="space-y-6">
           <div class="bg-green-50 p-6 rounded-lg border border-green-100">
-            <h3 class="text-xl font-semibold text-green-800 mb-3">Recommended: Chrome Web Store</h3>
-            <p class="text-gray-700 mb-4">One-click installation with automatic updates:</p>
+            <h3 class="text-xl font-semibold text-green-800 mb-3">推荐方式：Chrome 应用商店</h3>
+            <p class="text-gray-700 mb-4">一键安装，自动更新，最简单的方式：</p>
             <a
               href="https://chromewebstore.google.com/detail/chatgpt-%E5%AF%B9%E8%AF%9D%E5%AF%BC%E8%88%AA%E5%99%A8/phelhffecoejnegmdnboboofmhhmhlcf"
               class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg no-underline transition-colors duration-200 shadow-md"
               target="_blank"
-              >Install from Chrome Web Store</a
+              >从 Chrome 应用商店安装</a
             >
           </div>
 
           <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
-            <h3 class="text-xl font-semibold text-blue-800 mb-3">Manual Installation</h3>
-            <p class="text-gray-700 mb-4">If you can't access the Chrome Web Store, you can install manually:</p>
+            <h3 class="text-xl font-semibold text-blue-800 mb-3">手动安装方式</h3>
+            <p class="text-gray-700 mb-4">如果您无法访问 Chrome 应用商店，可以手动安装：</p>
             <a
               href="https://github.com/tianyw0/ai-conversation-navigator/releases"
               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg no-underline transition-colors duration-200 shadow-md"
               target="_blank"
-              >Download from GitHub Releases</a
+              >从 GitHub Releases 下载</a
             >
             <p class="text-gray-700 mt-4">
-              For detailed manual installation steps, please refer to the
+              详细的手动安装步骤，请参考
               <a
                 href="../README.md#method-2-manual-installation"
                 target="_blank"
                 class="text-blue-600 hover:text-blue-800 hover:underline"
                 >README</a
-              >.
+              >。
             </p>
           </div>
         </div>
       </section>
 
-      <!-- Demo Section -->
+      <!-- 演示部分 -->
       <section id="demo" class="mb-16 bg-white rounded-xl shadow-xl p-8 transform transition-all hover:shadow-2xl">
-        <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-2 border-gray-200">Demo</h2>
-        <p class="text-lg text-gray-700 mb-6">See the extension in different themes:</p>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-2 border-gray-200">演示效果</h2>
+        <p class="text-lg text-gray-700 mb-6">查看插件在不同主题下的效果：</p>
         <div class="grid md:grid-cols-2 gap-8">
           <div class="bg-gray-900 p-4 rounded-xl shadow-lg overflow-hidden">
-            <h3 class="text-xl font-semibold text-white mb-3 text-center">Dark Mode</h3>
+            <h3 class="text-xl font-semibold text-white mb-3 text-center">深色模式</h3>
             <img
               src="./promotional_material/chatgpt-navigator-dark.png"
-              alt="Dark Mode Demo"
+              alt="深色模式演示"
               class="w-full rounded-lg border border-gray-700 shadow-lg hover:scale-105 transition-transform duration-300" />
           </div>
           <div class="bg-gray-100 p-4 rounded-xl shadow-lg overflow-hidden">
-            <h3 class="text-xl font-semibold text-gray-800 mb-3 text-center">Light Mode</h3>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3 text-center">浅色模式</h3>
             <img
               src="./promotional_material/chatgpt-navigator-light.png"
-              alt="Light Mode Demo"
+              alt="浅色模式演示"
               class="w-full rounded-lg border border-gray-300 shadow-lg hover:scale-105 transition-transform duration-300" />
           </div>
         </div>
@@ -256,14 +253,14 @@
       <div class="container mx-auto px-4 text-center">
         <div class="flex items-center justify-center mb-4">
           <img src="./static/icon-34.png" alt="Logo" class="h-8 mr-2 bg-white p-1 rounded-full" />
-          <span class="text-xl font-semibold">ChatGPT Conversation Navigator</span>
+          <span class="text-xl font-semibold">ChatGPT 对话导航器</span>
         </div>
         <p class="mb-2 text-gray-300">
-          &copy; 2024 ChatGPT Conversation Navigator. Powered by ChatGPT &
-          <a href="https://www.trae.ai/" class="text-gray-300 hover:text-white transition">Trae IDE</a>.
+          &copy; 2024 ChatGPT 对话导航器。由 ChatGPT 和
+          <a href="https://www.trae.ai/" class="text-gray-300 hover:text-white transition">Trae IDE</a> 提供支持。
         </p>
         <p>
-          <a href="./privacy_policy/index.html" class="text-gray-400 hover:text-gray-200 transition">Privacy Policy</a>
+          <a href="./privacy_policy/index.html" class="text-gray-400 hover:text-gray-200 transition">隐私政策</a>
           <span class="mx-2">|</span>
           <a
             href="https://github.com/tianyw0/ai-conversation-navigator"
