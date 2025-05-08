@@ -1,0 +1,60 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # 匹配例如 v1.0.0 格式的标签
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 需要写入权限来创建 Release
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc' # 使用 .nvmrc 文件中指定的 Node.js 版本
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm@$(grep -oP '(?<=^packageManager=pnpm@)[^$\s]+' package.json) # 从 package.json 读取 pnpm 版本
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build extension
+        run: pnpm zip # 假设 pnpm zip 命令会生成一个 zip 文件到 dist-zip 目录
+
+      - name: Get the zip file name
+        id: get_zip_file
+        run: |
+          ZIP_FILE_PATH=$(ls ./dist-zip/*.zip | head -n 1)
+          echo "ZIP_FILE_PATH=$ZIP_FILE_PATH" >> $GITHUB_OUTPUT
+          ZIP_FILE_NAME=$(basename "$ZIP_FILE_PATH")
+          echo "ZIP_FILE_NAME=$ZIP_FILE_NAME" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.get_zip_file.outputs.ZIP_FILE_PATH }}
+          asset_name: ${{ steps.get_zip_file.outputs.ZIP_FILE_NAME }} # 使用找到的 zip 文件名
+          asset_content_type: application/zip
