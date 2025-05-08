@@ -54,4 +54,8 @@ MIT
 
 如需帮助或报告问题，请访问 [支持页面](https://github.com/tianyw0/ai-conversation-navigator/issues)。
 
+## 致谢
+
+本项目的开发受到了 [chrome-extension-boilerplate-react-vite](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite) 项目的启发和帮助，特此感谢。
+
 Powered by ChatGPT & [Trae IDE](https://www.trae.ai/)
