@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ChatGPT 对话导航器</title>
     <link rel="icon" href="./static/icon-34.png" type="image/png" />
+    <!-- 添加 Della Respira 字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Della+Respira&display=swap" rel="stylesheet" />
     <!-- 确保你已经链接了编译后的 Tailwind CSS 文件 -->
     <!-- 例如: <link href="/path/to/your/tailwind.css" rel="stylesheet"> -->
     <!-- 或者通过 CDN (仅用于开发和测试) -->
@@ -28,10 +32,32 @@
                 900: '#0c4a6e',
               },
             },
+            fontFamily: {
+              della: ['"Della Respira"', 'serif'],
+              lishu: ['"Source Han Serif SC"', '"Noto Serif SC"', '思源宋体', 'serif'],
+            },
           },
         },
       };
     </script>
+    <style>
+      /* 确保字体正确应用 */
+      .font-della {
+        font-family: 'Della Respira', serif;
+        font-weight: 400;
+      }
+      .font-lishu {
+        font-family: 'Source Han Serif SC', 'Noto Serif SC', '思源宋体', serif;
+        font-weight: 400;
+      }
+
+      /* 添加思源宋体的备用方案 */
+      @font-face {
+        font-family: 'Source Han Serif SC';
+        src: local('Source Han Serif SC'), local('思源宋体'), local('Noto Serif SC');
+        font-weight: 400;
+      }
+    </style>
   </head>
   <body class="font-sans leading-normal m-0 p-0 bg-gray-50 text-gray-800">
     <!-- 英雄区域 - 大图片展示 -->
@@ -41,9 +67,9 @@
       </div>
       <header class="relative z-10 py-6 text-center">
         <div class="container mx-auto px-4">
-          <h1 class="m-0 text-4xl md:text-5xl font-bold font-serif flex items-center justify-center">
+          <h1 class="m-0 text-4xl md:text-5xl font-bold flex items-center justify-center">
             <img src="./static/icon-34.png" alt="Logo" class="mr-4 h-12 bg-white p-1 rounded-full shadow-lg" />
-            ChatGPT 对话导航器
+            <span class="font-della mr-2">ChatGPT </span><span class="font-lishu">对话导航器</span>
           </h1>
           <p class="mt-4 text-xl max-w-2xl mx-auto">增强您的 ChatGPT 体验，轻松导航长对话</p>
           <nav class="mt-6">
