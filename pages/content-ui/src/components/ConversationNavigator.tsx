@@ -30,7 +30,7 @@ export const ConversationNavigator: React.FC = () => {
         {!isCollapsed && <span>{t('conversation_navigator')}</span>}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className='p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded'
+          className={`p-1 rounded ${currentTheme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
           title={isCollapsed ? t('expand') : t('collapse')}>
           <svg
             className={`w-4 h-4 transform transition-transform ${isCollapsed ? 'rotate-180' : ''}`}
