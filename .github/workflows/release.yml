@@ -3,31 +3,33 @@ name: Create Release
 on:
   push:
     tags:
-      - 'v*.*.*' # 匹配例如 v1.0.0 格式的标签
+      - 'v*.*.*' # Match tags like v1.0.0
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # 需要写入权限来创建 Release
+      contents: write # Required to create a Release
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Extract pnpm version
+        id: pnpm_version
+        run: echo "PNPM_VERSION=$(grep -oP '(?<=^packageManager=pnpm@)[^$\s]+' package.json)" >> $GITHUB_OUTPUT
+
+      - name: Set up Node.js and pnpm
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc' # 使用 .nvmrc 文件中指定的 Node.js 版本
+          node-version-file: '.nvmrc' # Use Node.js version from .nvmrc
+          pnpm-version: ${{ steps.pnpm_version.outputs.PNPM_VERSION }} # Use the extracted pnpm version
           cache: 'pnpm'
-
-      - name: Install pnpm
-        run: npm install -g pnpm@$(grep -oP '(?<=^packageManager=pnpm@)[^$\s]+' package.json) # 从 package.json 读取 pnpm 版本
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build extension
-        run: pnpm zip # 假设 pnpm zip 命令会生成一个 zip 文件到 dist-zip 目录
+        run: pnpm zip # Assumes pnpm zip creates a zip file in dist-zip
 
       - name: Get the zip file name
         id: get_zip_file
@@ -56,5 +58,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ steps.get_zip_file.outputs.ZIP_FILE_PATH }}
-          asset_name: ${{ steps.get_zip_file.outputs.ZIP_FILE_NAME }} # 使用找到的 zip 文件名
+          asset_name: ${{ steps.get_zip_file.outputs.ZIP_FILE_NAME }} # Use the found zip file name
           asset_content_type: application/zip
