@@ -1,4 +1,4 @@
-# ChatGPT Conversation Navigator
+# ChatGPT Conversation Navigator (prompts navigator)
 
 ChatGPT Conversation Navigator is a user script that provides navigation for multi-turn conversations. It enhances the ChatGPT interface by adding clickable conversation indexes. This tool provides users with a sidebar containing links to each user question, allowing them to easily browse their conversation history.
 
@@ -22,11 +22,9 @@ ChatGPT Conversation Navigator 是一个用户脚本，为多轮对话提供导�
 
 ## Installation / 安装
 
-1. Make sure you have installed [Tampermonkey](https://www.tampermonkey.net/) or other user script manager.
-2. Click [here](https://greasyfork.org/en/scripts/533157-chatgpt-conversation-navigator) to install the script.
+1. Click [here](https://chromewebstore.google.com/detail/chatgpt-%E5%AF%B9%E8%AF%9D%E5%AF%BC%E8%88%AA%E5%99%A8/phelhffecoejnegmdnboboofmhhmhlcf) to install the extension from Chrome Web Store.
 
-1. 确保您已安装 [Tampermonkey](https://www.tampermonkey.net/) 或其他用户脚本管理器。
-2. 点击 [这里](https://greasyfork.org/en/scripts/533157-chatgpt-conversation-navigator) 安装脚本。
+1. 点击 [这里](https://chromewebstore.google.com/detail/chatgpt-%E5%AF%B9%E8%AF%9D%E5%AF%BC%E8%88%AA%E5%99%A8/phelhffecoejnegmdnboboofmhhmhlcf) 从 Chrome 应用商店安装扩展。
 
 ## Usage / 使用
 
@@ -39,18 +37,13 @@ After installation, the navigator will automatically display on the ChatGPT page
 <div style="display: flex; justify-content: space-between;">
   <div style="flex: 1; margin-right: 10px;">
     <p><strong>Dark Mode / 深色模式</strong></p>
-    <img src="./docs/promotional_material/demo-dark.jpg" alt="Dark Mode Demo" style="width: 100%;">
+    <img src="./docs/promotional_material/chatgpt-navigator-dark.png" alt="Dark Mode Demo" style="width: 100%;">
   </div>
   <div style="flex: 1; margin-left: 10px;">
     <p><strong>Light Mode / 浅色模式</strong></p>
-    <img src="./docs/promotional_material/demo-light.jpg" alt="Light Mode Demo" style="width: 100%;">
+    <img src="./docs/promotional_material/chatgpt-navigator-light.png" alt="Light Mode Demo" style="width: 100%;">
   </div>
 </div>
-
-## Todo / 待办事项
-- [x] Only display the navigation directory when the conversation exceeds three entries, avoiding visual distraction in short conversations / 仅在对话超过三条时才显示导航目录，避免简短对话中的视觉干扰
-- [x] Add a "Current Conversation Directory" title in the top-left corner of the navigation / 在导航左上角添加一个标题"当前对话目录"
-- [x] Handle quoted content, display it in the directory / 处理引用的情况，需要在目录中显示引用的内容。
 
 ## License / 许可证
 
