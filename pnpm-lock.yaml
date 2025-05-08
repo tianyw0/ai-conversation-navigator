@@ -25,8 +25,8 @@ importers:
         specifier: ^9.20.0
         version: 9.20.0
       '@types/chrome':
-        specifier: 0.0.304
-        version: 0.0.304
+        specifier: 0.0.320
+        version: 0.0.320
       '@types/eslint-plugin-jsx-a11y':
         specifier: ^6.10.0
         version: 6.10.0
@@ -64,7 +64,7 @@ importers:
         specifier: 18.0.0
         version: 18.0.0(@typescript-eslint/eslint-plugin@8.22.0(@typescript-eslint/parser@8.22.0(eslint@9.20.1(jiti@1.21.6))(typescript@5.8.1-rc))(eslint@9.20.1(jiti@1.21.6))(typescript@5.8.1-rc))(@typescript-eslint/parser@8.22.0(eslint@9.20.1(jiti@1.21.6))(typescript@5.8.1-rc))(eslint-plugin-import@2.29.1)(eslint@9.20.1(jiti@1.21.6))
       eslint-config-prettier:
-        specifier: ^10.0.2
+        specifier: ^10.0.5
         version: 10.1.2(eslint@9.20.1(jiti@1.21.6))
       eslint-import-resolver-typescript:
         specifier: 3.7.0
@@ -1523,8 +1523,8 @@ packages:
   '@tsconfig/node16@1.0.4':
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
-  '@types/chrome@0.0.304':
-    resolution: {integrity: sha512-ms9CLILU+FEMK7gcmgz/Mtn2E81YQWiMIzCFF8ktp98EVNIIfoqaDTD4+ailOCq1sGjbnEmfJxQ1FAsQtk5M3A==}
+  '@types/chrome@0.0.320':
+    resolution: {integrity: sha512-LD0O6hqayM4/InMUB2fOGSh7lFkUlusa40mk6iUAxs0RHfvRYjjsDoRGsDh2DEJWP4Ckccf00FVhkhDHHIqy7g==}
 
   '@types/doctrine@0.0.9':
     resolution: {integrity: sha512-eOIHzCUSH7SMfonMG1LsC2f8vxBFtho6NGBznK41R84YzPuvSBzrhEps33IsQiOW9+VL6NQ9DbjQJznk/S4uRA==}
@@ -6100,7 +6100,7 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
-  '@types/chrome@0.0.304':
+  '@types/chrome@0.0.320':
     dependencies:
       '@types/filesystem': 0.0.36
       '@types/har-format': 1.2.15

@@ -46,7 +46,7 @@
     "@eslint/compat": "^1.2.5",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.20.0",
-    "@types/chrome": "0.0.504",
+    "@types/chrome": "0.0.320",
     "@types/eslint-plugin-jsx-a11y": "^6.10.0",
     "@types/eslint__eslintrc": "^2.1.2",
     "@types/eslint__js": "^8.42.3",
@@ -89,7 +89,7 @@
       "prettier --write"
     ]
   },
-  "packageManager": "pnpm@9.15.1",
+  "packageManager": "pnpm@10.10.0",
   "engines": {
     "node": ">=22.12.0"
   }
