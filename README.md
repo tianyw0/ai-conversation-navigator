@@ -22,9 +22,27 @@ ChatGPT Conversation Navigator 是一个用户脚本，为多轮对话提供导�
 
 ## Installation / 安装
 
+**Method 1: Install from Chrome Web Store (Recommended) / 方法一：从 Chrome 应用商店安装 (推荐)**
+
 1. Click [here](https://chromewebstore.google.com/detail/chatgpt-%E5%AF%B9%E8%AF%9D%E5%AF%BC%E8%88%AA%E5%99%A8/phelhffecoejnegmdnboboofmhhmhlcf) to install the extension from Chrome Web Store.
 
 1. 点击 [这里](https://chromewebstore.google.com/detail/chatgpt-%E5%AF%B9%E8%AF%9D%E5%AF%BC%E8%88%AA%E5%99%A8/phelhffecoejnegmdnboboofmhhmhlcf) 从 Chrome 应用商店安装扩展。
+
+**Method 2: Manual Installation / 方法二：手动安装**
+
+1.  Go to the [Releases page](https://github.com/tianyw0/ai-conversation-navigator/releases) of this repository.
+2.  Download the latest `chatgpt-conversation-navigator-chrome-vx.x.x.zip` file (or the Firefox equivalent if needed).
+3.  Unzip the downloaded file to a local directory.
+4.  Open your Chrome browser and navigate to `chrome://extensions`.
+5.  Enable "Developer mode" (usually a toggle in the top right corner).
+6.  Click on "Load unpacked" and select the directory where you unzipped the extension files.
+
+1.  访问本仓库的 [Releases 页面](https://github.com/tianyw0/ai-conversation-navigator/releases)。
+2.  下载最新的 `chatgpt-conversation-navigator-chrome-vx.x.x.zip` 文件 (如果需要，也可以下载 Firefox 版本)。
+3.  将下载的 `zip` 文件解压到本地一个文件夹中。
+4.  打开您的 Chrome 浏览器，访问 `chrome://extensions`。
+5.  启用“开发者模式”（通常在页面右上角有一个开关）。
+6.  点击“加载已解压的扩展程序”按钮，然后选择您解压扩展文件所在的文件夹。
 
 ## Usage / 使用
 
