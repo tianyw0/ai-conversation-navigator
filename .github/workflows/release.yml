@@ -31,7 +31,7 @@ jobs:
           cache: 'pnpm' # Cache pnpm dependencies
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Build extension
         run: pnpm zip # Assumes pnpm zip creates a zip file in dist-zip
