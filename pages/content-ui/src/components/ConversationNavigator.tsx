@@ -23,9 +23,15 @@ export const ConversationNavigator: React.FC = () => {
   const isLoading = !conversations || conversations.length === 0;
   return (
     <div
-      className={`flex flex-col h-full ${isCollapsed ? 'w-10' : ''} transition-all duration-300 overflow-y-auto border-r border-r-transparent ${
-        currentTheme === 'dark' ? 'bg-[#212121] text-[#FFFFFF]' : 'bg-white text-[#0D0D0D]'
-      }`}>
+      className={`
+        absolute w-[260px] top-[56px] max-h-[calc(100vh-190px)] overflow-auto gap-2 rounded px-2 py-1
+        flex flex-col h-full
+        ${isCollapsed ? 'w-10' : ''}
+        transition-all duration-300
+        overflow-y-auto
+        border-r border-r-transparent
+        ${currentTheme === 'dark' ? 'bg-[#212121] text-[#FFFFFF]' : 'bg-white text-[#0D0D0D]'}
+      `}>
       <div className='flex justify-between items-center p-2 font-normal border-b border-transparent'>
         {!isCollapsed && <span>{t('conversation_navigator')}</span>}
         <button

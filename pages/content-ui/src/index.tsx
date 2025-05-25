@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import App from '@src/App';
+import { ConversationNavigator } from './components/ConversationNavigator';
 // @ts-expect-error Because file doesn't exist before build
 import tailwindcssOutput from '../dist/tailwind-output.css?inline';
 
@@ -30,7 +30,7 @@ const initializePlugin = () => {
   const mountPoint = document.createElement('div');
   mountPoint.id = 'mount-point';
   shadowRoot.appendChild(mountPoint);
-  createRoot(mountPoint).render(<App />);
+  createRoot(mountPoint).render(<ConversationNavigator />);
 };
 
 setTimeout(() => {
