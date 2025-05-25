@@ -7,7 +7,14 @@ import tailwindcssOutput from '../dist/tailwind-output.css?inline';
 const initializePlugin = () => {
   const shadowHost = document.createElement('div');
   shadowHost.id = 'ai-conversation-navigator-root';
-  document.body.append(shadowHost);
+  shadowHost.style.zIndex = '2147483647';
+  let presentation = document.querySelector('[role="presentation"]') as HTMLElement;
+  if (!presentation) {
+    initializePlugin();
+    setTimeout(() => {}, 1000);
+  }
+  const insertElement = presentation.children[1];
+  presentation.insertBefore(shadowHost, insertElement);
   const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
 
   if (navigator.userAgent.includes('Firefox')) {
@@ -28,4 +35,4 @@ const initializePlugin = () => {
 
 setTimeout(() => {
   initializePlugin();
-}, 200);
+}, 2000);
