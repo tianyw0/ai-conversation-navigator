@@ -5,15 +5,10 @@ import tailwindcssOutput from '../dist/tailwind-output.css?inline';
 
 // 等待文档加载完成后再初始化插件
 const initializePlugin = () => {
-  const root = document.createElement('div');
-  root.id = 'ai-conversation-navigator-root';
-
-  document.body.append(root);
-
-  const rootIntoShadow = document.createElement('div');
-  rootIntoShadow.id = 'shadow-root';
-
-  const shadowRoot = root.attachShadow({ mode: 'open' });
+  const shadowHost = document.createElement('div');
+  shadowHost.id = 'ai-conversation-navigator-root';
+  document.body.append(shadowHost);
+  const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
 
   if (navigator.userAgent.includes('Firefox')) {
     const styleElement = document.createElement('style');
@@ -25,8 +20,10 @@ const initializePlugin = () => {
     shadowRoot.adoptedStyleSheets = [globalStyleSheet];
   }
 
-  shadowRoot.appendChild(rootIntoShadow);
-  createRoot(rootIntoShadow).render(<App />);
+  const mountPoint = document.createElement('div');
+  mountPoint.id = 'mount-point';
+  shadowRoot.appendChild(mountPoint);
+  createRoot(mountPoint).render(<App />);
 };
 
 setTimeout(() => {
