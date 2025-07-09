@@ -64,7 +64,7 @@ importers:
         specifier: 18.0.0
         version: 18.0.0(@typescript-eslint/eslint-plugin@8.22.0(@typescript-eslint/parser@8.22.0(eslint@9.20.1(jiti@1.21.6))(typescript@5.8.1-rc))(eslint@9.20.1(jiti@1.21.6))(typescript@5.8.1-rc))(@typescript-eslint/parser@8.22.0(eslint@9.20.1(jiti@1.21.6))(typescript@5.8.1-rc))(eslint-plugin-import@2.29.1)(eslint@9.20.1(jiti@1.21.6))
       eslint-config-prettier:
-        specifier: ^10.0.5
+        specifier: ^10.0.6
         version: 10.1.2(eslint@9.20.1(jiti@1.21.6))
       eslint-import-resolver-typescript:
         specifier: 3.7.0
