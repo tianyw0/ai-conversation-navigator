@@ -4,95 +4,154 @@ import { colorLog } from '@extension/dev-utils';
 export class ConversationService {
   private pageStorage;
   private pageId: string;
+  private observers: Array<number> = []; // 存储所有 interval ID
+  private isProcessing = false; // 防止并发处理
+  private mutationObserver: MutationObserver | null = null;
+  private themeObserver: MutationObserver | null = null;
 
   constructor() {
-    // 使用当前页面URL作为页面ID
     this.pageId = window.location.pathname;
     this.pageStorage = createConversationPageStorage(this.pageId);
-    this.initObserver();
-    this.initUrlChangeListener();
+    this.initObservers();
   }
 
-  private initObserver() {
+  private initObservers() {
+    this.cleanupObservers(); // 清理现有观察器
+    this.initConversationObserver();
+    this.initThemeObserver();
+    this.initScrollObserver();
+  }
+
+  private cleanupObservers() {
+    // 清理所有 interval
+    this.observers.forEach(id => clearInterval(id));
+    this.observers = [];
+
+    // 清理 MutationObserver
+    if (this.mutationObserver) {
+      this.mutationObserver.disconnect();
+    }
+    if (this.themeObserver) {
+      this.themeObserver.disconnect();
+    }
+  }
+
+  private initConversationObserver() {
     const findConversationContainer = () => {
       const thread = document.getElementById('thread');
       if (!thread) {
-        setTimeout(findConversationContainer, 1000);
+        const timeoutId = setTimeout(() => {
+          findConversationContainer();
+        }, 1000);
+        this.observers.push(timeoutId);
         colorLog('service::对话导航器: 等待对话容器加载...', 'info');
         return;
       }
 
-      // 找到对话容器后，只监听这个容器内的变化
-      setInterval(() => {
-        this.updateQuestions();
-      }, 1000);
+      // 使用 MutationObserver 替代 setInterval
+      this.mutationObserver = new MutationObserver(this.debouncedUpdateQuestions.bind(this));
+      this.mutationObserver.observe(thread, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
 
-      // 先直接扫描一次，再监听页面滚动，更新活跃对话
-      setInterval(() => {
-        this.updateActiveConversation();
-      }, 200);
-
-      // 每秒检查一次主题变化
-      setInterval(() => {
-        this.observeThemeChanges();
-      }, 1000);
-
+      // 初始化时执行一次更新
+      this.updateQuestions();
       colorLog('service::对话导航器: 已开始监听对话容器', 'success');
     };
 
-    // 开始查找对话容器
     findConversationContainer();
   }
 
-  private initUrlChangeListener() {
-    setInterval(() => {
-      const currentPageId = window.location.pathname;
-      if (currentPageId !== this.pageId) {
-        this.handleUrlChange(currentPageId);
+  private initThemeObserver() {
+    // 使用 MutationObserver 监听主题变化
+    this.themeObserver = new MutationObserver(() => {
+      if (!this.isProcessing) {
+        this.observeThemeChanges();
       }
-    }, 1000);
+    });
+
+    this.themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
   }
 
-  // 处理 URL 变化
-  private handleUrlChange(pageId: string) {
-    this.pageStorage = createConversationPageStorage(pageId);
-    this.pageId = pageId;
+  private initScrollObserver() {
+    // 使用 requestAnimationFrame 优化滚动监听
+    let scrollTimeout: number;
+    const scrollHandler = () => {
+      if (!this.isProcessing) {
+        this.updateActiveConversation();
+      }
+    };
 
-    this.initObserver();
-    colorLog(`service::URL 变化，重新加载页面内容: ${pageId}`, 'info');
+    window.addEventListener(
+      'scroll',
+      () => {
+        cancelAnimationFrame(scrollTimeout);
+        scrollTimeout = requestAnimationFrame(scrollHandler);
+      },
+      { passive: true },
+    );
+  }
+
+  // 使用防抖处理更新
+  private debouncedUpdateQuestions() {
+    if (this.isProcessing) return;
+
+    this.isProcessing = true;
+    setTimeout(async () => {
+      await this.updateQuestions();
+      this.isProcessing = false;
+    }, 200);
   }
 
   private async updateQuestions() {
-    const questionElements = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]')).filter(
-      el => {
+    try {
+      const questionElements = Array.from(
+        document.querySelectorAll('article[data-testid^="conversation-turn-"]'),
+      ).filter(el => {
         const id = (el as HTMLElement).dataset.testid?.split('-').pop();
         return id && Number(id) % 2 === 1;
-      },
-    );
+      });
 
-    for (const element of questionElements) {
-      const testId = (element as HTMLElement).dataset.testid;
-      const id = testId ? Number(testId.split('-').pop()) : NaN;
-      const content = this.extractFullContent(element as HTMLElement);
-      const conversationItem: ConversationItem = {
-        id,
-        elementId: (element as HTMLElement).dataset.testid || '',
-        content,
-        summary: this.escapeHtml(content),
-      };
-      // 先获取旧数据
-      const oldItem = await this.pageStorage.getConversationById(id);
-      // 只有内容有变化时才更新
-      if (!oldItem || oldItem.summary !== conversationItem.summary || oldItem.content !== conversationItem.content) {
-        await this.pageStorage.addConversation(conversationItem);
+      for (const element of questionElements) {
+        const testId = (element as HTMLElement).dataset.testid;
+        const id = testId ? Number(testId.split('-').pop()) : NaN;
+        if (isNaN(id)) continue;
+
+        const content = this.extractFullContent(element as HTMLElement);
+        const conversationItem: ConversationItem = {
+          id,
+          elementId: testId || '',
+          content,
+          summary: this.escapeHtml(content),
+        };
+
+        const oldItem = await this.pageStorage.getConversationById(id);
+        if (!oldItem || oldItem.summary !== conversationItem.summary || oldItem.content !== conversationItem.content) {
+          await this.pageStorage.addConversation(conversationItem);
+        }
       }
+    } catch (error) {
+      console.error('更新对话失败:', error);
     }
   }
 
-  private updateActiveConversation() {
+  private handleUrlChange(pageId: string) {
+    this.cleanupObservers();
+    this.pageStorage = createConversationPageStorage(pageId);
+    this.pageId = pageId;
+    this.initObservers();
+    colorLog(`service::URL 变化，重新加载页面内容: ${pageId}`, 'info');
+  }
+
+  private async updateActiveConversation() {
     const visibleQuestion = this.findVisibleQuestion();
     if (visibleQuestion) {
-      this.pageStorage.setActiveConversationId(visibleQuestion.id);
+      await this.pageStorage.setActiveConversationId(visibleQuestion.id);
     }
   }
 
@@ -117,16 +176,17 @@ export class ConversationService {
 
     return null;
   }
-
-  private observeThemeChanges() {
-    // 初始化主题
-    const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-    colorLog('service::当前 theme:' + currentTheme, 'info');
-    this.pageStorage.getTheme().then(theme => {
+  private async observeThemeChanges() {
+    try {
+      const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      const theme = await this.pageStorage.getTheme();
       if (currentTheme !== theme) {
-        this.pageStorage.setCurrentTheme(currentTheme);
+        await this.pageStorage.setCurrentTheme(currentTheme);
+        colorLog('service::主题已更新: ' + currentTheme, 'info');
       }
-    });
+    } catch (error) {
+      console.error('主题更新失败:', error);
+    }
   }
 
   // utils
