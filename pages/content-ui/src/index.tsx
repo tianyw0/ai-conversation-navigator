@@ -53,43 +53,14 @@ const initializePlugin = (retryCount = 0, maxRetries = 5) => {
 
 // 监听 URL 变化，重新初始化插件
 const initUrlChangeListener = () => {
-  let lastUrl = window.location.pathname;
-
-  // 使用 MutationObserver 监听 URL 变化
-  const observer = new MutationObserver(() => {
-    const currentUrl = window.location.pathname;
-    if (currentUrl !== lastUrl) {
-      lastUrl = currentUrl;
-      colorLog('URL changed, reinitializing...', 'info');
-      setTimeout(() => {
-        initializePlugin();
-      }, 500); // 给页面一些时间加载新内容
+  let lastHref = location.href;
+  setInterval(() => {
+    if (location.href !== lastHref) {
+      console.log('URL changed 222:', location.href);
+      lastHref = location.href;
+      initializePlugin();
     }
-  });
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-  });
-
-  // 监听 History API
-  const originalPushState = history.pushState;
-  const originalReplaceState = history.replaceState;
-
-  history.pushState = (...args) => {
-    originalPushState.apply(history, args);
-    setTimeout(() => initializePlugin(), 500);
-  };
-
-  history.replaceState = (...args) => {
-    originalReplaceState.apply(history, args);
-    setTimeout(() => initializePlugin(), 500);
-  };
-
-  // 监听浏览器前进/后退
-  window.addEventListener('popstate', () => {
-    setTimeout(() => initializePlugin(), 500);
-  });
+  }, 1000);
 };
 
 // 初始化

@@ -30,7 +30,7 @@ const manifest = {
   version: packageJson.version,
   description: '__MSG_extensionDescription__',
   host_permissions: ['https://chatgpt.com/*'],
-  permissions: ['storage'],
+  permissions: ['storage', 'tabs', 'webNavigation'],
   background: {
     service_worker: 'background.js',
     type: 'module',
