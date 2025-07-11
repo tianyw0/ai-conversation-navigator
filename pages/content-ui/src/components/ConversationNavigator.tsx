@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useConversationStorage } from '../hooks/useConversationStorage';
 import { ConversationList } from './ConversationList';
 import { t } from '@extension/i18n';
+import { cn } from '@extension/ui';
 
 export const ConversationNavigator: React.FC = () => {
   const { pageId, conversations, activeConversationId, currentTheme } = useConversationStorage();
@@ -21,25 +22,36 @@ export const ConversationNavigator: React.FC = () => {
 
   // 判断是否有数据
   const isLoading = !conversations || conversations.length === 0;
+
+  const isDarkTheme = currentTheme === 'dark';
+
   return (
     <div
-      className={`
-        absolute w-[260px] top-[56px] max-h-[calc(100vh-190px)] overflow-auto gap-2 rounded px-2 py-1
-        flex flex-col h-full
-        ${isCollapsed ? 'w-10' : ''}
-        transition-all duration-300
-        overflow-y-auto
-        border-r border-r-transparent
-        ${currentTheme === 'dark' ? 'bg-[#212121] text-[#FFFFFF]' : 'bg-white text-[#0D0D0D]'}
-      `}>
-      <div className='flex justify-between items-center p-2 font-normal border-b border-transparent'>
+      className={cn(
+        'absolute left-0 top-[56px]',
+        isCollapsed
+          ? 'w-[40px] h-[40px] p-0 overflow-hidden'
+          : 'w-[260px] max-h-[calc(100vh-190px)] px-2 py-1 overflow-auto',
+        'flex flex-col rounded transition-all duration-300 ease-in-out',
+        'border-r border-r-transparent',
+        isDarkTheme ? 'bg-[#212121] text-[#FFFFFF]' : 'bg-white text-[#0D0D0D]',
+      )}>
+      <div
+        className={cn(
+          'flex justify-between items-center',
+          isCollapsed ? 'p-0 w-[40px] h-[40px] border-none' : 'p-2 font-normal border-b border-transparent',
+        )}>
         {!isCollapsed && <span>{t('conversation_navigator')}</span>}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className={`p-1 rounded ${currentTheme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+          className={cn(
+            isCollapsed ? 'w-[40px] h-[40px]' : 'p-1',
+            'rounded flex items-center justify-center',
+            isDarkTheme ? 'hover:bg-gray-700' : 'hover:bg-gray-200',
+          )}
           title={isCollapsed ? t('expand') : t('collapse')}>
           <svg
-            className={`w-4 h-4 transform transition-transform ${isCollapsed ? 'rotate-180' : ''}`}
+            className={cn('w-4 h-4 transform transition-transform', isCollapsed && 'rotate-180')}
             viewBox='0 0 24 24'
             fill='none'
             stroke='currentColor'
@@ -49,19 +61,22 @@ export const ConversationNavigator: React.FC = () => {
         </button>
       </div>
 
-      {!isCollapsed &&
-        (isLoading ? (
-          <div className='flex justify-center items-center h-full'>
-            <div className='text-sm'>{t('loading')}</div>
-          </div>
-        ) : (
-          <ConversationList
-            conversations={conversations}
-            activeId={activeConversationId}
-            theme={currentTheme}
-            onSelect={handleSelect}
-          />
-        ))}
+      {!isCollapsed && (
+        <div className='flex-1'>
+          {isLoading ? (
+            <div className='flex justify-center items-center h-full'>
+              <div className='text-sm'>{t('loading')}</div>
+            </div>
+          ) : (
+            <ConversationList
+              conversations={conversations}
+              activeId={activeConversationId}
+              theme={currentTheme}
+              onSelect={handleSelect}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };
