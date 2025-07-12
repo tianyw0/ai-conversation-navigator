@@ -50,6 +50,7 @@ const manifest = {
     {
       matches: ['https://chatgpt.com/*'],
       js: ['content-ui/index.iife.js'],
+      run_at: 'document_idle',
     },
     {
       matches: ['https://chatgpt.com/*'],

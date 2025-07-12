@@ -16,10 +16,10 @@ export class ConversationService {
   }
 
   private initObservers() {
-    this.cleanupObservers(); // 清理现有观察器
-    this.initConversationObserver();
-    this.initThemeObserver();
-    this.initScrollObserver();
+    // this.cleanupObservers(); // 清理现有观察器
+    // this.initConversationObserver();
+    // this.initThemeObserver();
+    // this.initScrollObserver();
   }
 
   private cleanupObservers() {
