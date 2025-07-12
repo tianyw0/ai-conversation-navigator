@@ -5,23 +5,23 @@ import { cn } from '@extension/ui';
 
 interface Props {
   conversations: ConversationItem[];
-  activeId: string | null;
+  activePromptId: string | null;
   theme: 'light' | 'dark';
   onSelect: (id: string) => void;
 }
 
-export const ConversationList: React.FC<Props> = ({ conversations, activeId, theme, onSelect }) => {
+export const ConversationList: React.FC<Props> = ({ conversations, activePromptId, theme, onSelect }) => {
   // 在 activeId 变化时，滚动到对应的 li 元素
   useEffect(() => {
-    colorLog('ui-component::activeConversationId changed:' + activeId, 'info');
-    if (activeId) {
+    colorLog('ui-component::activeConversationId changed:' + activePromptId, 'info');
+    if (activePromptId) {
       // 获取包含 shadow DOM 的宿主元素
       const shadowHost = document.querySelector('#ai-conversation-navigator-root');
       if (shadowHost && shadowHost.shadowRoot) {
         // 获取 shadowRoot
         const shadowRoot = shadowHost.shadowRoot;
         // 在 shadowRoot 中查找对应的按钮
-        const activeButton = shadowRoot.querySelector(`button[data-testid='${activeId}']`);
+        const activeButton = shadowRoot.querySelector(`button[data-testid='${activePromptId}']`);
         if (activeButton) {
           activeButton.scrollIntoView({
             behavior: 'smooth',
@@ -30,12 +30,12 @@ export const ConversationList: React.FC<Props> = ({ conversations, activeId, the
         }
       }
     }
-  }, [activeId]); // 只有 activeId 发生变化时触发
+  }, [activePromptId]); // 只有 activeId 发生变化时触发
 
   return (
     <ul className='flex-1 overflow-y-auto'>
       {conversations.map((conversation, index) => {
-        const isActive = activeId === conversation.elementId;
+        const isActive = activePromptId === conversation.elementId;
         const isDark = theme === 'dark';
 
         return (

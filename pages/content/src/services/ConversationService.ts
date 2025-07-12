@@ -64,20 +64,6 @@ export class ConversationService {
     findConversationContainer();
   }
 
-  private initThemeObserver() {
-    // 使用 MutationObserver 监听主题变化
-    this.themeObserver = new MutationObserver(() => {
-      if (!this.isProcessing) {
-        this.observeThemeChanges();
-      }
-    });
-
-    this.themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-  }
-
   private initScrollObserver() {
     // 使用 requestAnimationFrame 优化滚动监听
     let scrollTimeout: number;
@@ -140,14 +126,6 @@ export class ConversationService {
     }
   }
 
-  private handleUrlChange(pageId: string) {
-    this.cleanupObservers();
-    this.pageStorage = createConversationPageStorage(pageId);
-    this.pageId = pageId;
-    this.initObservers();
-    colorLog(`service::URL 变化，重新加载页面内容: ${pageId}`, 'info');
-  }
-
   private async updateActiveConversation() {
     const visibleQuestion = this.findVisibleQuestion();
     if (visibleQuestion) {
@@ -175,35 +153,5 @@ export class ConversationService {
     }
 
     return null;
-  }
-  private async observeThemeChanges() {
-    try {
-      const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-      const theme = await this.pageStorage.getTheme();
-      if (currentTheme !== theme) {
-        await this.pageStorage.setCurrentTheme(currentTheme);
-        colorLog('service::主题已更新: ' + currentTheme, 'info');
-      }
-    } catch (error) {
-      console.error('主题更新失败:', error);
-    }
-  }
-
-  // utils
-  private extractFullContent(node: HTMLElement): string {
-    let textContent =
-      (node.querySelector('.whitespace-pre-wrap') as HTMLElement)?.innerText.trim() || node.innerText.trim();
-    const quote = node.querySelector('p.line-clamp-3');
-    if (quote instanceof HTMLElement) {
-      textContent = quote.innerText.trim() + textContent;
-    }
-    return textContent
-      .split(/[\n\r]+/)
-      .join(' ')
-      .replace(/\s+/g, ' ');
-  }
-
-  private escapeHtml(unsafe: string): string {
-    return unsafe.replace(/<[^>]*>/g, match => match.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
   }
 }

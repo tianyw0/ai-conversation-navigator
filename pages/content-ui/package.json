@@ -27,7 +27,8 @@
     "@extension/storage": "workspace:*",
     "@extension/ui": "workspace:*",
     "@extension/i18n": "workspace:*",
-    "@extension/dev-utils": "workspace:*"
+    "@extension/dev-utils": "workspace:*",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@extension/hmr": "workspace:*",
