@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { LoadingIndicator } from './components/LoadingIndicator';
 import { PromptItem } from './components/Promptitem';
 import { t } from '@extension/i18n';
@@ -14,6 +14,7 @@ export const App: React.FC = () => {
   const [activePromptId, setActivePromptId] = useState('');
   const [theme, setTheme] = useState('light');
   const [chat, setChat] = useState('');
+  const chatRef = useRef(chat);
 
   useEffect(() => {
     console.log(`current collapsed: "${collapsed}"`);
@@ -87,7 +88,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (location.href !== chat) {
+      if (location.href !== chatRef.current) {
         console.log('URL changed: ', location.href);
         setChat(location.href);
       }
@@ -98,6 +99,10 @@ export const App: React.FC = () => {
   // 绑定指定元素的 scroll 事件
   // 每次切换聊天都需要重新绑定，因为之前的元素会被替换，事件就没有了
   useEffect(bindScroll, [chat]);
+  // 借助一个 ref 变量传递变化
+  useEffect(() => {
+    chatRef.current = chat;
+  }, [chat]);
 
   function bindScroll() {
     const intervalId = setInterval(() => {
@@ -118,7 +123,14 @@ export const App: React.FC = () => {
           const questions = Array.from(threadEl.querySelectorAll('article[data-testid^="conversation-turn-"]'));
           const visible = questions.find(q => {
             const rect = q.getBoundingClientRect();
-            return rect.bottom >= 0 && rect.top <= window.innerHeight;
+            /**
+             * 加“可见面积”限制，避免误触
+             * 可以加入一个“元素可见区域高度必须超过某个阈值”的判断
+             * 比如 250px 或元素自身高度的 30%，这样可以过滤掉仅部分边缘可见的情况：
+             */
+            const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+            const isVisibleEnough = visibleHeight >= Math.min(250, rect.height * 0.3);
+            return isVisibleEnough;
           });
 
           if (visible) {
@@ -133,7 +145,7 @@ export const App: React.FC = () => {
         //先执行一次，在用户滚动之前，定位导航 Prompt
         handleScroll();
 
-        threadEl.addEventListener('scroll', debounce(handleScroll, 7), { passive: true });
+        threadEl.addEventListener('scroll', debounce(handleScroll, 17), { passive: true });
         return () => threadEl.removeEventListener('scroll', handleScroll);
         // 找到元素之后的代码-end
       }
