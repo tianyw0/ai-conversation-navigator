@@ -5,7 +5,7 @@ import { t } from '@extension/i18n';
 import { cn } from '@extension/ui';
 
 export const App: React.FC = () => {
-  const { pageId, conversations, activeConversationId, currentTheme } = useConversationStorage();
+  const { conversations, activeConversationId, currentTheme } = useConversationStorage();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleSelect = (id: string) => {
@@ -15,20 +15,13 @@ export const App: React.FC = () => {
     }
   };
 
-  // 如果 pageId 为 '/'，则不渲染 UI
-  if (pageId === '/') {
-    return null;
-  }
-
-  // 判断是否有数据
   const isLoading = !conversations || conversations.length === 0;
-
   const isDarkTheme = currentTheme === 'dark';
 
   return (
     <div
       className={cn(
-        'absolute left-0 top-[56px]',
+        'absolute left-[260px] top-[56px]',
         isCollapsed
           ? 'w-[40px] h-[40px] p-0 overflow-hidden'
           : 'w-[260px] max-h-[calc(100vh-190px)] px-2 py-1 overflow-auto',
