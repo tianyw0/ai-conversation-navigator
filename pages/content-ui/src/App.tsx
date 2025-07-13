@@ -137,10 +137,6 @@ export const App: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    console.log(`current  left is ${left}`);
-  }, [left]);
-
   // jsx 中用到的函数
   const handleSelect = (id: string) => {
     const element = document.querySelector(`[data-testid="${id}"]`);
