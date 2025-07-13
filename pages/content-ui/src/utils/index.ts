@@ -25,3 +25,9 @@ export function debounce<T extends (...args: any[]) => void>(fn: T, delay: numbe
     }, delay);
   } as T;
 }
+
+export function isElementVisibleEnough(element: HTMLElement): boolean {
+  const rect = element.getBoundingClientRect();
+  const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+  return visibleHeight >= Math.min(250, rect.height * 0.3); // 可见面积需超过 250px 或元素高度的 30%
+}

@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { PromptItem, LoadingIndicator, CollapseButton } from './components';
 import { themeChangeTrigger, promptsChangeTrigger } from './trigger';
 import type { PromptEntity } from './types';
-import { debounce } from './utils';
+import { debounce, isElementVisibleEnough } from './utils';
 
 export const App: React.FC = () => {
   const [prompts, setPrompts] = useState<PromptEntity[]>();
@@ -53,60 +53,40 @@ export const App: React.FC = () => {
 
   // 绑定指定元素的 scroll 事件
   // 每次切换聊天都需要重新绑定，因为之前的元素会被替换，事件就没有了
-  useEffect(bindScroll, [chat]);
+  useEffect(bindActivePromptIdScroll, [chat]);
 
-  function bindScroll() {
+  function bindActivePromptIdScroll() {
     const intervalId = setInterval(() => {
       const threadEl = document.querySelector('#thread')?.querySelector('article')?.parentElement?.parentElement;
-      if (threadEl) {
-        clearInterval(intervalId);
-        // 找到元素后执行的代码-start
-        const threadEl = document.querySelector('#thread')?.querySelector('article')?.parentElement?.parentElement;
-
-        colorLog(`threadEL is ${threadEl}`, 'info');
-
-        if (!threadEl) {
-          colorLog('没有找到滚动元素', 'error');
-          return;
+      if (!threadEl) return;
+      // 找到了
+      clearInterval(intervalId);
+      colorLog(`threadEL is ${threadEl}`, 'info');
+      const handleScroll = () => {
+        const allPrompts = Array.from(threadEl.querySelectorAll('article[data-testid^="conversation-turn-"]')).filter(
+          (q): q is HTMLElement => q instanceof HTMLElement,
+        );
+        const visiblePrompt = allPrompts.find(isElementVisibleEnough);
+        if (visiblePrompt) {
+          const id = (visiblePrompt as HTMLElement).dataset.testid || '';
+          const numericId = Number(id.split('-').pop());
+          const adjustedId = numericId % 2 === 0 ? numericId - 1 : numericId;
+          setActivePromptId(`conversation-turn-${adjustedId}`);
+          console.log(`conversation-turn-${adjustedId}`);
         }
+      };
 
-        const handleScroll = () => {
-          const questions = Array.from(threadEl.querySelectorAll('article[data-testid^="conversation-turn-"]'));
-          const visible = questions.find(q => {
-            const rect = q.getBoundingClientRect();
-            /**
-             * 加“可见面积”限制，避免误触
-             * 可以加入一个“元素可见区域高度必须超过某个阈值”的判断
-             * 比如 250px 或元素自身高度的 30%，这样可以过滤掉仅部分边缘可见的情况：
-             */
-            const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-            const isVisibleEnough = visibleHeight >= Math.min(250, rect.height * 0.3);
-            return isVisibleEnough;
-          });
-
-          if (visible) {
-            const id = (visible as HTMLElement).dataset.testid || '';
-            const numericId = Number(id.split('-').pop());
-            const adjustedId = numericId % 2 === 0 ? numericId - 1 : numericId;
-            setActivePromptId(`conversation-turn-${adjustedId}`);
-            console.log(`conversation-turn-${adjustedId}`);
-          }
-        };
-
-        //先执行一次，在用户滚动之前，定位导航 Prompt
-        handleScroll();
-
-        threadEl.addEventListener('scroll', debounce(handleScroll, 17), { passive: true });
-        return () => threadEl.removeEventListener('scroll', handleScroll);
-        // 找到元素之后的代码-end
-      }
-      return; // 这句话不能少 TS 代码要求
+      //先执行一次，在用户滚动鼠标之前，定位导航 Prompt
+      handleScroll();
+      // 开始监听滚动事件
+      threadEl.addEventListener('scroll', debounce(handleScroll, 17), { passive: true });
+      return () => threadEl.removeEventListener('scroll', handleScroll);
     }, 1000);
   }
 
   //监听左侧聊天列表变动，控制 Prompt 导航 left 值
   useEffect(() => {
-    const updateSidebarClass = () => {
+    const updateLeftClass = () => {
       const sidebar = document.querySelector('#stage-slideover-sidebar');
       if (!sidebar) {
         setLeft('left-hidden');
@@ -121,10 +101,9 @@ export const App: React.FC = () => {
     };
 
     // 初始执行一次
-    updateSidebarClass();
-
+    updateLeftClass();
     const observer = new MutationObserver(() => {
-      updateSidebarClass();
+      updateLeftClass();
     });
 
     observer.observe(document.body, {
@@ -138,8 +117,8 @@ export const App: React.FC = () => {
   }, []);
 
   // jsx 中用到的函数
-  const handleSelect = (id: string) => {
-    const element = document.querySelector(`[data-testid="${id}"]`);
+  const handleOnClickPrompt = (elementId: string) => {
+    const element = document.querySelector(`[data-testid="${elementId}"]`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -181,7 +160,7 @@ export const App: React.FC = () => {
                     conversation={prompt}
                     isActive={isActive}
                     index={index}
-                    onSelect={handleSelect}
+                    onClickPrompt={handleOnClickPrompt}
                   />
                 );
               })}

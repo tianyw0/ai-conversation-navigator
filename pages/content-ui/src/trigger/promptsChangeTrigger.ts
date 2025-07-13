@@ -19,7 +19,7 @@ export function promptsChangeTrigger(promptsSetter: React.Dispatch<React.SetStat
         const content = extractFullContent(element as HTMLElement);
         return {
           id,
-          elementId: testId || '',
+          elementId: testId,
           content,
           summary: escapeHtml(content),
         };

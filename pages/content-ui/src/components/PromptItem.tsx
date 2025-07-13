@@ -6,15 +6,15 @@ interface ItemProps {
   conversation: PromptEntity;
   isActive: boolean;
   index: number;
-  onSelect: (id: string) => void;
+  onClickPrompt: (id: string) => void;
 }
 
-export const PromptItem: React.FC<ItemProps> = ({ conversation, isActive, index, onSelect }) => {
+export const PromptItem: React.FC<ItemProps> = ({ conversation, isActive, index, onClickPrompt }) => {
   return (
     <li key={conversation.id} className='last:border-b-0'>
       <button
         type='button'
-        onClick={() => onSelect(conversation.elementId)}
+        onClick={() => onClickPrompt(conversation.elementId)}
         className={cn(
           'w-full text-left px-2 py-2 cursor-pointer relative group rounded-[4px]',
           'focus:outline-none transition-all',
