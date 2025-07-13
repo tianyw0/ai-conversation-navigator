@@ -160,38 +160,43 @@ export const App: React.FC = () => {
     }
   };
 
-  const isDarkTheme = theme === 'dark';
   const firstClassName = cn(
     theme,
-    'absolute flex flex-col overflow-auto',
+    'absolute flex flex-col',
     'left-[260px] top-[56px] w-[260px] max-h-[calc(100vh-190px)]',
     'px-2 py-1 rounded transition-all duration-300 ease-in-out',
     'border-r border-r-transparent',
     'dark:bg-[#212121] dark:text-[#FFFFFF] bg-white text-[#0D0D0D]',
   );
-  const titleClassName = cn('flex justify-between items-center p-2 font-normal border-b border-transparent text-sm');
+
+  const titleClassName = cn(
+    'sticky top-0 z-10 bg-white dark:bg-[#212121]',
+    'flex justify-between items-center p-2 font-normal border-b border-transparent text-sm',
+  );
 
   return (
     <div className={firstClassName}>
-      <div className={titleClassName}>
+      <div className={titleClassName} id='prompt-title'>
         {expand && <span>{t('conversation_navigator')}</span>}
         <CollapseButton expand={expand} onToggle={newState => setExpand(newState)} />
       </div>
       {expand && (
-        <div>
+        <div className='flex-1 overflow-auto'>
           {!prompts?.length ? (
             <LoadingIndicator />
           ) : (
-            <ul className='flex-1 overflow-y-auto'>
-              {prompts.map((conversation: PromptEntity, index: number) => {
-                const isActive = activePromptId === conversation.elementId;
+            <ul id='prompt-ul'>
+              {prompts.map((prompt, index) => {
+                const isActive = activePromptId === prompt.elementId;
                 return (
                   <PromptItem
-                    conversation={conversation}
+                    key={prompt.elementId}
+                    conversation={prompt}
                     isActive={isActive}
-                    isDark={isDarkTheme}
+                    isDark={theme === 'dark'}
                     index={index}
-                    onSelect={handleSelect}></PromptItem>
+                    onSelect={handleSelect}
+                  />
                 );
               })}
             </ul>
