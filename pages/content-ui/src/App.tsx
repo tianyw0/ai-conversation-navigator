@@ -15,6 +15,7 @@ export const App: React.FC = () => {
   const [theme, setTheme] = useState('light');
   const [chat, setChat] = useState('');
   const chatRef = useRef(chat);
+  const [visible, setVisible] = useState(location.pathname.startsWith('/c/'));
 
   useEffect(() => {
     console.log(`current expand: "${expand}"`);
@@ -90,7 +91,9 @@ export const App: React.FC = () => {
     const interval = setInterval(() => {
       if (location.href !== chatRef.current) {
         console.log('URL changed: ', location.href);
+        console.log('chatRef.current: ', chatRef.current);
         setChat(location.href);
+        setVisible(location.pathname.startsWith('/c/'));
       }
     }, 500);
     return () => clearInterval(interval);
@@ -173,6 +176,8 @@ export const App: React.FC = () => {
     'sticky top-0 z-10 bg-white dark:bg-[#212121]',
     'flex justify-between items-center p-2 font-normal border-b border-transparent text-sm',
   );
+
+  if (!visible) return null;
 
   return (
     <div className={firstClassName}>
