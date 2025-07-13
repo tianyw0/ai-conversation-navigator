@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import type { ConversationItem } from '@extension/storage';
 import { colorLog } from '@extension/dev-utils';
 import { cn } from '@extension/ui';
+import { PromptEntity } from '@src/types';
 
 interface ItemProps {
-  conversation: ConversationItem;
+  conversation: PromptEntity;
   isActive: boolean;
   isDark: boolean;
   index: number;

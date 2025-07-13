@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { LoadingIndicator } from './components/LoadingIndicator';
-import { PromptItem } from './components/Promptitem';
+import { PromptItem } from './components/PromptItem';
 import { t } from '@extension/i18n';
 import { cn } from '@extension/ui';
 import { colorLog } from '@extension/dev-utils';
@@ -16,6 +16,7 @@ export const App: React.FC = () => {
   const [chat, setChat] = useState('');
   const chatRef = useRef(chat);
   const [visible, setVisible] = useState(location.pathname.startsWith('/c/'));
+  const [left, setLeft] = useState('left-full');
 
   useEffect(() => {
     console.log(`current expand: "${expand}"`);
@@ -87,6 +88,7 @@ export const App: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  // 定时监测 url 变动
   useEffect(() => {
     const interval = setInterval(() => {
       if (location.href !== chatRef.current) {
@@ -156,6 +158,44 @@ export const App: React.FC = () => {
     }, 1000);
   }
 
+  //监听左侧聊天列表变动，控制 Prompt 导航 left 值
+  useEffect(() => {
+    const updateSidebarClass = () => {
+      const sidebar = document.querySelector('#stage-slideover-sidebar');
+      if (!sidebar) {
+        setLeft('left-hidden');
+        return;
+      }
+      const width = window.getComputedStyle(sidebar).getPropertyValue('width').trim();
+      if (width === '52px') {
+        setLeft('left-rail');
+      } else if (width === '260px') {
+        setLeft('left-full');
+      }
+    };
+
+    // 初始执行一次
+    updateSidebarClass();
+
+    const observer = new MutationObserver(() => {
+      updateSidebarClass();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style', 'class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    console.log(`current  left is ${left}`);
+  }, [left]);
+
+  // jsx 中用到的函数
   const handleSelect = (id: string) => {
     const element = document.querySelector(`[data-testid="${id}"]`);
     if (element) {
@@ -164,9 +204,8 @@ export const App: React.FC = () => {
   };
 
   const firstClassName = cn(
-    theme,
     'absolute flex flex-col',
-    'left-[260px] top-[56px] w-[260px] max-h-[calc(100vh-190px)]',
+    'top-[56px] w-[260px] max-h-[calc(100vh-190px)]',
     'px-2 py-1 rounded transition-all duration-300 ease-in-out',
     'border-r border-r-transparent',
     'dark:bg-[#212121] dark:text-[#FFFFFF] bg-white text-[#0D0D0D]',
@@ -180,7 +219,7 @@ export const App: React.FC = () => {
   if (!visible) return null;
 
   return (
-    <div className={firstClassName}>
+    <div className={cn(firstClassName, left)}>
       <div className={titleClassName} id='prompt-title'>
         {expand && <span>{t('conversation_navigator')}</span>}
         <CollapseButton expand={expand} onToggle={newState => setExpand(newState)} />

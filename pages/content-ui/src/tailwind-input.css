@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 在全局 CSS 文件中定义 */
+.left-rail {
+  left: 52px; /* rail 模式 */
+}
+
+.left-full {
+  left: 260px; /* 展开模式 */
+}
+
+.left-hidden {
+  left: 0; /* 隐藏时可选 */
+}
