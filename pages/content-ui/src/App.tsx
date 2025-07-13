@@ -219,7 +219,7 @@ export const App: React.FC = () => {
   if (!visible) return null;
 
   return (
-    <div className={cn(firstClassName, left)}>
+    <div className={cn(firstClassName, left, expand ? '' : 'w-auto max-w-[260px]')}>
       <div className={titleClassName} id='prompt-title'>
         {expand && <span>{t('conversation_navigator')}</span>}
         <CollapseButton expand={expand} onToggle={newState => setExpand(newState)} />

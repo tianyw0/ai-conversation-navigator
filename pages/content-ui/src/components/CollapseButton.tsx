@@ -17,7 +17,7 @@ export const CollapseButton: React.FC<CollapseButtonProps> = ({ expand, onToggle
       className={cn('p-1 rounded flex items-center justify-center dark:hover:bg-gray-700 hover:bg-gray-200')}
       title={expand ? t('expand') : t('collapse')}>
       <svg
-        className={cn('w-4 h-4 transform transition-transform', expand && 'rotate-180')}
+        className={cn('w-4 h-4 transform transition-transform', !expand && 'rotate-180')}
         viewBox='0 0 24 24'
         fill='none'
         stroke='currentColor'
