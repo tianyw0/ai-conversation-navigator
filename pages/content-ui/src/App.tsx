@@ -116,14 +116,6 @@ export const App: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // jsx 中用到的函数
-  const handleOnClickPrompt = (elementId: string) => {
-    const element = document.querySelector(`[data-testid="${elementId}"]`);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   const firstClassName = cn(
     'absolute flex flex-col',
     'top-0 w-[260px] mt-[52px] max-h-[calc(100vh-52px-52px)]',
@@ -154,15 +146,7 @@ export const App: React.FC = () => {
             <ul id='prompt-ul'>
               {prompts.map((prompt, index) => {
                 const isActive = activePromptId === prompt.elementId;
-                return (
-                  <PromptItem
-                    key={prompt.elementId}
-                    conversation={prompt}
-                    isActive={isActive}
-                    index={index}
-                    onClickPrompt={handleOnClickPrompt}
-                  />
-                );
+                return <PromptItem key={prompt.elementId} prompt={prompt} isActive={isActive} index={index} />;
               })}
             </ul>
           )}
