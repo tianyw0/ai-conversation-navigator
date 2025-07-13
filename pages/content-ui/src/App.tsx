@@ -6,13 +6,14 @@ import { cn } from '@extension/ui';
 import { colorLog } from '@extension/dev-utils';
 import { CollapseButton } from './components/CollapseButton';
 import type { PromptEntity } from './types';
-import { escapeHtml, extractFullContent, debounce } from './utils';
+import { debounce } from './utils';
+import { promptsChangeTrigger } from './trigger';
+import { themeChangeTrigger } from './trigger';
 
 export const App: React.FC = () => {
   const [prompts, setPrompts] = useState<PromptEntity[]>();
   const [expand, setExpand] = useState(true);
   const [activePromptId, setActivePromptId] = useState('');
-  const [theme, setTheme] = useState('light');
   const [chat, setChat] = useState('');
   const chatRef = useRef(chat);
   const [visible, setVisible] = useState(location.pathname.startsWith('/c/'));
@@ -36,71 +37,10 @@ export const App: React.FC = () => {
     }
   }, [activePromptId]);
 
-  useEffect(() => {
-    console.log(`theme changed: ${theme}`);
-    const mountPoint = document
-      .querySelector('#ai-conversation-navigator-root')
-      ?.shadowRoot?.querySelector('#mount-point');
-    if (theme === 'dark') {
-      mountPoint?.classList.add('dark');
-      mountPoint?.classList.remove('light');
-    } else {
-      mountPoint?.classList.add('light');
-      mountPoint?.classList.remove('dark');
-    }
-  }, [theme]);
-
   // 监听主题变化
-  useEffect(() => {
-    const themeObserver = new MutationObserver(() => {
-      const newTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-      console.log(`当前的主题是${theme}`);
-      if (theme !== newTheme) {
-        console.log(`主题切换，当前主题：${newTheme}`);
-        setTheme(newTheme);
-      }
-    });
-
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-    return () => themeObserver.disconnect();
-  });
+  useEffect(themeChangeTrigger, []);
   // 监听 Prompts
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      const questionElements = Array.from(
-        document.querySelectorAll('article[data-testid^="conversation-turn-"]'),
-      ).filter(el => {
-        const id = (el as HTMLElement).dataset.testid?.split('-').pop();
-        return id && Number(id) % 2 === 1;
-      });
-
-      const promptEntities: PromptEntity[] = Array.from(questionElements)
-        .map(element => {
-          const testId = (element as HTMLElement).dataset.testid;
-          const id = testId ? Number(testId.split('-').pop()) : NaN;
-          if (isNaN(id)) return null;
-
-          const content = extractFullContent(element as HTMLElement);
-          return {
-            id,
-            elementId: testId || '',
-            content,
-            summary: escapeHtml(content),
-          };
-        })
-        .filter((item): item is PromptEntity => item !== null);
-      setPrompts(promptEntities);
-    });
-
-    observer.observe(document.documentElement, {
-      childList: true,
-      subtree: true, // 监听深层嵌套结构变化
-    });
-    return () => observer.disconnect();
-  }, []);
+  useEffect(promptsChangeTrigger(setPrompts), []);
 
   // 定时监测 url 变动
   useEffect(() => {
@@ -218,9 +158,8 @@ export const App: React.FC = () => {
   };
 
   const firstClassName = cn(
-    theme,
     'absolute flex flex-col',
-    'top-0 w-[260px] mt-[56px] max-h-[calc(100vh-56px-52px)]',
+    'top-0 w-[260px] mt-[52px] max-h-[calc(100vh-52px-52px)]',
     'px-2 py-1 rounded transition-all duration-300 ease-in-out',
     'dark:bg-[#212121] dark:text-[#FFFFFF] bg-white text-[#0D0D0D]',
     'border-[1px] rounded-none border-l-0',
@@ -253,7 +192,6 @@ export const App: React.FC = () => {
                     key={prompt.elementId}
                     conversation={prompt}
                     isActive={isActive}
-                    isDark={theme === 'dark'}
                     index={index}
                     onSelect={handleSelect}
                   />
