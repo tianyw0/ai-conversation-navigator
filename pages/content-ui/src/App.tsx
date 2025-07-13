@@ -161,7 +161,6 @@ export const App: React.FC = () => {
   };
 
   const isDarkTheme = theme === 'dark';
-  const titleClassName = cn('flex justify-between items-center p-2 font-normal border-b border-transparent text-sm');
   const firstClassName = cn(
     theme,
     'absolute flex flex-col overflow-auto',
@@ -170,43 +169,34 @@ export const App: React.FC = () => {
     'border-r border-r-transparent',
     'dark:bg-[#212121] dark:text-[#FFFFFF] bg-white text-[#0D0D0D]',
   );
+  const titleClassName = cn('flex justify-between items-center p-2 font-normal border-b border-transparent text-sm');
 
   return (
     <div className={firstClassName}>
-      {!expand && (
-        <>
-          <div className={titleClassName}>
-            {/* <span>{t('conversation_navigator')}</span> */}
-            <CollapseButton expand={expand} onToggle={newState => setExpand(newState)} />
-          </div>
-        </>
-      )}
+      <div className={titleClassName}>
+        {expand && <span>{t('conversation_navigator')}</span>}
+        <CollapseButton expand={expand} onToggle={newState => setExpand(newState)} />
+      </div>
       {expand && (
-        <>
-          <div className={titleClassName}>
-            <span>{t('conversation_navigator')}</span>
-            <CollapseButton expand={expand} onToggle={newState => setExpand(newState)} />
-          </div>
-          <div>
-            {!prompts?.length ? (
-              <LoadingIndicator />
-            ) : (
-              <ul className='flex-1 overflow-y-auto'>
-                {prompts.map((conversation: PromptEntity, index: number) => {
-                  const isActive = activePromptId === conversation.elementId;
-                  return (
-                    <PromptItem
-                      conversation={conversation}
-                      isActive={isActive}
-                      isDark={isDarkTheme}
-                      index={index}
-                      onSelect={handleSelect}></PromptItem>
-                  );
-                })}
-              </ul>
-            )}
-          </div>
-        </>
+        <div>
+          {!prompts?.length ? (
+            <LoadingIndicator />
+          ) : (
+            <ul className='flex-1 overflow-y-auto'>
+              {prompts.map((conversation: PromptEntity, index: number) => {
+                const isActive = activePromptId === conversation.elementId;
+                return (
+                  <PromptItem
+                    conversation={conversation}
+                    isActive={isActive}
+                    isDark={isDarkTheme}
+                    index={index}
+                    onSelect={handleSelect}></PromptItem>
+                );
+              })}
+            </ul>
+          )}
+        </div>
       )}
     </div>
   );
