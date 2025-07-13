@@ -15,7 +15,7 @@ export const CollapseButton: React.FC<CollapseButtonProps> = ({ expand, onToggle
     <button
       onClick={handleClick}
       className={cn('p-1 rounded flex items-center justify-center dark:hover:bg-gray-700 hover:bg-gray-200')}
-      title={expand ? t('expand') : t('collapse')}>
+      title={expand ? t('collapse') : t('expand')}>
       {expand ? (
         <svg
           xmlns='http://www.w3.org/2000/svg'

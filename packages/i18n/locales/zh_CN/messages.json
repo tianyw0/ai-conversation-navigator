@@ -30,8 +30,8 @@
     "description": "占位符示例",
     "message": "你好 $1"
   },
-  "conversation_navigator": {
-    "message": "对话导航"
+  "prompts_navigator": {
+    "message": "Prompts 导航"
   },
   "expand": {
     "message": "展开"

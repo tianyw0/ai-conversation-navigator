@@ -30,8 +30,8 @@
     "description": "Placeholder 예시",
     "message": "안녕 $1"
   },
-  "conversation_navigator": {
-    "message": "대화 네비게이터"
+  "prompts_navigator": {
+    "message": "Prompts 탐색기"
   },
   "expand": {
     "message": "확장"

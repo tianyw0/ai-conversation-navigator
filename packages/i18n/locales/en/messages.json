@@ -30,8 +30,8 @@
     "description": "Placeholder example",
     "message": "Hello $1"
   },
-  "conversation_navigator": {
-    "message": "Conversation Navigator"
+  "prompts_navigator": {
+    "message": "Prompts Navigator"
   },
   "expand": {
     "message": "Expand"

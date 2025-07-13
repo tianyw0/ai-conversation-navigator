@@ -30,8 +30,8 @@
     "description": "プレースホルダー例",
     "message": "こんにちは $1"
   },
-  "conversation_navigator": {
-    "message": "会話ナビゲーター"
+  "prompts_navigator": {
+    "message": "Prompts ナビゲーター"
   },
   "expand": {
     "message": "展開"

@@ -205,10 +205,10 @@ export const App: React.FC = () => {
 
   const firstClassName = cn(
     'absolute flex flex-col',
-    'top-[56px] w-[260px] max-h-[calc(100vh-190px)]',
+    'top-0 w-[260px] mt-[56px] max-h-[calc(100vh-56px-52px)]',
     'px-2 py-1 rounded transition-all duration-300 ease-in-out',
-    'border-r border-r-transparent',
     'dark:bg-[#212121] dark:text-[#FFFFFF] bg-white text-[#0D0D0D]',
+    'border-[1px] rounded-none border-l-0',
   );
 
   const titleClassName = cn(
@@ -221,7 +221,7 @@ export const App: React.FC = () => {
   return (
     <div className={cn(firstClassName, left, expand ? '' : 'w-auto max-w-[260px]')}>
       <div className={titleClassName} id='prompt-title'>
-        {expand && <span>{t('conversation_navigator')}</span>}
+        {expand && <span>{t('prompts_navigator')}</span>}
         <CollapseButton expand={expand} onToggle={newState => setExpand(newState)} />
       </div>
       {expand && (
