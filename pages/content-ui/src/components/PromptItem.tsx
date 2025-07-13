@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { colorLog } from '@extension/dev-utils';
 import { cn } from '@extension/ui';
 import { PromptEntity } from '@src/types';
 

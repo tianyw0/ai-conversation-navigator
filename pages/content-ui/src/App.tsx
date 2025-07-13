@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { LoadingIndicator } from './components/LoadingIndicator';
-import { PromptItem } from './components/PromptItem';
+import { colorLog } from '@extension/dev-utils';
 import { t } from '@extension/i18n';
 import { cn } from '@extension/ui';
-import { colorLog } from '@extension/dev-utils';
-import { CollapseButton } from './components/CollapseButton';
+import React, { useState, useRef, useEffect } from 'react';
+import { PromptItem, LoadingIndicator, CollapseButton } from './components';
+import { themeChangeTrigger, promptsChangeTrigger } from './trigger';
 import type { PromptEntity } from './types';
 import { debounce } from './utils';
-import { promptsChangeTrigger } from './trigger';
-import { themeChangeTrigger } from './trigger';
 
 export const App: React.FC = () => {
   const [prompts, setPrompts] = useState<PromptEntity[]>();
@@ -18,10 +15,6 @@ export const App: React.FC = () => {
   const chatRef = useRef(chat);
   const [visible, setVisible] = useState(location.pathname.startsWith('/c/'));
   const [left, setLeft] = useState('left-full');
-
-  useEffect(() => {
-    console.log(`current expand: "${expand}"`);
-  }, [expand]);
 
   useEffect(() => {
     colorLog('ui-component::activeConversationId changed:' + activePromptId, 'info');
@@ -54,14 +47,13 @@ export const App: React.FC = () => {
     }, 500);
     return () => clearInterval(interval);
   }, []);
+  useEffect(() => {
+    chatRef.current = chat;
+  }, [chat]);
 
   // 绑定指定元素的 scroll 事件
   // 每次切换聊天都需要重新绑定，因为之前的元素会被替换，事件就没有了
   useEffect(bindScroll, [chat]);
-  // 借助一个 ref 变量传递变化
-  useEffect(() => {
-    chatRef.current = chat;
-  }, [chat]);
 
   function bindScroll() {
     const intervalId = setInterval(() => {
