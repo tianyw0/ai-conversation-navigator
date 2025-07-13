@@ -10,15 +10,15 @@ import { escapeHtml, extractFullContent, debounce } from './utils';
 
 export const App: React.FC = () => {
   const [prompts, setPrompts] = useState<PromptEntity[]>();
-  const [collapsed, setCollapsed] = useState(false);
+  const [expand, setExpand] = useState(true);
   const [activePromptId, setActivePromptId] = useState('');
   const [theme, setTheme] = useState('light');
   const [chat, setChat] = useState('');
   const chatRef = useRef(chat);
 
   useEffect(() => {
-    console.log(`current collapsed: "${collapsed}"`);
-  }, [collapsed]);
+    console.log(`current expand: "${expand}"`);
+  }, [expand]);
 
   useEffect(() => {
     colorLog('ui-component::activeConversationId changed:' + activePromptId, 'info');
@@ -173,29 +173,41 @@ export const App: React.FC = () => {
 
   return (
     <div className={firstClassName}>
-      <div className={titleClassName}>
-        <span>{t('conversation_navigator')}</span>
-        <CollapseButton collapsed={collapsed} onToggle={newState => setCollapsed(newState)} />
-      </div>
-      <div>
-        {!prompts?.length ? (
-          <LoadingIndicator />
-        ) : (
-          <ul className='flex-1 overflow-y-auto'>
-            {prompts.map((conversation: PromptEntity, index: number) => {
-              const isActive = activePromptId === conversation.elementId;
-              return (
-                <PromptItem
-                  conversation={conversation}
-                  isActive={isActive}
-                  isDark={isDarkTheme}
-                  index={index}
-                  onSelect={handleSelect}></PromptItem>
-              );
-            })}
-          </ul>
-        )}
-      </div>
+      {!expand && (
+        <>
+          <div className={titleClassName}>
+            {/* <span>{t('conversation_navigator')}</span> */}
+            <CollapseButton expand={expand} onToggle={newState => setExpand(newState)} />
+          </div>
+        </>
+      )}
+      {expand && (
+        <>
+          <div className={titleClassName}>
+            <span>{t('conversation_navigator')}</span>
+            <CollapseButton expand={expand} onToggle={newState => setExpand(newState)} />
+          </div>
+          <div>
+            {!prompts?.length ? (
+              <LoadingIndicator />
+            ) : (
+              <ul className='flex-1 overflow-y-auto'>
+                {prompts.map((conversation: PromptEntity, index: number) => {
+                  const isActive = activePromptId === conversation.elementId;
+                  return (
+                    <PromptItem
+                      conversation={conversation}
+                      isActive={isActive}
+                      isDark={isDarkTheme}
+                      index={index}
+                      onSelect={handleSelect}></PromptItem>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

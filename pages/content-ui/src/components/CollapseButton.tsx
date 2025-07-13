@@ -3,21 +3,21 @@ import { t } from '@extension/i18n';
 import { cn } from '@extension/ui';
 
 interface CollapseButtonProps {
-  collapsed: boolean;
+  expand: boolean;
   onToggle: (newState: boolean) => void;
 }
 
-export const CollapseButton: React.FC<CollapseButtonProps> = ({ collapsed, onToggle }) => {
+export const CollapseButton: React.FC<CollapseButtonProps> = ({ expand, onToggle }) => {
   const handleClick = () => {
-    onToggle(!collapsed); // 将新的状态传递给父组件
+    onToggle(!expand); // 将新的状态传递给父组件
   };
   return (
     <button
       onClick={handleClick}
       className={cn('p-1 rounded flex items-center justify-center dark:hover:bg-gray-700 hover:bg-gray-200')}
-      title={collapsed ? t('expand') : t('collapse')}>
+      title={expand ? t('expand') : t('collapse')}>
       <svg
-        className={cn('w-4 h-4 transform transition-transform', collapsed && 'rotate-180')}
+        className={cn('w-4 h-4 transform transition-transform', expand && 'rotate-180')}
         viewBox='0 0 24 24'
         fill='none'
         stroke='currentColor'
