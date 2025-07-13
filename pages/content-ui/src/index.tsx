@@ -2,11 +2,9 @@ import { createRoot } from 'react-dom/client';
 import { App } from './App';
 // @ts-expect-error Because file doesn't exist before build
 import tailwindcssOutput from '../dist/tailwind-output.css?inline';
-import { colorLog } from '@extension/dev-utils';
 
 // content script
 const initializePlugin = (retryCount = 0, maxRetries = 5) => {
-  // clear and reinit
   const existingNavigator = document.getElementById('ai-conversation-navigator-root');
   if (existingNavigator) {
     existingNavigator.remove();

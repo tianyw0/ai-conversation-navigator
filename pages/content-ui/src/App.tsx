@@ -36,6 +36,20 @@ export const App: React.FC = () => {
     }
   }, [activePromptId]);
 
+  useEffect(() => {
+    console.log(`theme changed: ${theme}`);
+    const mountPoint = document
+      .querySelector('#ai-conversation-navigator-root')
+      ?.shadowRoot?.querySelector('#mount-point');
+    if (theme === 'dark') {
+      mountPoint?.classList.add('dark');
+      mountPoint?.classList.remove('light');
+    } else {
+      mountPoint?.classList.add('light');
+      mountPoint?.classList.remove('dark');
+    }
+  }, [theme]);
+
   // 监听主题变化
   useEffect(() => {
     const themeObserver = new MutationObserver(() => {
@@ -204,11 +218,13 @@ export const App: React.FC = () => {
   };
 
   const firstClassName = cn(
+    theme,
     'absolute flex flex-col',
     'top-0 w-[260px] mt-[56px] max-h-[calc(100vh-56px-52px)]',
     'px-2 py-1 rounded transition-all duration-300 ease-in-out',
     'dark:bg-[#212121] dark:text-[#FFFFFF] bg-white text-[#0D0D0D]',
     'border-[1px] rounded-none border-l-0',
+    'border-[rgba(13,13,13,0.05)] dark:border-[rgba(255,255,255,0.05)]',
   );
 
   const titleClassName = cn(
