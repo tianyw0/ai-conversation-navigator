@@ -16,20 +16,6 @@
   "loading": {
     "message": "載入中..."
   },
-  "greeting": {
-    "description": "問候語",
-    "message": "你好，我的名字是 $NAME$",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "張三"
-      }
-    }
-  },
-  "hello": {
-    "description": "占位符範例",
-    "message": "你好 $1"
-  },
   "prompts_navigator": {
     "message": "Prompts 導航"
   },

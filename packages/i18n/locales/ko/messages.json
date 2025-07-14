@@ -16,20 +16,6 @@
   "loading": {
     "message": "로딩 중..."
   },
-  "greeting": {
-    "description": "인사 메시지",
-    "message": "안녕하세요, 제 이름은 $NAME$입니다.",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "서종학"
-      }
-    }
-  },
-  "hello": {
-    "description": "Placeholder 예시",
-    "message": "안녕 $1"
-  },
   "prompts_navigator": {
     "message": "Prompts 탐색기"
   },
