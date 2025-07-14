@@ -23,7 +23,7 @@ export const PromptItem: React.FC<ItemProps> = ({ prompt, isActive, index }) => 
         type='button'
         onClick={() => handleOnClickPrompt(prompt.elementId)}
         className={cn(
-          'w-full text-left px-2 py-2 cursor-pointer relative group rounded-[4px]',
+          'w-full text-left p-2 cursor-pointer relative group rounded-[4px]',
           'focus:outline-none transition-all',
           'text-[14px] font-[400]',
           ' dark:text-[#FFFFFF] dark:hover:bg-[#2f2f2f] text-[#0D0D0D] hover:bg-[#E3E3E3]',

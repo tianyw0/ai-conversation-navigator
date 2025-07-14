@@ -119,7 +119,7 @@ export const App: React.FC = () => {
   const firstClassName = cn(
     'absolute flex flex-col',
     'top-0 w-[260px] mt-[52px] max-h-[calc(100vh-52px-52px)]',
-    'px-2 py-1 rounded transition-all duration-300 ease-in-out',
+    'px-2.5 py-1 rounded transition-all duration-300 ease-in-out',
     'dark:bg-[#212121] dark:text-[#FFFFFF] bg-white text-[#0D0D0D]',
     'border-[1px] rounded-none border-l-0',
     'border-[rgba(13,13,13,0.05)] dark:border-[rgba(255,255,255,0.05)]',
