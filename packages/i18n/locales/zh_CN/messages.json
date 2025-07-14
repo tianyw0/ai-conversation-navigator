@@ -1,14 +1,14 @@
 {
   "extensionDescription": {
-    "description": "ChatGPT Prompts 快速跳转",
-    "message": "ChatGPT Prompts 快速跳转"
+    "description": "PromptDock - 轻松跳转长篇 ChatGPT 对话。",
+    "message": "轻松跳转长篇 ChatGPT 对话。"
   },
   "extensionName": {
-    "description": "ChatGPT Prompts 快速跳转",
-    "message": "ChatGPT Prompts 快速跳转"
+    "description": "PromptDock",
+    "message": "PromptDock"
   },
   "extensionIntroduction": {
-    "message": "使用方法：<br>1. 从 Chrome 应用商店安装扩展。<br>2. 打开 ChatGPT 网站。<br>3. 对话导航侧边栏会自动出现。<br>4. 点击侧边栏任意条目可快速跳转到对应对话。<br>5. 导航器会自动跟随并高亮当前对话，方便在长对话中定位当前位置。<br>6. 可随宿主网站切换浅色/深色主题。"
+    "message": "使用方法：<br>1. 从 Chrome 网上应用店安装扩展程序。<br>2. 打开 ChatGPT 网站。<br>3. 对话导航侧边栏会自动出现。<br>4. 点击任意项即可快速跳转到对应对话位置。<br>5. 当你滚动页面时，导航栏会自动跟随并高亮当前位置，帮助你快速定位。<br>6. 插件会根据网站自动切换明暗模式。"
   },
   "toggleTheme": {
     "message": "切换主题"
@@ -17,7 +17,7 @@
     "message": "加载中..."
   },
   "prompts_navigator": {
-    "message": "Prompts 导航"
+    "message": "PromptDock"
   },
   "expand": {
     "message": "展开"

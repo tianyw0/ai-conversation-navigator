@@ -1,14 +1,14 @@
 {
   "extensionDescription": {
-    "description": "ChatGPT Prompts 導航器",
-    "message": "ChatGPT Prompts 導航器"
+    "description": "PromptDock - 輕鬆穿梭於長篇 ChatGPT 對話中。",
+    "message": "輕鬆穿梭於長篇 ChatGPT 對話中。"
   },
   "extensionName": {
-    "description": "ChatGPT Prompts 導航器",
-    "message": "ChatGPT Prompts 導航器"
+    "description": "PromptDock",
+    "message": "PromptDock"
   },
   "extensionIntroduction": {
-    "message": "使用方法：<br>1. 從 Chrome 應用商店安裝擴充功能。<br>2. 打開 ChatGPT 網站。<br>3. 對話導航側邊欄會自動出現。<br>4. 點擊側邊欄任意條目可快速跳轉到對應對話。<br>5. 導航器會自動跟隨並高亮當前對話，方便在長對話中定位當前位置。<br>6. 可隨宿主網站切換淺色/深色主題。"
+    "message": "使用方式：<br>1. 從 Chrome 線上應用程式商店安裝此擴充功能。<br>2. 開啟 ChatGPT 網站。<br>3. 對話導覽側邊欄會自動顯示。<br>4. 點選任一項目即可快速跳轉到該段對話。<br>5. 滾動頁面時導覽列會自動跟隨並高亮顯示目前位置。<br>6. 外觀會自動隨網站切換明暗模式。"
   },
   "toggleTheme": {
     "message": "切換主題"
@@ -17,12 +17,12 @@
     "message": "載入中..."
   },
   "prompts_navigator": {
-    "message": "Prompts 導航"
+    "message": "PromptDock"
   },
   "expand": {
     "message": "展開"
   },
   "collapse": {
-    "message": "收起"
+    "message": "收合"
   }
 }
