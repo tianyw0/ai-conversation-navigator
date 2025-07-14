@@ -1,10 +1,8 @@
 {
   "extensionDescription": {
-    "description": "PromptDock - 輕鬆穿梭於長篇 ChatGPT 對話中。",
     "message": "輕鬆穿梭於長篇 ChatGPT 對話中。"
   },
   "extensionName": {
-    "description": "PromptDock",
     "message": "PromptDock"
   },
   "extensionIntroduction": {

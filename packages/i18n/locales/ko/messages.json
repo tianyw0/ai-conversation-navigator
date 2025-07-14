@@ -1,10 +1,8 @@
 {
   "extensionDescription": {
-    "description": "PromptDock - 긴 ChatGPT 대화를 빠르게 탐색하세요.",
     "message": "긴 ChatGPT 대화를 빠르게 탐색하세요."
   },
   "extensionName": {
-    "description": "PromptDock",
     "message": "PromptDock"
   },
   "extensionIntroduction": {

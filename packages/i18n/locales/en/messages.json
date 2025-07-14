@@ -1,10 +1,8 @@
 {
   "extensionDescription": {
-    "description": "PromptDock - Jump through long ChatGPT chats.",
     "message": "Jump through long ChatGPT chats."
   },
   "extensionName": {
-    "description": "PromptDock",
     "message": "PromptDock"
   },
   "extensionIntroduction": {
