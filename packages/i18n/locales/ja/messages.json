@@ -1,14 +1,14 @@
 {
   "extensionDescription": {
-    "description": "ChatGPT会話内容ナビゲーションおよび管理拡張機能。複数ターンの会話の閲覧と位置特定体験を向上させます。ChatGPTサイト専用。",
-    "message": "ChatGPT会話内容ナビゲーションおよび管理拡張機能。複数ターンの会話の閲覧と位置特定体験を向上させます。ChatGPTサイト専用。"
+    "description": "ChatGPT Prompts ナビゲーター",
+    "message": "ChatGPT Prompts ナビゲーター"
   },
   "extensionName": {
-    "description": "ChatGPT会話内容ナビゲーションおよび管理拡張機能",
-    "message": "ChatGPT会話ナビゲーター"
+    "description": "ChatGPT Prompts ナビゲーター",
+    "message": "ChatGPT Prompts ナビゲーター"
   },
   "extensionIntroduction": {
-    "message": "使い方：<br>1. Chrome ウェブストアから拡張機能をインストールします。<br>2. ChatGPT サイトを開きます。<br>3. 会話ナビゲーターのサイドバーが自動的に表示されます。<br>4. サイドバーの項目をクリックすると、その会話部分にすぐジャンプできます。<br>5. ナビゲーターはスクロールに合わせて自動的に現在の会話を追跡・ハイライトし、長い会話でも現在位置を簡単に特定できます。<br>6. ライト／ダークテーマを切り替えることができます。"
+    "message": "使い方：<br>1. Chrome ウェブストアから拡張機能をインストールします。<br>2. ChatGPT サイトを開きます。<br>3. 会話ナビゲーターのサイドバーが自動的に表示されます。<br>4. サイドバーの項目をクリックすると、その会話部分にすぐジャンプできます。<br>5. ナビゲーターはスクロールに合わせて自動的に現在の会話を追跡・ハイライトし、長い会話でも現在位置を簡単に特定できます。<br>6. ホストサイトに合わせてライト／ダークテーマが自動的に切り替わります。"
   },
   "toggleTheme": {
     "message": "テーマを切り替え"

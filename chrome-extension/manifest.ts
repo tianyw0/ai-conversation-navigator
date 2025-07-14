@@ -43,19 +43,19 @@ const manifest = {
     '128': 'icon-128.png',
   },
   content_scripts: [
-    {
-      matches: ['https://chatgpt.com/*'],
-      js: ['content/index.iife.js'],
-    },
+    // {
+    //   matches: ['https://chatgpt.com/*'],
+    //   js: ['content/index.iife.js'],
+    // },
     {
       matches: ['https://chatgpt.com/*'],
       js: ['content-ui/index.iife.js'],
       run_at: 'document_idle',
     },
-    {
-      matches: ['https://chatgpt.com/*'],
-      css: ['content.css'],
-    },
+    // {
+    //   matches: ['https://chatgpt.com/*'],
+    //   css: ['content.css'],
+    // },
   ],
   web_accessible_resources: [
     {
