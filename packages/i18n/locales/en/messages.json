@@ -6,7 +6,7 @@
     "message": "PromptDock"
   },
   "extensionIntroduction": {
-    "message": "How to use:<br>1. Install the extension from the Chrome Web Store.<br>2. Open the ChatGPT website.<br>3. The conversation navigator sidebar will appear automatically.<br>4. Click any item in the sidebar to quickly jump to that part of the conversation.<br>5. The navigator will automatically follow and highlight the current conversation as you scroll, making it easy to locate your position in long chats.<br>6. The theme automatically switches with the host website between light and dark modes."
+    "message": "Tired of endlessly scrolling through long ChatGPT conversations? 😩\n\nPromptDock automatically collects all your key prompts into a convenient sidebar for instant access. 🧭\n\n• Tap any item to jump directly to that moment—no more manual searching.\n• Scroll with ease as the current prompt is auto‑highlighted, so you always know where you are.\n\nPerfect for power users handling multi‑topic, long chats.✨\n\nSupports light/dark theme sync for seamless visuals."
   },
   "toggleTheme": {
     "message": "Toggle theme"

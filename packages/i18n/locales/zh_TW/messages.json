@@ -6,7 +6,7 @@
     "message": "PromptDock"
   },
   "extensionIntroduction": {
-    "message": "使用方式：<br>1. 從 Chrome 線上應用程式商店安裝此擴充功能。<br>2. 開啟 ChatGPT 網站。<br>3. 對話導覽側邊欄會自動顯示。<br>4. 點選任一項目即可快速跳轉到該段對話。<br>5. 滾動頁面時導覽列會自動跟隨並高亮顯示目前位置。<br>6. 外觀會自動隨網站切換明暗模式。"
+    "message": "厭倦在冗長的 ChatGPT 對話中不停滑動？😩\n\nPromptDock 將所有重要 Prompt 自動收集至側邊欄，方便快速訪問。🧭\n\n• 點擊任一項目，即可立即跳轉到對應內容，再也不用苦找。\n• 滾動頁面時，當前 Prompt 會自動高亮，隨時掌握閱讀位置。\n\n適合需高效管理跨多主題長對話的使用者。✨\n\n內建明/暗主題自動同步，介面無縫融合。"
   },
   "toggleTheme": {
     "message": "切換主題"
