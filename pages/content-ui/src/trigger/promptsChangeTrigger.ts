@@ -3,23 +3,15 @@ import { escapeHtml, extractFullContent } from '@src/utils';
 
 export function promptsChangeTrigger(promptsSetter: React.Dispatch<React.SetStateAction<PromptEntity[] | undefined>>) {
   const observer = new MutationObserver(() => {
-    const questionElements = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]')).filter(
-      el => {
-        const id = (el as HTMLElement).dataset.testid?.split('-').pop();
-        return id && Number(id) % 2 === 1;
-      },
-    );
+    const questionElements = document.querySelectorAll('div[data-message-author-role="user"]');
 
     const promptEntities: PromptEntity[] = Array.from(questionElements)
       .map(element => {
-        const testId = (element as HTMLElement).dataset.testid;
-        const id = testId ? Number(testId.split('-').pop()) : NaN;
-        if (isNaN(id)) return null;
-
+        debugger;
+        const dataMessageId = (element as HTMLElement).dataset.messageId;
         const content = extractFullContent(element as HTMLElement);
         return {
-          id,
-          elementId: testId,
+          elementId: dataMessageId,
           content,
           summary: escapeHtml(content),
         };

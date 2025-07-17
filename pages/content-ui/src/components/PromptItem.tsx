@@ -11,14 +11,14 @@ interface ItemProps {
 export const PromptItem: React.FC<ItemProps> = ({ prompt, isActive, index }) => {
   // jsx 中用到的函数
   const handleOnClickPrompt = (elementId: string) => {
-    const element = document.querySelector(`[data-testid="${elementId}"]`);
+    const element = document.querySelector(`[data-message-id="${elementId}"]`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   return (
-    <li key={prompt.id} className='last:border-b-0'>
+    <li className='last:border-b-0'>
       <button
         type='button'
         onClick={() => handleOnClickPrompt(prompt.elementId)}
@@ -29,7 +29,7 @@ export const PromptItem: React.FC<ItemProps> = ({ prompt, isActive, index }) => 
           ' dark:text-[#FFFFFF] dark:hover:bg-[#2f2f2f] text-[#0D0D0D] hover:bg-[#E3E3E3]',
           isActive && 'font-bold dark:bg-[#2f2f2f] dark:hover:bg-[#212121] bg-[#DEDEDE] hover:bg-[#ECECEC]',
         )}
-        data-testid={prompt.elementId}>
+        data-message-id={prompt.elementId}>
         <div
           className={cn('text-sm flex items-center overflow-hidden whitespace-nowrap text-overflow-ellipsis')}
           title={prompt.content}>

@@ -17,11 +17,11 @@ export const App: React.FC = () => {
   const [left, setLeft] = useState('left-full');
 
   useEffect(() => {
-    colorLog('ui-component::activeConversationId changed:' + activePromptId, 'info');
+    colorLog('ui-component::dataMessageID changed:' + activePromptId, 'info');
     if (activePromptId) {
       const activeButton = document
         .querySelector('#ai-conversation-navigator-root')
-        ?.shadowRoot?.querySelector(`button[data-testid='${activePromptId}']`);
+        ?.shadowRoot?.querySelector(`button[data-message-id='${activePromptId}']`);
 
       activeButton?.scrollIntoView({
         behavior: 'smooth',
@@ -63,16 +63,14 @@ export const App: React.FC = () => {
       clearInterval(intervalId);
       colorLog(`threadEL is ${threadEl}`, 'info');
       const handleScroll = () => {
-        const allPrompts = Array.from(threadEl.querySelectorAll('article[data-testid^="conversation-turn-"]')).filter(
+        const allPrompts = Array.from(threadEl.querySelectorAll('div[data-message-author-role="user"]')).filter(
           (q): q is HTMLElement => q instanceof HTMLElement,
         );
         const visiblePrompt = allPrompts.find(isElementVisibleEnough);
         if (visiblePrompt) {
-          const id = (visiblePrompt as HTMLElement).dataset.testid || '';
-          const numericId = Number(id.split('-').pop());
-          const adjustedId = numericId % 2 === 0 ? numericId - 1 : numericId;
-          setActivePromptId(`conversation-turn-${adjustedId}`);
-          console.log(`conversation-turn-${adjustedId}`);
+          const dataMessageId = (visiblePrompt as HTMLElement).dataset.messageId || '';
+          setActivePromptId(dataMessageId);
+          console.log(`scroll message id: ${dataMessageId}`);
         }
       };
 
@@ -146,7 +144,7 @@ export const App: React.FC = () => {
             <ul id='prompt-ul'>
               {prompts.map((prompt, index) => {
                 const isActive = activePromptId === prompt.elementId;
-                return <PromptItem key={prompt.elementId} prompt={prompt} isActive={isActive} index={index} />;
+                return <PromptItem prompt={prompt} key={prompt.elementId} isActive={isActive} index={index} />;
               })}
             </ul>
           )}
