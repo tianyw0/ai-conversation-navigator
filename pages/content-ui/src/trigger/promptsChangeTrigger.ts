@@ -7,7 +7,6 @@ export function promptsChangeTrigger(promptsSetter: React.Dispatch<React.SetStat
 
     const promptEntities: PromptEntity[] = Array.from(questionElements)
       .map(element => {
-        debugger;
         const dataMessageId = (element as HTMLElement).dataset.messageId;
         const content = extractFullContent(element as HTMLElement);
         return {
