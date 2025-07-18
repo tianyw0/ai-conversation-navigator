@@ -4,13 +4,8 @@ export function themeChangeTrigger() {
     const mountPoint = document
       .querySelector('#ai-conversation-navigator-root')
       ?.shadowRoot?.querySelector('#mount-point');
-    if (newTheme === 'dark') {
-      mountPoint?.classList.add('dark');
-      mountPoint?.classList.remove('light');
-    } else {
-      mountPoint?.classList.add('light');
-      mountPoint?.classList.remove('dark');
-    }
+    mountPoint && (mountPoint.className = newTheme);
+    console.log(`new theme is ${newTheme}`);
   });
 
   themeObserver.observe(document.documentElement, {
