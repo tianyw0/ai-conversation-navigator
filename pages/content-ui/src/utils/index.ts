@@ -1,14 +1,27 @@
+import { t } from '@extension/i18n';
+
 export function extractFullContent(node: HTMLElement): string {
+  // 这里先检测 node 中是否包含 img 标签，如果有img，需要加上前缀"[图片]"
+  let text = '';
+  const img = node.querySelector('img');
+  if (img) {
+    // 使用 i18n 的 t 函数替换硬编码文本
+    text = t('image_placeholder');
+  }
+
   let textContent =
     (node.querySelector('.whitespace-pre-wrap') as HTMLElement)?.innerText.trim() || node.innerText.trim();
   const quote = node.querySelector('p.line-clamp-3');
   if (quote instanceof HTMLElement) {
     textContent = quote.innerText.trim() + textContent;
   }
-  return textContent
-    .split(/[\n\r]+/)
-    .join(' ')
-    .replace(/\s+/g, ' ');
+  return (
+    text +
+    textContent
+      .split(/[\n\r]+/)
+      .join(' ')
+      .replace(/\s+/g, ' ')
+  );
 }
 
 export function escapeHtml(unsafe: string): string {

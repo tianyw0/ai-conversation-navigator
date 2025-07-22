@@ -22,5 +22,8 @@
   },
   "collapse": {
     "message": "折りたたむ"
+  },
+  "image_placeholder": {
+    "message": "[画像]"
   }
 }

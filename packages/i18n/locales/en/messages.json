@@ -22,5 +22,8 @@
   },
   "collapse": {
     "message": "Collapse"
+  },
+  "image_placeholder": {
+    "message": "[图片]"
   }
 }

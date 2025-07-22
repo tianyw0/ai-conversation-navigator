@@ -22,5 +22,8 @@
   },
   "collapse": {
     "message": "접기"
+  },
+  "image_placeholder": {
+    "message": "[이미지]"
   }
 }
