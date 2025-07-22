@@ -18,12 +18,12 @@ ChatGPT 对话导航器是一个用户脚本，为多轮对话提供导航。通
 
 **方法一：从 Chrome 应用商店安装 (推荐)**
 
-1. 点击 [这里](https://chromewebstore.google.com/detail/chatgpt-%E5%AF%B9%E8%AF%9D%E5%AF%BC%E8%88%AA%E5%99%A8/phelhffecoejnegmdnboboofmhhmhlcf) 从 Chrome 应用商店安装扩展。
+1. 点击 [这里](https://chromewebstore.google.com/detail/promptdock/phelhffecoejnegmdnboboofmhhmhlcf) 从 Chrome 应用商店安装扩展。
 
 **方法二：手动安装**
 
-1.  访问本仓库的 [Releases 页面](https://github.com/tianyw0/ai-conversation-navigator/releases)。
-2.  下载最新的 `chatgpt-conversation-navigator-chrome-vx.x.x.zip` 文件 (如果需要，也可以下载 Firefox 版本)。
+1.  访问本仓库的 [Releases 页面](https://github.com/tianyw0/promptdock/releases)。
+2.  下载最新的 `promptdock-chrome-vx.x.x.zip` 文件 (如果需要，也可以下载 Firefox 版本)。
 3.  将下载的 `zip` 文件解压到本地一个文件夹中。
 4.  打开您的 Chrome 浏览器，访问 `chrome://extensions`。
 5.  启用“开发者模式”（通常在页面右上角有一个开关）。

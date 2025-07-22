@@ -16,12 +16,12 @@ ChatGPT Conversation Navigator is a user script that provides navigation for mul
 
 **Method 1: Install from Chrome Web Store (Recommended)**
 
-1. Click [here](https://chromewebstore.google.com/detail/chatgpt-%E5%AF%B9%E8%AF%9D%E5%AF%BC%E8%88%AA%E5%99%A8/phelhffecoejnegmdnboboofmhhmhlcf) to install the extension from Chrome Web Store.
+1. Click [here](https://chromewebstore.google.com/detail/promptdock/phelhffecoejnegmdnboboofmhhmhlcf) to install the extension from Chrome Web Store.
 
 **Method 2: Manual Installation**
 
-1.  Go to the [Releases page](https://github.com/tianyw0/ai-conversation-navigator/releases) of this repository.
-2.  Download the latest `chatgpt-conversation-navigator-chrome-vx.x.x.zip` file (or the Firefox equivalent if needed).
+1.  Go to the [Releases page](https://github.com/tianyw0/promptdock/releases) of this repository.
+2.  Download the latest `promptdock-chrome-vx.x.x.zip` file (or the Firefox equivalent if needed).
 3.  Unzip the downloaded file to a local directory.
 4.  Open your Chrome browser and navigate to `chrome://extensions`.
 5.  Enable "Developer mode" (usually a toggle in the top right corner).
