@@ -116,7 +116,8 @@ export const App: React.FC = () => {
 
   const firstClassName = cn(
     'absolute flex flex-col',
-    'top-0 w-[260px] mt-[52px] max-h-[calc(100vh-52px-52px)]',
+    // control the dock's position
+    'top-0 w-[260px] mt-[52px] max-h-[calc(100vh-52px-60px)]',
     'px-2.5 py-1 rounded transition-all duration-300 ease-in-out',
     'dark:bg-[#212121] dark:text-[#FFFFFF] bg-white text-[#0D0D0D]',
     'border-[1px] rounded-none border-l-0',
