@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "DictationShortCut",
+  "version": "0.1.0",
+  "description": "Control ChatGPT's dictation feature with the spacebar",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "DictationShortCut"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": []
+}
