@@ -1,6 +1,7 @@
 let listening = false;
 
 window.addEventListener('keydown', e => {
+  // console.log('keydown', e);
   const editor = document.querySelector('#prompt-textarea');
   const isTyping = editor?.classList.contains('ProseMirror-focused');
 
